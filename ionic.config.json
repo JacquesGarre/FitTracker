@@ -1,0 +1,7 @@
+{
+  "name": "FitTracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
