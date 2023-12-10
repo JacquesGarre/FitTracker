@@ -55,7 +55,6 @@ export class CreateProgramPage implements OnInit {
                 this.exercises = data;
             }
         );
-        console.log(this.selectedExercises)
     }
 
     ngOnInit() {

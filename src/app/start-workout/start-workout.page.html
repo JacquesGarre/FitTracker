@@ -1,0 +1,21 @@
+<top-navigation-bar :pageTitle="Start workout" backRoute="/home"></top-navigation-bar>
+<ion-content [fullscreen]="true">
+    <h1>Start a workout</h1>
+   
+    <ion-item >
+        <ion-select label="Program" [interfaceOptions]="actionSheetOptions" interface="action-sheet"
+            placeholder="Choose a program" (ionChange)="programSelected($event)">
+            <ion-select-option value="{{program.id}}" *ngFor="let program of programs">{{program.title}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-button (click)="startWorkout()" expand="block">Start</ion-button>
+    <div *ngIf="error">
+        <span>
+            {{ error }}
+        </span>
+    </div>
+    <ion-button expand="block" routerLink="/create-program">Create a new program</ion-button>
+    <ion-button expand="block" routerLink="/home">Back</ion-button>
+  
+</ion-content>
+<app-menu></app-menu>

@@ -40,4 +40,14 @@ export const routes: Routes = [
         loadComponent: () => import('./create-program/create-program.page').then( m => m.CreateProgramPage),
         canActivate: [AuthGuard]
     },
+    {
+        path: 'start-workout',
+        loadComponent: () => import('./start-workout/start-workout.page').then( m => m.StartWorkoutPage),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'workout/:id',
+        loadComponent: () => import('./workout/workout.page').then( m => m.WorkoutPage),
+        canActivate: [AuthGuard]
+    },
 ];

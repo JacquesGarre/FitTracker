@@ -1,0 +1,41 @@
+<top-navigation-bar :pageTitle="Workout" backRoute="/home"></top-navigation-bar>
+<ion-content [fullscreen]="true">
+    <div>
+        <ion-accordion-group *ngIf="program">
+            <ion-accordion *ngFor="let workoutExercise of workout.workoutExercises">
+                <ion-item slot="header" color="light">
+                    <ion-label>{{workoutExercise.exercise.title}}</ion-label>
+                </ion-item>
+                <div slot="content">
+                    <p>Last session</p>
+                    <ion-grid>
+                        <ion-col>
+                            <ion-row>
+                                <ion-col>
+                                    <strong>Set</strong>
+                                </ion-col>
+                                <ion-col *ngFor="let unit of workoutExercise.exercise.units">
+                                    {{unit.abbreviation}}
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-grid>
+                    <p>Current session</p>
+                    <ion-grid>
+                        <ion-col>
+                            <ion-row>
+                                <ion-col>
+                                    <strong>Set</strong>
+                                </ion-col>
+                                <ion-col *ngFor="let unit of workoutExercise.exercise.units">
+                                    {{unit.abbreviation}}
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-grid>
+                </div>
+            </ion-accordion>
+        </ion-accordion-group>
+    </div>
+</ion-content>
+<app-menu></app-menu>
