@@ -1,0 +1,36 @@
+<navigation-bar :pageTitle="Profile" [forward]="false"></navigation-bar>
+<ion-content [fullscreen]="true">
+    <h1>Change your password</h1>
+    <form [formGroup]="formData">
+        <ion-input label="Password" label-placement="floating" formControlName="plainPassword" type="password"></ion-input>
+        <div *ngIf="formData.get('plainPassword')?.invalid && (formData.get('plainPassword')?.dirty || formData.get('plainPassword')?.touched)">
+            <span *ngIf="formData.get('plainPassword')?.hasError('required')">
+                Password is required
+            </span>
+            <span *ngIf="formData.get('plainPassword')?.hasError('minLength')">
+                Password should be at least 5 characters long
+            </span>
+            <span *ngIf="formData.get('plainPassword')?.hasError('pattern')">
+                Password is not strong enough
+            </span>
+        </div>
+        <ion-input label="Password confirmation" label-placement="floating" formControlName="confirmPassword" type="password"></ion-input>
+        <div *ngIf="formData.get('confirmPassword')?.invalid && (formData.get('confirmPassword')?.dirty || formData.get('confirmPassword')?.touched)">
+            <span *ngIf="formData.get('confirmPassword')?.hasError('required')">
+                Password confirmation is required
+            </span>
+            <span *ngIf="formData.get('confirmPassword')?.hasError('confirmedValidator')">
+                Password confirmation doesn't match your password
+            </span>
+        </div>
+        <ion-button (click)="updatePassword()" expand="block">Update password</ion-button>
+        <div *ngIf="error">
+            <span>
+                {{ error }}
+            </span>
+        </div>
+        <ion-button expand="block" routerLink="/home">Back</ion-button>
+        <ion-button expand="block" (click)="logout()">Logout</ion-button>
+    </form>
+    
+</ion-content>

@@ -1,0 +1,15 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="secondary" *ngIf="forward">
+            <ion-button routerLink="/profile">
+                <ion-icon name="person-circle" size="large"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="start" *ngIf="!forward">
+            <ion-button routerLink="/home">
+                <ion-icon name="chevron-back" size="large"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{pageTitle}}</ion-title>
+    </ion-toolbar>
+</ion-header>

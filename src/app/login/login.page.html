@@ -1,0 +1,24 @@
+<ion-content [fullscreen]="true">
+    <h1>Login</h1>
+    <form [formGroup]="formData">
+        <ion-input label="Email" label-placement="floating" formControlName="email" type="email" placeholder="Enter your email"></ion-input>
+        <div *ngIf="formData.get('email')?.invalid && (formData.get('email')?.dirty || formData.get('email')?.touched)">
+            <span *ngIf="formData.get('email')?.hasError('required')">
+                Email is required
+            </span>
+        </div>
+        <ion-input label="Password" label-placement="floating" formControlName="plainPassword" type="password"></ion-input>
+        <div *ngIf="formData.get('plainPassword')?.invalid && (formData.get('plainPassword')?.dirty || formData.get('plainPassword')?.touched)">
+            <span *ngIf="formData.get('plainPassword')?.hasError('required')">
+                Password is required
+            </span>
+        </div>
+        <ion-button (click)="login()" expand="block">Login</ion-button>
+        <div *ngIf="error">
+            <span>
+                {{ error }}
+            </span>
+        </div>
+    </form>
+    <ion-button routerLink="/register" expand="block">Register</ion-button>
+</ion-content>
