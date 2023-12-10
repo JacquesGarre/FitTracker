@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonNavLink } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonNavLink, IonTabs, IonTabBar, IonTabButton } from '@ionic/angular/standalone';
 import { ProfilePage } from '../profile/profile.page';
 import { NavController } from "@ionic/angular";
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
     selector: 'app-home',
@@ -20,7 +21,8 @@ import { NavigationBarComponent } from '../navigation-bar/navigation-bar.compone
         IonIcon,
         RouterLink,
         IonNavLink,
-        NavigationBarComponent
+        NavigationBarComponent,
+        MenuComponent
     ],
 })
 export class HomePage {

@@ -1,5 +1,5 @@
-<navigation-bar :pageTitle="Profile" [forward]="false"></navigation-bar>
-<ion-content [fullscreen]="true">
+<top-navigation-bar :pageTitle="Profile" backRoute="/home"></top-navigation-bar>
+<ion-content class="ion-padding">
     <h1>Change your password</h1>
     <form [formGroup]="formData">
         <ion-input label="Password" label-placement="floating" formControlName="plainPassword" type="password"></ion-input>
@@ -32,5 +32,5 @@
         <ion-button expand="block" routerLink="/home">Back</ion-button>
         <ion-button expand="block" (click)="logout()">Logout</ion-button>
     </form>
-    
 </ion-content>
+<app-menu></app-menu>

@@ -4,7 +4,7 @@ import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'navigation-bar',
+    selector: 'top-navigation-bar',
     standalone: true,
     templateUrl: './navigation-bar.component.html',
     styleUrls: ['./navigation-bar.component.scss'],
@@ -24,7 +24,7 @@ import { CommonModule } from '@angular/common';
 export class NavigationBarComponent implements OnInit {
 
     @Input() pageTitle: string = '';
-    @Input() forward: boolean = true;
+    @Input() backRoute: string = '';
 
     constructor() { }
 

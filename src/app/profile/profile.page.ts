@@ -9,13 +9,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import { ApiService } from '../api.service';
 import { ToastService } from '../toast.service';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.page.html',
     styleUrls: ['./profile.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, ReactiveFormsModule, IonRouterLink, RouterLink]
+    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, ReactiveFormsModule, IonRouterLink, RouterLink, MenuComponent]
 })
 export class ProfilePage implements OnInit {
 

@@ -1,0 +1,23 @@
+<top-navigation-bar :pageTitle="Programs" backRoute="/home"></top-navigation-bar>
+<ion-content [fullscreen]="true">
+    <ion-card *ngFor="let program of programs">
+        <ion-card-header>
+            <ion-card-title>{{program.title}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item *ngFor="let exercise of program.exercises">
+                    <ion-label>
+                        {{exercise.title}}
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button routerLink="/create-program">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>
+<app-menu></app-menu>

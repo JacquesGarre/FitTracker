@@ -1,0 +1,28 @@
+<top-navigation-bar :pageTitle="New program" backRoute="/programs"></top-navigation-bar>
+<ion-content [fullscreen]="true">
+    <h1>Create a new program</h1>
+    <form [formGroup]="formData">
+        <ion-input label="Program title" label-placement="floating" formControlName="title" type="text"
+            placeholder="Full body, Legs, Arms..."></ion-input>
+        <div *ngIf="formData.get('title')?.invalid && (formData.get('title')?.dirty || formData.get('title')?.touched)">
+            <span *ngIf="formData.get('title')?.hasError('required')">
+                Title is required
+            </span>
+        </div>
+        <ion-item *ngFor="let j of selectedKeys; let i = index;">
+            <ion-select label="Exercise {{i + 1}}" [interfaceOptions]="actionSheetOptions" interface="action-sheet"
+                placeholder="Add an exercise" (ionChange)="exerciseSelected($event, j)">
+                <ion-select-option value="{{exercise.id}}" *ngFor="let exercise of exercises">{{exercise.title}}</ion-select-option>
+            </ion-select>
+            <ion-button *ngIf="selectedKeys.length > 1" (click)="deleteExercise(j)" class="delete-exercise-btn">Delete</ion-button>
+        </ion-item>
+        <ion-button (click)="addProgram()" expand="block">Save</ion-button>
+        <div *ngIf="error">
+            <span>
+                {{ error }}
+            </span>
+        </div>
+        <ion-button expand="block" routerLink="/programs">Back</ion-button>
+    </form>
+</ion-content>
+<app-menu></app-menu>

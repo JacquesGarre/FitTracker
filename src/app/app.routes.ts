@@ -25,4 +25,19 @@ export const routes: Routes = [
         loadComponent: () => import('./profile/profile.page').then( m => m.ProfilePage),
         canActivate: [AuthGuard]
     },
+    {
+        path: 'exercises',
+        loadComponent: () => import('./exercises/exercises.page').then( m => m.ExercisesPage),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'programs',
+        loadComponent: () => import('./programs/programs.page').then( m => m.ProgramsPage),
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'create-program',
+        loadComponent: () => import('./create-program/create-program.page').then( m => m.CreateProgramPage),
+        canActivate: [AuthGuard]
+    },
 ];
