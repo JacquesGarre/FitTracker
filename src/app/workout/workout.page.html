@@ -1,34 +1,30 @@
 <top-navigation-bar :pageTitle="Workout" backRoute="/home"></top-navigation-bar>
 <ion-content [fullscreen]="true">
     <div>
-        <ion-accordion-group *ngIf="program">
+        <ion-accordion-group *ngIf="program && workout">
             <ion-accordion *ngFor="let workoutExercise of workout.workoutExercises">
                 <ion-item slot="header" color="light">
                     <ion-label>{{workoutExercise.exercise.title}}</ion-label>
                 </ion-item>
                 <div slot="content">
-                    <p>Last session</p>
                     <ion-grid>
                         <ion-col>
-                            <ion-row>
+                            <ion-row *ngFor="let set of workoutExercise.sets">
                                 <ion-col>
-                                    <strong>Set</strong>
+                                    <strong>Set {{set.setId}}</strong>
                                 </ion-col>
                                 <ion-col *ngFor="let unit of workoutExercise.exercise.units">
-                                    {{unit.abbreviation}}
+                                    <ion-input label="{{unit.abbreviation}}" value="{{set[unit.abbreviation]}}" label-placement="floating" fill="outline" type="number" placeholder="0">
+                                    </ion-input>
                                 </ion-col>
                             </ion-row>
-                        </ion-col>
-                    </ion-grid>
-                    <p>Current session</p>
-                    <ion-grid>
-                        <ion-col>
                             <ion-row>
                                 <ion-col>
-                                    <strong>Set</strong>
+                                    XXX
                                 </ion-col>
                                 <ion-col *ngFor="let unit of workoutExercise.exercise.units">
-                                    {{unit.abbreviation}}
+                                    <ion-input label="{{unit.abbreviation}}" label-placement="floating" fill="outline" type="number" placeholder="0">
+                                    </ion-input>
                                 </ion-col>
                             </ion-row>
                         </ion-col>

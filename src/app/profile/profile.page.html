@@ -1,5 +1,6 @@
 <top-navigation-bar :pageTitle="Profile" backRoute="/home"></top-navigation-bar>
 <ion-content class="ion-padding">
+    <p>{{userEmail}}</p>
     <h1>Change your password</h1>
     <form [formGroup]="formData">
         <ion-input label="Password" label-placement="floating" formControlName="plainPassword" type="password"></ion-input>

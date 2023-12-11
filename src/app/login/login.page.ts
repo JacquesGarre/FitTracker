@@ -54,9 +54,9 @@ export class LoginPage {
                 "password": this.formData.get('plainPassword')?.value
             }
             this.auth.login(body).subscribe(
-                (data: any) => {
+                async (data: any) => {
                     let token = data.token;
-                    this.auth.saveToken(token);
+                    await this.auth.saveToken(token);
                     loading.dismiss();
                     this.router.navigate(['/home']);
                 },

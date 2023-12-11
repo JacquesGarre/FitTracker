@@ -22,6 +22,7 @@ export class ProfilePage implements OnInit {
 
     error: string = '';
     formData: FormGroup;
+    userEmail: string = '';
 
     constructor(
         private fb: FormBuilder,
@@ -43,6 +44,10 @@ export class ProfilePage implements OnInit {
                 validator: this.passwordValidator('plainPassword', 'confirmPassword'),
             }
         );
+
+        this.userEmail = auth.currentUserEmail;
+      
+        
     }
 
     ngOnInit() {

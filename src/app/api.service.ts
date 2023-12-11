@@ -48,7 +48,6 @@ export class ApiService {
         );
     }
 
-    // TODO : filter by user
     getPrograms(page: any): Observable<Program[]> {
         return this.http.get<Program[]>(
             `${this.API_URL}programs?page=${page}`,
@@ -117,10 +116,26 @@ export class ApiService {
         );
     }
 
-
     getWorkout(id: any): Observable<Workout> {
         return this.http.get<Workout>(
             `${this.API_URL}workouts/${id}`,
+            {
+                headers: new HttpHeaders({ 
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
+    getWorkouts(page: any, status: any = null): Observable<Workout[]> {
+        let url = `${this.API_URL}workouts?page=${page}`;
+        if(status){
+            url += `&status=${status}`;
+        }
+        return this.http.get<Workout[]>(
+            url,
             {
                 headers: new HttpHeaders({ 
                     'Content-Type': 'application/json',

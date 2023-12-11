@@ -17,6 +17,7 @@ export class AuthService {
     isAuthenticated: boolean = false;
     currentAccessToken: string = '';
     currentUserId: string = '';
+    currentUserEmail: string = '';
 
     constructor(
         private http: HttpClient,
@@ -30,6 +31,7 @@ export class AuthService {
         const json = JSON.stringify(jwtDecode(this.currentAccessToken));
         const decoded = JSON.parse(json);
         this.currentUserId = decoded.id;
+        this.currentUserEmail = decoded.username;
         this.isAuthenticated = true;
     }
 

@@ -8,6 +8,7 @@ import { ApiService } from '../api.service';
 import { Program } from '../program';
 import { AuthService } from '../auth.service';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
+import { Workout } from '../workout';
 
 @Component({
     selector: 'app-start-workout',
@@ -19,6 +20,7 @@ import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 export class StartWorkoutPage implements OnInit {
 
     programs!: Program[];
+    workout!: Workout;
     error: string = '';
 
     actionSheetOptions = {
@@ -34,14 +36,35 @@ export class StartWorkoutPage implements OnInit {
         private loadingCtrl: LoadingController,
         private router: Router
     ) {
-        this.api.getPrograms(1).subscribe(
-            (data: Program[]) => {
-                this.programs = data;
-            }
-        );
+        
     }
 
     ngOnInit() {
+        this.init();
+    }
+
+    async init() {
+        const loading = await this.loadingCtrl.create({
+            message: 'Loading your programs...',
+        });
+        loading.present();
+        this.api.getWorkouts(1, 'in-progress').subscribe(
+            (data: Workout[]) => {
+                if(data.length){
+                    this.workout = data[0];
+                    loading.dismiss();
+                    this.router.navigate(['workout', this.workout.id]);
+                } else {
+                    this.api.getPrograms(1).subscribe(
+                        (data: Program[]) => {
+                            this.programs = data;
+                        }
+                    );
+                    loading.dismiss();
+                }
+            }
+        );
+
     }
 
     programSelected(event:any) {
@@ -65,6 +88,7 @@ export class StartWorkoutPage implements OnInit {
             "program": `api/programs/${this.selectedProgram}`,
             "user": `api/users/${this.auth.currentUserId}`,
             "startedAt": now.toJSON(),
+            "status": "in-progress"
         }
         this.api.startWorkout(body).subscribe(
             (data: any) => {
