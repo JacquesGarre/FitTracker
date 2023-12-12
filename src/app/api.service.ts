@@ -146,4 +146,31 @@ export class ApiService {
         );
     }
 
+    saveRecord(req:any) {
+        return this.http.post(
+            `${this.API_URL}records`,
+            req,
+            {
+                headers: new HttpHeaders({ 
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
+    deleteRecord(id: any) {
+        return this.http.delete(
+            `${this.API_URL}records/${id}`,
+            {
+                headers: new HttpHeaders({ 
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
 }

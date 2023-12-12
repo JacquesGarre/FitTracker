@@ -30,6 +30,16 @@ export class AuthService {
         this.currentAccessToken = token;
         const json = JSON.stringify(jwtDecode(this.currentAccessToken));
         const decoded = JSON.parse(json);
+
+        let now = Math.round(new Date().getTime() / 1000);
+        let expirationDate = decoded.exp;
+        if(expirationDate <= now){
+            this.currentUserId = '';
+            this.currentUserEmail = '';
+            this.isAuthenticated = false;
+            return;
+        }
+
         this.currentUserId = decoded.id;
         this.currentUserEmail = decoded.username;
         this.isAuthenticated = true;

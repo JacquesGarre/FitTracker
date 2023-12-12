@@ -1,4 +1,4 @@
 export interface Set {
     setId: string;
-    [key: string]: string;
+    [key: string]: any;
 }
