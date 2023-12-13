@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -12,6 +12,7 @@ import { Program } from '../program';
 import { Set } from '../set';
 import { WorkoutExercise } from '../workout-exercise';
 import { Unit } from '../unit';
+import { IonInput } from '@ionic/angular';
 
 @Component({
     selector: 'app-workout',
@@ -46,6 +47,7 @@ export class WorkoutPage implements OnInit {
             }
         );
     }
+
 
     initSets() {
         for (let i in this.workout.workoutExercises) {

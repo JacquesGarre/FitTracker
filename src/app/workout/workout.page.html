@@ -15,7 +15,7 @@
                                     <ion-button (click)="deleteSet(set, workoutExercise)">Delete</ion-button>
                                 </ion-col>
                                 <ion-col *ngFor="let unit of workoutExercise.exercise.units">
-                                    <ion-input name="recordInput[{{workoutExercise.id}}][{{set.setId}}][{{unit.abbreviation}}]" [(ngModel)]="set[unit.abbreviation]" label="{{unit.abbreviation}}" value="{{set[unit.abbreviation]}}" label-placement="floating" fill="outline" type="number" placeholder="0">
+                                    <ion-input label="{{unit.abbreviation}}" value="{{set[unit.abbreviation]}}" label-placement="floating" fill="outline" type="number" placeholder="0">
                                     </ion-input>
                                 </ion-col>
                             </ion-row>
@@ -24,7 +24,7 @@
                                     <strong>Set {{workoutExercise.sets.length + 1}}</strong>
                                 </ion-col>
                                 <ion-col *ngFor="let unit of workoutExercise.exercise.units">
-                                    <ion-input name="newRecordInput[{{workoutExercise.id}}][{{workoutExercise.sets.length + 1}}][{{unit.abbreviation}}]" (ionBlur)="saveSet($event, workoutExercise.sets.length + 1, workoutExercise, unit)" label="{{unit.abbreviation}}" label-placement="floating" fill="outline" type="number" placeholder="0" value="">
+                                    <ion-input [clearInput]="true" (ionBlur)="saveSet($event, workoutExercise.sets.length + 1, workoutExercise, unit)" label="{{unit.abbreviation}}" label-placement="floating" fill="outline" type="number" placeholder="0" value="">
                                     </ion-input>
                                 </ion-col>
                             </ion-row>
