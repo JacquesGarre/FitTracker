@@ -8,14 +8,17 @@
             <ion-select-option value="{{program.id}}" *ngFor="let program of programs">{{program.title}}</ion-select-option>
         </ion-select>
     </ion-item>
-    <ion-button (click)="startWorkout()" expand="block">Start</ion-button>
+    <ion-button (click)="startWorkout()" expand="block" shape="round" color="success">Start</ion-button>
     <div *ngIf="error">
         <span>
             {{ error }}
         </span>
-    </div>
-    <ion-button expand="block" routerLink="/create-program">Create a new program</ion-button>
-    <ion-button expand="block" routerLink="/home">Back</ion-button>
-  
+    </div>  
 </ion-content>
+
+    <ion-toolbar>
+        <ion-button expand="block" routerLink="/create-program" shape="round">Create a new program</ion-button>
+        <ion-button expand="block" routerLink="/home" shape="round">Back</ion-button>
+    </ion-toolbar>
+
 <app-menu></app-menu>

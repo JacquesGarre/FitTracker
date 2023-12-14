@@ -6,5 +6,7 @@ export interface WorkoutExercise {
     id: number,
     exercise: Exercise,
     records: Record[],
-    sets: Set[]
+    sets: Set[],
+    setsDone: number,
+    toasterShown: any
 }

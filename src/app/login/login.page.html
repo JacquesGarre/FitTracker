@@ -13,12 +13,12 @@
                 Password is required
             </span>
         </div>
-        <ion-button (click)="login()" expand="block">Login</ion-button>
+        <ion-button (click)="login()" expand="block" shape="round">Login</ion-button>
         <div *ngIf="error">
             <span>
                 {{ error }}
             </span>
         </div>
     </form>
-    <ion-button routerLink="/register" expand="block">Register</ion-button>
+    <ion-button routerLink="/register" expand="block" shape="round">Register</ion-button>
 </ion-content>

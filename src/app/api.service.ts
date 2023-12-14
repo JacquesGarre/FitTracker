@@ -129,6 +129,20 @@ export class ApiService {
         );
     }
 
+    updateWorkout(id: any, req: any) {
+        return this.http.patch(
+            `${this.API_URL}workouts/${id}`,
+            req,
+            {
+                headers: new HttpHeaders({ 
+                    'Content-Type': 'application/merge-patch+json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
     getWorkouts(page: any, status: any = null): Observable<Workout[]> {
         let url = `${this.API_URL}workouts?page=${page}`;
         if(status){

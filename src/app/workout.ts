@@ -5,5 +5,7 @@ export interface Workout {
     program: string,
     startedAt: string,
     user: string,
-    workoutExercises: WorkoutExercise[]
+    workoutExercises: WorkoutExercise[],
+    workoutExercisesDone: number,
+    toasterShown: any
 }

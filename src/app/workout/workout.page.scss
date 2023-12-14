@@ -1,0 +1,18 @@
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-success.input-fill-outline.sc-ion-input-md-h {
+    --border-color: var(--ion-color-success, #2dd36f);
+}
+
+.input-success .native-input {
+    --color: var(--ion-color-success, #2dd36f);
+    font-weight: bold;
+} 
+
+.exercices-accordion-group {
+    margin-top: 40px;
+}

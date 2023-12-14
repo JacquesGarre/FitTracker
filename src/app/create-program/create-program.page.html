@@ -1,6 +1,6 @@
-<top-navigation-bar :pageTitle="New program" backRoute="/programs"></top-navigation-bar>
+<top-navigation-bar :pageTitle="Your program" backRoute="/programs"></top-navigation-bar>
 <ion-content [fullscreen]="true">
-    <h1>Create a new program</h1>
+    <h1>Create your program</h1>
     <form [formGroup]="formData">
         <ion-input label="Program title" label-placement="floating" formControlName="title" type="text"
             placeholder="Full body, Legs, Arms..."></ion-input>
@@ -16,13 +16,13 @@
             </ion-select>
             <ion-button *ngIf="selectedKeys.length > 1" (click)="deleteExercise(j)" class="delete-exercise-btn">Delete</ion-button>
         </ion-item>
-        <ion-button (click)="addProgram()" expand="block">Save</ion-button>
+        <ion-button (click)="addProgram()" expand="block" shape="round">Save</ion-button>
         <div *ngIf="error">
             <span>
                 {{ error }}
             </span>
         </div>
-        <ion-button expand="block" routerLink="/programs">Back</ion-button>
+        <ion-button expand="block" routerLink="/programs" shape="round">Back</ion-button>
     </form>
 </ion-content>
 <app-menu></app-menu>

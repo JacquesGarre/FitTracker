@@ -31,12 +31,12 @@
                 Password confirmation doesn't match your password
             </span>
         </div>
-        <ion-button (click)="register()" expand="block">Register</ion-button>
+        <ion-button (click)="register()" expand="block" shape="round">Register</ion-button>
         <div *ngIf="error">
             <span>
                 {{ error }}
             </span>
         </div>
-        <ion-button expand="block" routerLink="/login">Back</ion-button>
+        <ion-button expand="block" routerLink="/login" shape="round">Back</ion-button>
     </form>
 </ion-content>
