@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @Component({
     selector: 'app-root',
@@ -9,7 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
     imports: [
         IonApp,
         IonRouterOutlet,
-        HttpClientModule
+        HttpClientModule,
+        CommonModule,
+        HighchartsChartModule
     ]
 })
 export class AppComponent {

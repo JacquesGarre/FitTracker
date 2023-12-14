@@ -16,7 +16,7 @@
                 <ion-tab-button (click)="finishWorkout(workout)" *ngIf="centerBtn == 'endWorkout'">
                     Finish workout
                 </ion-tab-button>
-                <ion-tab-button tab="library">
+                <ion-tab-button routerLink="/progress" routerLinkActive="selected" >
                     <ion-icon name="bar-chart"></ion-icon>
                     My progress
                 </ion-tab-button>

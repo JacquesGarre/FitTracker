@@ -8,6 +8,7 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 
+
 if (environment.production) {
     enableProdMode();
 }
@@ -19,7 +20,7 @@ bootstrapApplication(
             { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
             provideIonicAngular(),
             provideHttpClient(),
-            provideRouter(routes)
+            provideRouter(routes),
         ]
     }
 );

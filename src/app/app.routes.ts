@@ -50,4 +50,9 @@ export const routes: Routes = [
         loadComponent: () => import('./workout/workout.page').then( m => m.WorkoutPage),
         canActivate: [AuthGuard]
     },
+    {
+        path: 'progress',
+        loadComponent: () => import('./progress/progress.page').then( m => m.ProgressPage),
+        canActivate: [AuthGuard]
+    },
 ];
