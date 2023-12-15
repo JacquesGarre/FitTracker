@@ -1,12 +1,14 @@
 <top-navigation-bar :pageTitle="My progress" backRoute="/home"></top-navigation-bar>
 <ion-content [fullscreen]="true">
     <div class="ion-padding">
-        <ion-card>
+
+
+        <ion-card *ngFor="let exercise of exercices">
             <ion-card-header>
-                <ion-card-title class="ion-text-center">Curl</ion-card-title>
+                <ion-card-title class="ion-text-center">{{exercise.title}}</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-                <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
+                <highcharts-chart [Highcharts]="Highcharts" [options]="exercise.chart" [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
                 </highcharts-chart>
             </ion-card-content>
         </ion-card>
