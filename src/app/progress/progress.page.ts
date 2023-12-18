@@ -23,9 +23,11 @@ export class ProgressPage implements OnInit {
 
     width!: number;
     height!: number;
-    charts: any[] = [];
+    charts!: Map<any, any>;
 
     exercises!: Exercise[];
+    
+    selectedSegment: string = '';
 
     constructor(
         private api: ApiService
@@ -35,9 +37,14 @@ export class ProgressPage implements OnInit {
     ngOnInit(): void {
     }
 
+
+    segmentChanged(cardKey: string, event: any) {
+      this.selectedSegment = event.detail.value;
+    }
+
     ionViewWillEnter(): void {
         this.exercises = []
-        this.charts = []
+        this.charts = new Map()
         this.width = 100; this.height = 100;
         this.api.getExercises(1).subscribe(
             (data: Exercise[]) => {
@@ -59,12 +66,22 @@ export class ProgressPage implements OnInit {
                                             series: chartData.series
                                         }
                                     }
-                                    this.charts.push(chart)
+
+                                    //if(!this.selectedSegment.length){
+                                        this.selectedSegment = chartData.yAxis[0].unit.title
+                                    //}
+                            
+                                    if(this.charts.get(chartData.exercise.title) == undefined){
+                                        this.charts.set(chartData.exercise.title, []);
+                                    }
+                                    this.charts.get(chartData.exercise.title).push(chart)
                                 }
                             }
                         }
                     );
-                }      
+                    
+                } 
+                console.log(this.charts)     
             }
         );
     }

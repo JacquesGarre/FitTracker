@@ -4,7 +4,7 @@ import { AuthGuard } from './guards/auth.guard';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'start-workout',
         pathMatch: 'full',
     },
     {
@@ -14,11 +14,6 @@ export const routes: Routes = [
     {
         path: 'register',
         loadComponent: () => import('./register/register.page').then(m => m.RegisterPage)
-    },
-    {
-        path: 'home',
-        loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-        canActivate: [AuthGuard]
     },
     {
         path: 'profile',

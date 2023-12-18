@@ -1,7 +1,6 @@
-<top-navigation-bar :pageTitle="Start workout" backRoute="/home"></top-navigation-bar>
+<top-navigation-bar :pageTitle="Start workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
     <h1>Start a workout</h1>
-   
     <ion-item >
         <ion-select label="Program" [interfaceOptions]="actionSheetOptions" interface="action-sheet"
             placeholder="Choose a program" (ionChange)="programSelected($event)">

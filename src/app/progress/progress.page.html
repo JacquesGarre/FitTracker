@@ -1,17 +1,26 @@
-<top-navigation-bar :pageTitle="My progress" backRoute="/home"></top-navigation-bar>
+<top-navigation-bar :pageTitle="My progress" backRoute="/start-workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
     <div class="ion-padding">
 
-
-        <ion-card *ngFor="let chart of charts">
+        <ion-card *ngFor="let item of charts | keyvalue">
             <ion-card-header>
-                <ion-card-title class="ion-text-center">{{chart.title}}</ion-card-title>
+                <ion-card-title class="ion-text-center">{{item.key}}</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-                <highcharts-chart [Highcharts]="Highcharts" [options]="chart.options" [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
-                </highcharts-chart>
+                <ion-segment [(ngModel)]="selectedSegment" (ionChange)="segmentChanged(item.key, $event)">
+                    <ion-segment-button *ngFor="let exercise of item.value" value="{{exercise.title}}">
+                        <ion-label>{{exercise.options.yAxis[0].unit.title}}</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+                <div *ngFor="let exercise of item.value">
+                    <highcharts-chart *ngIf="selectedSegment === exercise.title" [Highcharts]="Highcharts" [options]="exercise.options"
+                        [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
+                    </highcharts-chart>
+                </div>
             </ion-card-content>
+
         </ion-card>
+
 
     </div>
 
