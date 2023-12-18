@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonNavLink, IonTabs, IonTabBar, IonTabButton, IonFooter } from '@ionic/angular/standalone';
-import { RouterLink, ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
+import { IonHeader, IonToolbar, IonTitle, IonSpinner, IonContent, IonButtons, IonButton, IonIcon, IonNavLink, IonTabs, IonTabBar, IonTabButton, IonFooter } from '@ionic/angular/standalone';
+import { RouterLink, ActivatedRoute, Router, RouterLinkActive, NavigationEnd } from '@angular/router';
 import { Workout } from '../workout';
 import { AuthService } from '../auth.service';
 import { ApiService } from '../api.service';
@@ -22,13 +22,17 @@ import { IonicModule, LoadingController } from '@ionic/angular';
         IonFooter,
         IonToolbar,
         IonTitle,
-        CommonModule
+        CommonModule,
+        IonSpinner
     ]
 })
-export class MenuComponent implements OnInit { 
+export class MenuComponent implements OnInit {
 
     @Input() centerBtn!: string;
     @Input() workout!: Workout;
+    title: string = 'Start workout'
+    route: string = '/start-workout'
+    loading: boolean = true;
 
     constructor(
         private loadingCtrl: LoadingController,
@@ -36,8 +40,26 @@ export class MenuComponent implements OnInit {
         private api: ApiService,
         private router: Router,
     ) {
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                this.fetchCurrentWorkout();
+            }
+        });
     }
     ngOnInit() { }
+
+    fetchCurrentWorkout() {
+        this.api.getWorkouts(1, 'in-progress').subscribe(
+            (data: Workout[]) => {
+                if (data.length) {
+                    let workout = data[0]
+                    this.title = 'Continue workout'
+                    this.route = '/workout/'+workout.id
+                }
+                this.loading = false
+            }
+        );
+    }
 
     async finishWorkout(workout: Workout) {
         const loading = await this.loadingCtrl.create({

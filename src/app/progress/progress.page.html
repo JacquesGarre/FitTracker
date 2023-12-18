@@ -3,12 +3,12 @@
     <div class="ion-padding">
 
 
-        <ion-card *ngFor="let exercise of exercices">
+        <ion-card *ngFor="let chart of charts">
             <ion-card-header>
-                <ion-card-title class="ion-text-center">{{exercise.title}}</ion-card-title>
+                <ion-card-title class="ion-text-center">{{chart.title}}</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-                <highcharts-chart [Highcharts]="Highcharts" [options]="exercise.chart" [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
+                <highcharts-chart [Highcharts]="Highcharts" [options]="chart.options" [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
                 </highcharts-chart>
             </ion-card-content>
         </ion-card>

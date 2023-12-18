@@ -6,6 +6,8 @@ import { NavigationBarComponent } from '../navigation-bar/navigation-bar.compone
 import { MenuComponent } from '../menu/menu.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
+import { ApiService } from '../api.service';
+import { Exercise } from '../exercise';
 
 @Component({
     selector: 'app-progress',
@@ -21,303 +23,49 @@ export class ProgressPage implements OnInit {
 
     width!: number;
     height!: number;
-    exercices!: any;
+    charts: any[] = [];
 
-    constructor() { }
+    exercises!: Exercise[];
 
-    ngOnInit(): void {
-        this.width = 100; this.height = 100;
-
-        this.exercices = [
-            {
-                title: 'Treadmill',
-                chart: {
-                    title: {
-                        text: '',
-                    },
-                    tooltip: {
-                        shared: true
-                    },
-                    plotOptions: {
-                        column: {
-                            grouping: false,
-                            shadow: false,
-                            borderWidth: 0
-                        }
-                    },
-                    xAxis: {
-                        categories: ['10/12/23', '11/12/23', '13/12/23', '14/12/23', '17/12/23'],
-                        labels: {
-                            rotation: -45
-                        },
-                    },
-                    yAxis: [{
-                        title: {
-                            text: 'Distance'
-                        },
-                        max: 4,
-                        min: 0,
-                        tickInterval: 1,
-                        gridLineColor: 'transparent',
-                    },
-                    {
-                        title: {
-                            text: 'Speed'
-                        },
-                        max: 12.0,
-                        min: 0,
-                        tickInterval: 1,
-                        gridLineColor: 'transparent',
-                    }, 
-                    {
-                        title: {
-                            text: 'Calories'
-                        },
-                        minPadding: 0,
-                        maxPadding: 0,
-                        max: 321,
-                        min: 0,
-                        tickInterval: 20,
-                        opposite: true,
-                        gridLineColor: 'transparent',
-                    }, 
-                    {
-                        title: {
-                            text: 'Minute per km'
-                        },
-                        minPadding: 0,
-                        maxPadding: 0,
-                        max: 6,
-                        min: 0,
-                        tickInterval: 1,
-                        opposite: true,
-                        gridLineColor: 'transparent',
-                    }],
-                    series: [{
-                        type: 'column',
-                        name: 'kms (Set 1)',
-                        color: '#3171e0',
-                        data: [4,4,3,3],
-                        pointPadding: 0.4,
-                        pointPlacement: 0.0,
-                        yAxis: 0
-                    }, {
-                        type: 'column',
-                        name: 'km/h (Set 1)',
-                        color: '#2dd36f',
-                        data: [11.2,8.5,11.2,9.6],
-                        pointPadding: 0.42,
-                        pointPlacement: 0.0,
-                        yAxis: 1
-                    },
-                    {
-                        type: 'column',
-                        name: 'kCal (Set 1)',
-                        color: '#3dc2ff',
-                        data: [321,321,256,265],
-                        pointPadding: 0.44,
-                        pointPlacement: 0.0,
-                        yAxis: 2
-                    },
-                    {
-                        type: 'column',
-                        name: 'min/km (Set 1)',
-                        color: '#ffc409',
-                        data: [5.2,5.2,4.3,4.5],
-                        pointPadding: 0.46,
-                        pointPlacement: 0.0,
-                        yAxis: 3
-                    }]
-                }
-            },
-            {
-                title: 'Curl',
-                chart: {
-                    title: {
-                        text: '',
-                    },
-                    tooltip: {
-                        shared: true
-                    },
-                    plotOptions: {
-                        column: {
-                            grouping: false,
-                            shadow: false,
-                            borderWidth: 0
-                        }
-                    },
-                    xAxis: {
-                        categories: ['10/12/23', '11/12/23', '13/12/23', '14/12/23', '17/12/23'],
-                        labels: {
-                            rotation: -45
-                        },
-                    },
-                    yAxis: [{
-                        title: {
-                            text: 'Repetitions'
-                        },
-                        max: 20,
-                        min: 0,
-                        tickInterval: 1,
-                        gridLineColor: 'transparent',
-                    }, {
-                        title: {
-                            text: 'Weight'
-                        },
-                        minPadding: 0,
-                        maxPadding: 0,
-                        max: 41,
-                        min: 0,
-                        tickInterval: 5,
-                        opposite: true,
-                        gridLineColor: 'transparent',
-                    }],
-                    series: [{
-                        type: 'column',
-                        name: 'Reps (Set 1)',
-                        color: '#3171e0',
-                        data: [12,12,12],
-                        pointPadding: 0.4,
-                        pointPlacement: -0.15,
-                        yAxis: 0
-                    }, {
-                        type: 'column',
-                        name: 'Weight (Set 1)',
-                        color: '#3dc2ff',
-                        data: [36,36,36],
-                        pointPadding: 0.45,
-                        pointPlacement: -0.15,
-                        yAxis: 1
-                    }, {
-                        type: 'column',
-                        name: 'Reps (Set 2)',
-                        color: '#3171e0',
-                        data: [11,10,12],
-                        pointPadding: 0.4,
-                        pointPlacement: 0.0,
-                        yAxis: 0
-                    }, {
-                        type: 'column',
-                        name: 'Weight (Set 2)',
-                        color: '#3dc2ff',
-                        data: [36,36,36],
-                        pointPadding: 0.45,
-                        pointPlacement: 0.0,
-                        yAxis: 1
-                    }, {
-                        type: 'column',
-                        name: 'Reps (Set 3)',
-                        color: '#3171e0',
-                        data: [7,6,5],
-                        pointPadding: 0.4,
-                        pointPlacement: 0.15,
-                        yAxis: 0
-                    }, {
-                        type: 'column',
-                        name: 'Weight (Set 3)',
-                        color: '#3dc2ff',
-                        data: [30,30,30],
-                        pointPadding: 0.45,
-                        pointPlacement: 0.15,
-                        yAxis: 1
-                    }]
-                }
-            },
-            {
-                title: 'Chest press',
-                chart: {
-                    title: {
-                        text: '',
-                    },
-                    tooltip: {
-                        shared: true
-                    },
-                    plotOptions: {
-                        column: {
-                            grouping: false,
-                            shadow: false,
-                            borderWidth: 0
-                        }
-                    },
-                    xAxis: {
-                        categories: ['10/12/23', '11/12/23', '13/12/23', '14/12/23', '17/12/23'],
-                        labels: {
-                            rotation: -45
-                        },
-                    },
-                    yAxis: [{
-                        title: {
-                            text: 'Repetitions'
-                        },
-                        max: 20,
-                        min: 0,
-                        tickInterval: 1,
-                        gridLineColor: 'transparent',
-                    }, {
-                        title: {
-                            text: 'Weight'
-                        },
-                        minPadding: 0,
-                        maxPadding: 0,
-                        max: 41,
-                        min: 0,
-                        tickInterval: 5,
-                        opposite: true,
-                        gridLineColor: 'transparent',
-                    }],
-                    series: [{
-                        type: 'column',
-                        name: 'Reps (Set 1)',
-                        color: '#3171e0',
-                        data: [12,12,12],
-                        pointPadding: 0.4,
-                        pointPlacement: -0.15,
-                        yAxis: 0
-                    }, {
-                        type: 'column',
-                        name: 'Weight (Set 1)',
-                        color: '#3dc2ff',
-                        data: [36,36,36],
-                        pointPadding: 0.45,
-                        pointPlacement: -0.15,
-                        yAxis: 1
-                    }, {
-                        type: 'column',
-                        name: 'Reps (Set 2)',
-                        color: '#3171e0',
-                        data: [11,10,12],
-                        pointPadding: 0.4,
-                        pointPlacement: 0.0,
-                        yAxis: 0
-                    }, {
-                        type: 'column',
-                        name: 'Weight (Set 2)',
-                        color: '#3dc2ff',
-                        data: [36,36,36],
-                        pointPadding: 0.45,
-                        pointPlacement: 0.0,
-                        yAxis: 1
-                    }, {
-                        type: 'column',
-                        name: 'Reps (Set 3)',
-                        color: '#3171e0',
-                        data: [7,6,5],
-                        pointPadding: 0.4,
-                        pointPlacement: 0.15,
-                        yAxis: 0
-                    }, {
-                        type: 'column',
-                        name: 'Weight (Set 3)',
-                        color: '#3dc2ff',
-                        data: [30,30,30],
-                        pointPadding: 0.45,
-                        pointPlacement: 0.15,
-                        yAxis: 1
-                    }]
-                }
-            }
-        ]
-
+    constructor(
+        private api: ApiService
+    ) { 
     }
 
+    ngOnInit(): void {
+    }
+
+    ionViewWillEnter(): void {
+        this.exercises = []
+        this.charts = []
+        this.width = 100; this.height = 100;
+        this.api.getExercises(1).subscribe(
+            (data: Exercise[]) => {
+                this.exercises = data;
+                for(const exercice of this.exercises){
+                    this.api.getChartByExercise(exercice.id).subscribe(
+                        (data: any) => {    
+                            for(const chartData of data){
+                                if(chartData.series.length){
+                                    let chart = {
+                                        title: chartData.chartTitle,
+                                        options: {
+                                            legend: chartData.legend,
+                                            title: chartData.title,
+                                            tooltip: chartData.tooltip,
+                                            plotOptions: chartData.plotOptions,
+                                            xAxis: chartData.xAxis[0],
+                                            yAxis: chartData.yAxis,
+                                            series: chartData.series
+                                        }
+                                    }
+                                    this.charts.push(chart)
+                                }
+                            }
+                        }
+                    );
+                }      
+            }
+        );
+    }
 }

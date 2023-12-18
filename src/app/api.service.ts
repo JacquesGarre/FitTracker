@@ -187,4 +187,17 @@ export class ApiService {
         );
     }
 
+    getChartByExercise(id: any) {
+        return this.http.get(
+            `${this.API_URL}charts/${id}`,
+            {
+                headers: new HttpHeaders({ 
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
 }

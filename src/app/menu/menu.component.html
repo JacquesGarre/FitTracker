@@ -10,8 +10,9 @@
                     <ion-icon name="calendar-clear"></ion-icon>
                     My programs
                 </ion-tab-button>
-                <ion-tab-button routerLink="/start-workout" routerLinkActive="selected" *ngIf="centerBtn !== 'endWorkout'">
-                    Start workout
+                <ion-tab-button [routerLink]="route" routerLinkActive="selected" *ngIf="centerBtn !== 'endWorkout'">
+                    <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
+                    <span *ngIf="!loading">{{ title }}</span>
                 </ion-tab-button>
                 <ion-tab-button (click)="finishWorkout(workout)" *ngIf="centerBtn == 'endWorkout'">
                     Finish workout
