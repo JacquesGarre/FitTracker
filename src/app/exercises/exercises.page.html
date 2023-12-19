@@ -1,12 +1,5 @@
 <top-navigation-bar :pageTitle="Exercises" backRoute="/start-workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
-    <ion-card *ngFor="let exercise of exercises">
-        <ion-card-header>
-            <ion-card-title>{{exercise.title}}</ion-card-title>
-            <ion-card-subtitle>
-                <!-- <ion-badge *ngFor="let unit of exercise.units" class="unit">{{unit.title}}</ion-badge> -->
-            </ion-card-subtitle>
-        </ion-card-header>
-    </ion-card>
+    <exercise-card *ngFor="let exercise of exercises" [exercise]="exercise"></exercise-card>
 </ion-content>
 <app-menu></app-menu>

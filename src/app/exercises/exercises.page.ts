@@ -7,13 +7,15 @@ import { MenuComponent } from '../menu/menu.component';
 import { ApiService } from '../api.service';
 import { Observable } from 'rxjs';
 import { Exercise } from '../exercise';
+import { RouterLink, ActivatedRoute, Router, RouterLinkActive, NavigationEnd } from '@angular/router';
+import { ExerciseCardComponent } from '../exercise-card/exercise-card.component';
 
 @Component({
     selector: 'app-exercises',
     templateUrl: './exercises.page.html',
     styleUrls: ['./exercises.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent]
+    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent, RouterLink, ExerciseCardComponent]
 })
 export class ExercisesPage implements OnInit {
 

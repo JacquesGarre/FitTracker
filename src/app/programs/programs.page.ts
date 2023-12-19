@@ -8,13 +8,14 @@ import { IonRouterLink } from '@ionic/angular/standalone';
 import { RouterLink, Router, NavigationExtras } from '@angular/router';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import { MenuComponent } from '../menu/menu.component';
+import { ExerciseCardComponent } from '../exercise-card/exercise-card.component';
 
 @Component({
     selector: 'app-programs',
     templateUrl: './programs.page.html',
     styleUrls: ['./programs.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent, RouterLink]
+    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent, RouterLink, ExerciseCardComponent]
 })
 export class ProgramsPage implements OnInit {
 

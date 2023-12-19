@@ -48,6 +48,19 @@ export class ApiService {
         );
     }
 
+    getExercise(id: any): Observable<Exercise> {
+        return this.http.get<Exercise>(
+            `${this.API_URL}exercises/${id}`,
+            {
+                headers: new HttpHeaders({ 
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
     getPrograms(page: any): Observable<Program[]> {
         return this.http.get<Program[]>(
             `${this.API_URL}programs?page=${page}`,
