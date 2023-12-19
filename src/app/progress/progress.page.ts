@@ -27,7 +27,7 @@ export class ProgressPage implements OnInit {
 
     exercises!: Exercise[];
     
-    selectedSegment: string = '';
+    selectedSegment: any = {};
 
     constructor(
         private api: ApiService
@@ -37,10 +37,6 @@ export class ProgressPage implements OnInit {
     ngOnInit(): void {
     }
 
-
-    segmentChanged(cardKey: string, event: any) {
-      this.selectedSegment = event.detail.value;
-    }
 
     ionViewWillEnter(): void {
         this.exercises = []
@@ -52,7 +48,9 @@ export class ProgressPage implements OnInit {
                 for(const exercice of this.exercises){
                     this.api.getChartByExercise(exercice.id).subscribe(
                         (data: any) => {    
-                            for(const chartData of data){
+                            for(const index in data){
+                                let chartData = data[index];
+                                this.selectedSegment[chartData.exercise.title] = chartData.exercise.title +'_'+ 0
                                 if(chartData.series.length){
                                     let chart = {
                                         title: chartData.chartTitle,
@@ -66,11 +64,7 @@ export class ProgressPage implements OnInit {
                                             series: chartData.series
                                         }
                                     }
-
-                                    //if(!this.selectedSegment.length){
-                                        this.selectedSegment = chartData.yAxis[0].unit.title
-                                    //}
-                            
+                           
                                     if(this.charts.get(chartData.exercise.title) == undefined){
                                         this.charts.set(chartData.exercise.title, []);
                                     }
@@ -79,9 +73,7 @@ export class ProgressPage implements OnInit {
                             }
                         }
                     );
-                    
                 } 
-                console.log(this.charts)     
             }
         );
     }

@@ -7,13 +7,13 @@
                 <ion-card-title class="ion-text-center">{{item.key}}</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-                <ion-segment [(ngModel)]="selectedSegment" (ionChange)="segmentChanged(item.key, $event)">
-                    <ion-segment-button *ngFor="let exercise of item.value" value="{{exercise.title}}">
+                <ion-segment [(ngModel)]="selectedSegment[item.key]" class="unitSegments">
+                    <ion-segment-button *ngFor="let exercise of item.value; let i = index" value="{{item.key + '_' + i}}" [ngClass]="{ 'segment-button-checked' : selectedSegment[item.key] === item.key + '_' + i  }">
                         <ion-label>{{exercise.options.yAxis[0].unit.title}}</ion-label>
                     </ion-segment-button>
                 </ion-segment>
-                <div *ngFor="let exercise of item.value">
-                    <highcharts-chart *ngIf="selectedSegment === exercise.title" [Highcharts]="Highcharts" [options]="exercise.options"
+                <div *ngFor="let exercise of item.value; let i = index">
+                    <highcharts-chart *ngIf="selectedSegment !== undefined && selectedSegment[item.key] == item.key + '_' + i" [Highcharts]="Highcharts" [options]="exercise.options"
                         [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
                     </highcharts-chart>
                 </div>
