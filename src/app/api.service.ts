@@ -88,6 +88,20 @@ export class ApiService {
         );
     }
 
+    updateProgram(id: any, req: any) {
+        return this.http.patch(
+            `${this.API_URL}programs/${id}`,
+            req,
+            {
+                headers: new HttpHeaders({ 
+                    'Content-Type': 'application/merge-patch+json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
     getProgram(id: any): Observable<Program> {
         return this.http.get<Program>(
             `${this.API_URL}programs/${id}`,

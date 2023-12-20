@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonHeader, IonToolbar, IonTitle, IonSpinner, IonContent, IonButtons, IonButton, IonIcon, IonNavLink, IonTabs, IonTabBar, IonTabButton, IonFooter } from '@ionic/angular/standalone';
-import { RouterLink, ActivatedRoute, Router, RouterLinkActive, NavigationEnd } from '@angular/router';
+import { RouterLink, ActivatedRoute, Router, RouterLinkActive, NavigationEnd, ResolveEnd } from '@angular/router';
 import { Workout } from '../workout';
 import { AuthService } from '../auth.service';
 import { ApiService } from '../api.service';
 import { IonicModule, LoadingController } from '@ionic/angular';
+import { filter } from 'rxjs';
 
 @Component({
     selector: 'app-menu',
@@ -40,12 +41,9 @@ export class MenuComponent implements OnInit {
         private api: ApiService,
         private router: Router,
     ) {
-        this.router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                this.fetchCurrentWorkout();
-            }
-        });
+        this.fetchCurrentWorkout();
     }
+    
     ngOnInit() { }
 
     fetchCurrentWorkout() {

@@ -1,11 +1,13 @@
 <top-navigation-bar :pageTitle="My programs" backRoute="/start-workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
-    <ion-card *ngFor="let program of programs">
+    <ion-card *ngFor="let program of programs" [routerLink]="'/programs/' + program.id">
         <ion-card-header>
             <ion-card-title class="ion-text-center">{{program.title}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <exercise-card *ngFor="let exercise of program.exercises" [exercise]="exercise" route="/programs/{{program.id}}"></exercise-card>
+            <ion-list lines="full">
+                <exercise-list-item *ngFor="let exercise of program.exercises" [exercise]="exercise"></exercise-list-item>
+            </ion-list>
         </ion-card-content>
     </ion-card>
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">

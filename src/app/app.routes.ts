@@ -36,6 +36,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
+        path: 'programs/:id',
+        loadComponent: () => import('./program-details/program-details.page').then( m => m.ProgramDetailsPage),
+        canActivate: [AuthGuard]
+    },
+    {
         path: 'create-program',
         loadComponent: () => import('./create-program/create-program.page').then( m => m.CreateProgramPage),
         canActivate: [AuthGuard]
@@ -54,5 +59,5 @@ export const routes: Routes = [
         path: 'progress',
         loadComponent: () => import('./progress/progress.page').then( m => m.ProgressPage),
         canActivate: [AuthGuard]
-    },
+    }
 ];

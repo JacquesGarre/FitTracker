@@ -8,14 +8,14 @@ import { IonRouterLink } from '@ionic/angular/standalone';
 import { RouterLink, Router, NavigationExtras } from '@angular/router';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import { MenuComponent } from '../menu/menu.component';
-import { ExerciseCardComponent } from '../exercise-card/exercise-card.component';
+import { ExerciseListItemComponent } from '../exercise-list-item/exercise-list-item.component';
 
 @Component({
     selector: 'app-programs',
     templateUrl: './programs.page.html',
     styleUrls: ['./programs.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent, RouterLink, ExerciseCardComponent]
+    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent, RouterLink, ExerciseListItemComponent]
 })
 export class ProgramsPage implements OnInit {
 
@@ -24,6 +24,10 @@ export class ProgramsPage implements OnInit {
     constructor(
         private api: ApiService
     ) {
+
+    }
+
+    ionViewWillEnter(){
         this.api.getPrograms(1).subscribe(
             (data: Program[]) => {
                 this.programs = data;
