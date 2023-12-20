@@ -7,6 +7,7 @@ import { MenuComponent } from '../menu/menu.component';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import interactionPlugin from '@fullcalendar/interaction';
 
 @Component({
     selector: 'app-calendar',
@@ -17,21 +18,30 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 })
 export class CalendarPage implements OnInit {
 
-    calendarOptions!: CalendarOptions;
+    calendarOptions: CalendarOptions = {
+        plugins: [dayGridPlugin, interactionPlugin],
+        initialView: 'dayGridMonth',
+        weekends: true,
+        events: [
+            { title: 'Full body', date: '2023-12-20 10:55' },
+            { title: 'Full body', date: '2023-12-21 18:55' },
+            { title: 'Full body', date: '2023-12-22 20:55' }
+        ],
+        height: 'auto',
+        firstDay: 1,
+        dateClick: function (info) {
+            alert('Clicked on: ' + info.dateStr);
+            alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+            alert('Current view: ' + info.view.type);
+            // change the day's background color just for fun
+            info.dayEl.style.backgroundColor = 'red';
+        }
+    }
 
     constructor() { }
 
     ngOnInit() {
-        this.calendarOptions = {
-            plugins: [dayGridPlugin],
-            initialView: 'dayGridMonth',
-            weekends: false,
-            events: [
-                { title: 'Meeting', start: new Date() }
-            ],
-            height: 'auto'
-        };
-    
     }
+
 
 }
