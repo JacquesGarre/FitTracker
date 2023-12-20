@@ -59,5 +59,10 @@ export const routes: Routes = [
         path: 'progress',
         loadComponent: () => import('./progress/progress.page').then( m => m.ProgressPage),
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'my-workouts',
+        loadComponent: () => import('./calendar/calendar.page').then( m => m.CalendarPage),
+        canActivate: [AuthGuard]
     }
 ];

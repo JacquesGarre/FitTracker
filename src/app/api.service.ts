@@ -63,7 +63,7 @@ export class ApiService {
 
     getPrograms(page: any): Observable<Program[]> {
         return this.http.get<Program[]>(
-            `${this.API_URL}programs?page=${page}`,
+            `${this.API_URL}programs?page=${page}&softDeleted=null`,
             {
                 headers: new HttpHeaders({ 
                     'Content-Type': 'application/json',
@@ -92,6 +92,22 @@ export class ApiService {
         return this.http.patch(
             `${this.API_URL}programs/${id}`,
             req,
+            {
+                headers: new HttpHeaders({ 
+                    'Content-Type': 'application/merge-patch+json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
+    deleteProgram(id: any) {
+        return this.http.patch(
+            `${this.API_URL}programs/${id}`,
+            {
+                softDeleted: true
+            },
             {
                 headers: new HttpHeaders({ 
                     'Content-Type': 'application/merge-patch+json',

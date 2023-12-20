@@ -77,13 +77,23 @@ export class ProgramDetailsPage implements OnInit {
     }
 
     ngOnInit() {
-
-
-
     }
 
-    deleteProgram() {
-
+    async deleteProgram() {
+        const loading = await this.loadingCtrl.create({
+            message: 'Deleting your program...',
+        });
+        loading.present();
+        this.api.deleteProgram(this.program.id).subscribe(
+            (data: any) => {
+                loading.dismiss();
+                this.router.navigate(['programs']);
+            },
+            (error: any) => {
+                this.error = error.error.detail;
+                loading.dismiss();
+            }
+        );
     }
 
     async updateProgram() {

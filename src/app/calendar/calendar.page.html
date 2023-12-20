@@ -1,0 +1,7 @@
+<top-navigation-bar :pageTitle="My workouts" backRoute="/start-workout"></top-navigation-bar>
+<ion-content [fullscreen]="true">
+    <div style="width:100%">
+        <full-calendar *ngIf="calendarOptions" [options]="calendarOptions"></full-calendar>
+    </div>
+</ion-content>
+<app-menu></app-menu>

@@ -44,15 +44,10 @@ export class StartWorkoutPage implements OnInit {
     }
 
     async init() {
-        const loading = await this.loadingCtrl.create({
-            message: 'Loading your programs...',
-        });
-        loading.present();
         this.api.getWorkouts(1, 'in-progress').subscribe(
             (data: Workout[]) => {
                 if(data.length){
                     this.workout = data[0];
-                    loading.dismiss();
                     this.router.navigate(['workout', this.workout.id]);
                 } else {
                     this.api.getPrograms(1).subscribe(
@@ -60,7 +55,6 @@ export class StartWorkoutPage implements OnInit {
                             this.programs = data;
                         }
                     );
-                    loading.dismiss();
                 }
             }
         );
@@ -78,11 +72,6 @@ export class StartWorkoutPage implements OnInit {
             return;
         }
 
-        const loading = await this.loadingCtrl.create({
-            message: 'Starting your workout...',
-        });
-        loading.present();
-
         var now = new Date();
         let body = {
             "program": `api/programs/${this.selectedProgram}`,
@@ -92,13 +81,10 @@ export class StartWorkoutPage implements OnInit {
         }
         this.api.startWorkout(body).subscribe(
             (data: any) => {
-                loading.dismiss();
                 this.router.navigate(['workout', data.id]);
-
             },
             (error: any) => {
                 this.error = error.error.detail;
-                loading.dismiss();
             }
         );
     }

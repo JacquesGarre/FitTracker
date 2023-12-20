@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 import { HighchartsChartModule } from 'highcharts-angular';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @Component({
     selector: 'app-root',
@@ -14,7 +15,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
         IonRouterOutlet,
         HttpClientModule,
         CommonModule,
-        HighchartsChartModule
+        HighchartsChartModule,
+        FullCalendarModule,
     ]
 })
 export class AppComponent {
