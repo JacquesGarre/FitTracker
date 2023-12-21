@@ -40,12 +40,7 @@ export class WorkoutPage implements OnInit {
             (data: Workout) => {
                 this.workout = data;
                 this.initSets()
-                let programID = this.workout.program.replace('/api/programs/', '')
-                this.api.getProgram(programID).subscribe(
-                    (data: Program) => {
-                        this.program = data;
-                    }
-                );
+                this.program = this.workout.program
             }
         );
     }

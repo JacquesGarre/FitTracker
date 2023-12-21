@@ -1,5 +1,47 @@
 ::ng-deep {
-    table.fc-col-header, .fc-scroller > div, .fc-scroller > div > table {
+
+    table.fc-col-header,
+    .fc-scroller>div,
+    .fc-scroller>div>table {
         width: 100% !important;
     }
+
+
+
+    .fc .fc-bg-event {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0.9;
+    }
+
+    .fc-daygrid-event-dot {
+        display: none;
+    }
+
+    .not-started {
+        background-color: #f4f5f8 !important;
+    }
+
+    .not-started .fc-event-title {
+        color: #92949c !important;
+    }
+
+    .finished {
+        background-color: #2dd36f !important;
+    }
+
+    .finished .fc-event-title {
+        color: #fff !important;
+    }
+
+    .fc-event-title {
+        padding: 5px;
+        white-space: break-spaces;
+        font-weight: bold;
+        font-style: normal;
+        text-align: center;
+
+    }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -6,8 +6,10 @@ import { NavigationBarComponent } from '../navigation-bar/navigation-bar.compone
 import { MenuComponent } from '../menu/menu.component';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { FullCalendarModule } from '@fullcalendar/angular';
+import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import interactionPlugin from '@fullcalendar/interaction';
+import { ApiService } from '../api.service';
+import { Workout } from '../workout';
 
 @Component({
     selector: 'app-calendar',
@@ -18,30 +20,46 @@ import interactionPlugin from '@fullcalendar/interaction';
 })
 export class CalendarPage implements OnInit {
 
+    @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
     calendarOptions: CalendarOptions = {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
         weekends: true,
-        events: [
-            { title: 'Full body', date: '2023-12-20 10:55' },
-            { title: 'Full body', date: '2023-12-21 18:55' },
-            { title: 'Full body', date: '2023-12-22 20:55' }
-        ],
+        events: [],
         height: 'auto',
         firstDay: 1,
+        displayEventTime: false,
         dateClick: function (info) {
-            alert('Clicked on: ' + info.dateStr);
-            alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-            alert('Current view: ' + info.view.type);
-            // change the day's background color just for fun
-            info.dayEl.style.backgroundColor = 'red';
+            console.log(info)
         }
     }
 
-    constructor() { }
+    constructor(
+        private api: ApiService
+    ) { }
 
     ngOnInit() {
+
     }
 
+    ngAfterViewInit() {
+        const calendarApi = this.fullcalendar.getApi();
+        this.api.getWorkouts(1).subscribe(
+            (workouts: Workout[]) => {
+
+                for(const workout of workouts){
+                    const event = {
+                        className: workout.endedAt ? 'finished' : 'not-started',
+                        title: workout.program.title,
+                        start: workout.startedAt,
+                        end: workout.endedAt,
+                        //display: 'background'
+                    };
+                    calendarApi.addEvent(event);
+                }
+     
+            }
+        )
+    }
 
 }
