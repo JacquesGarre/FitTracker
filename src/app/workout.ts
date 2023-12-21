@@ -6,6 +6,8 @@ export interface Workout {
     program: Program,
     startedAt: string,
     endedAt: string,
+    plannedAt: string;
+    status: string;
     user: string,
     workoutExercises: WorkoutExercise[],
     workoutExercisesDone: number,
