@@ -131,7 +131,7 @@ export class ApiService {
         );
     }
 
-    startWorkout(req: any) {
+    addWorkout(req: any) {
         return this.http.post(
             `${this.API_URL}workouts`,
             req,

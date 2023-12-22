@@ -79,7 +79,7 @@ export class StartWorkoutPage implements OnInit {
             "startedAt": now.toJSON(),
             "status": "in-progress"
         }
-        this.api.startWorkout(body).subscribe(
+        this.api.addWorkout(body).subscribe(
             (data: any) => {
                 this.router.navigate(['workout', data.id]);
             },

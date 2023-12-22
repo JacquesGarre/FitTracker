@@ -1,5 +1,47 @@
 <top-navigation-bar :pageTitle="My workouts" backRoute="/start-workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
     <full-calendar #fullcalendar *ngIf="calendarOptions" [options]="calendarOptions"></full-calendar>
+
+
+    <ion-modal #modal [isOpen]="isModalOpen">
+        <ng-template>
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>{{modalTitle}} {{modalDate | date:'EEE, dd MMMM' }}</ion-title>
+                    <ion-buttons slot="end">
+                        <ion-button (click)="closeModal()">Close</ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding" *ngIf="modalType === 'newWorkout'">
+                <ion-item>
+                    <ion-select label="Program" [interfaceOptions]="actionSheetOptions" interface="action-sheet"
+                        placeholder="Choose a program" (ionChange)="programSelected($event)">
+                        <ion-select-option value="{{program.id}}"
+                            *ngFor="let program of programs">{{program.title}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Time</ion-label>
+                    <ion-datetime-button datetime="datetime"></ion-datetime-button>
+                    <ion-modal [keepContentsMounted]="true">
+                        <ng-template>
+                            <ion-datetime id="datetime" [value]="eventDate" [(ngModel)]="eventDate"></ion-datetime>
+                        </ng-template>
+                    </ion-modal>
+                </ion-item>
+                <ion-button (click)="planWorkout()" expand="block" shape="round" color="success">Add workout to calendar</ion-button>
+                <div *ngIf="error">
+                    <span>
+                        {{ error }}
+                    </span>
+                </div>
+            </ion-content>
+            <ion-content class="ion-padding" *ngIf="modalType === 'workoutEvent'">
+
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+
 </ion-content>
 <app-menu></app-menu>
