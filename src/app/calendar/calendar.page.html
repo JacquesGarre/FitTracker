@@ -1,8 +1,6 @@
-<top-navigation-bar :pageTitle="My workouts" backRoute="/start-workout"></top-navigation-bar>
+<top-navigation-bar :pageTitle="My calendar" backRoute="/start-workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
     <full-calendar #fullcalendar *ngIf="calendarOptions" [options]="calendarOptions"></full-calendar>
-
-
     <ion-modal #modal [isOpen]="isModalOpen">
         <ng-template>
             <ion-header>
@@ -38,7 +36,7 @@
                 </div>
             </ion-content>
             <ion-content class="ion-padding" *ngIf="modalType === 'workoutEvent'">
-
+                
             </ion-content>
         </ng-template>
     </ion-modal>

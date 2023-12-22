@@ -61,7 +61,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'my-workouts',
+        path: 'my-calendar',
         loadComponent: () => import('./calendar/calendar.page').then( m => m.CalendarPage),
         canActivate: [AuthGuard]
     }
