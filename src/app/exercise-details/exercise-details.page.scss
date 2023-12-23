@@ -1,0 +1,22 @@
+ion-card {
+    margin-inline: 30px;
+    margin-bottom: 20px;
+    background: rgba(40, 45, 45, 0.5);
+    -webkit-box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
+    box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
+    border-radius: 17px;
+}
+
+.description {
+    color: #fefefec7;
+    margin-top: 10px;
+}
+
+.progress-card {
+    margin-top: 30px;
+}
+
+.highcharts-chart-tab {
+    margin-top: 15px;
+}

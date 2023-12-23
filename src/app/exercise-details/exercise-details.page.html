@@ -1,39 +1,42 @@
 <top-navigation-bar [pageTitle]="exercise ? exercise.title : 'Exercise'" backRoute="/exercises"></top-navigation-bar>
 <ion-content [fullscreen]="true">
-    <div>
-        <ion-card *ngIf="exercise">
-            <ion-card-header>
-                <ion-card-title>
-                    {{exercise.title}}
-                    <ion-img *ngIf="exercise.miniature" src="/assets/img/exercises/{{exercise.miniature}}"></ion-img>
-                </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-                <ion-badge *ngFor="let unit of exercise.units" class="unit">{{unit.title}}</ion-badge>
-                <div>{{exercise.description}}</div>
-            </ion-card-content>
-        </ion-card>
-        <ion-card *ngFor="let item of charts | keyvalue">
-            <ion-card-header>
-                <ion-card-title class="ion-text-center">Your progress</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-                <ion-segment [(ngModel)]="selectedSegment[item.key]" class="unitSegments">
-                    <ion-segment-button *ngFor="let exercise of item.value; let i = index"
-                        value="{{item.key + '_' + i}}"
-                        [ngClass]="{ 'segment-button-checked' : selectedSegment[item.key] === item.key + '_' + i  }">
-                        <ion-label>{{exercise.options.yAxis[0].unit.title}}</ion-label>
-                    </ion-segment-button>
-                </ion-segment>
-                <div *ngFor="let exercise of item.value; let i = index">
-                    <highcharts-chart
-                        *ngIf="selectedSegment !== undefined && selectedSegment[item.key] == item.key + '_' + i"
-                        [Highcharts]="Highcharts" [options]="exercise.options"
-                        [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
-                    </highcharts-chart>
-                </div>
-            </ion-card-content>
-        </ion-card>
+    <div *ngIf="exercise" class="exercise-detail-background"
+        style="background: url('/assets/img/exercises/{{exercise.miniature}}')">
+        <div class="overlay">
+            <ion-card>
+                <!-- <ion-card-header>
+                    <ion-card-title>
+                        {{exercise.title}}
+                    </ion-card-title>
+                </ion-card-header> -->
+                <ion-card-content>
+                    <ion-badge *ngFor="let unit of exercise.units" class="unit">{{unit.title}}</ion-badge>
+                    <div class="description">{{exercise.description}}</div>
+                </ion-card-content>
+            </ion-card>
+            <ion-card *ngFor="let item of charts | keyvalue" class="progress-card">
+                <ion-card-header>
+                    <ion-card-title class="ion-text-center">Your progress</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-segment [(ngModel)]="selectedSegment[item.key]" class="unitSegments">
+                        <ion-segment-button *ngFor="let exercise of item.value; let i = index"
+                            value="{{item.key + '_' + i}}"
+                            [ngClass]="{ 'segment-button-checked' : selectedSegment[item.key] === item.key + '_' + i  }">
+                            <ion-label>{{exercise.options.yAxis[0].unit.abbreviation}}</ion-label>
+                        </ion-segment-button>
+                    </ion-segment>
+                    <div *ngFor="let exercise of item.value; let i = index" class="highcharts-chart-tab">
+                        <highcharts-chart
+                            *ngIf="selectedSegment !== undefined && selectedSegment[item.key] == item.key + '_' + i"
+                            [Highcharts]="Highcharts" [options]="exercise.options"
+                            [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
+                        </highcharts-chart>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </div>
+
     </div>
 </ion-content>
 <app-menu></app-menu>

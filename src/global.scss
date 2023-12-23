@@ -25,6 +25,14 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+ion-segment-button {
+    --color-checked: #FEFEFE;
+    font-weight: 100;
+    font-size: 11px;
+    text-transform: capitalize;
+    font-family: "Montserrat";
+    min-width: unset;
+}
 
 ion-content {
     --background: #151919;
@@ -35,7 +43,8 @@ ion-toolbar {
     color: #FEFEFE;
 }
 
-ion-header, ion-footer {
+ion-header,
+ion-footer {
     box-shadow: none !important;
 }
 
@@ -46,7 +55,7 @@ ion-tab-bar {
 }
 
 ion-tab-button.selected {
-    color: #D7F2F4!important;
+    color: #D7F2F4 !important;
 }
 
 ion-card {
@@ -85,14 +94,36 @@ ion-title {
     background-repeat: no-repeat;
     border-radius: 17px;
     display: flex;
-    -webkit-box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
-    box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 18px 5px -10px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 18px 5px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 18px 5px -10px rgba(0, 0, 0, 0.75);
 }
 
 .exercise-card ion-card-header {
     display: flex;
     justify-content: space-between;
     height: 100%;
-    background: linear-gradient(36deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2189250700280112) 80%);
+    background: linear-gradient(36deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.2189250700280112) 80%);
+    backdrop-filter: blur(1px);
+}
+
+.exercise-detail-background {
+    background-position: center !important;
+    background-size: inherit !important;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.overlay {
+    background: linear-gradient(36deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.2189250700280112) 80%);
+    backdrop-filter: blur(2px);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    min-height: 100vh;
+}
+
+.segment-button-checked {
+    background: var(--background-checked);
+    color: #FEFEFE;
 }

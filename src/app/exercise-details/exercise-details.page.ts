@@ -59,6 +59,9 @@ export class ExerciseDetailsPage implements OnInit {
                                     options: {
                                         legend: chartData.legend,
                                         title: chartData.title,
+                                        chart: {
+                                            backgroundColor: 'rgba(0,0,0,0)'
+                                        },
                                         tooltip: chartData.tooltip,
                                         plotOptions: chartData.plotOptions,
                                         xAxis: chartData.xAxis[0],
