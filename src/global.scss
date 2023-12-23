@@ -59,7 +59,7 @@ ion-tab-button.selected {
 }
 
 ion-card {
-    margin-inline: 30px;
+    margin-inline: 20px;
     margin-bottom: 20px;
 }
 
@@ -109,7 +109,7 @@ ion-title {
 
 .exercise-detail-background {
     background-position: center !important;
-    background-size: inherit !important;
+    background-size: cover!important;
     min-height: 100%;
     display: flex;
     flex-direction: column;
@@ -126,4 +126,18 @@ ion-title {
 .segment-button-checked {
     background: var(--background-checked);
     color: #FEFEFE;
+}
+
+ion-button.button-block {
+    width: 100%;
+    margin: 0 auto;
+    font-family: 'Montserrat';
+    font-weight: 200;
+    font-size: 15px;
+    text-transform: capitalize;
+}
+
+.button-solid {
+    --background: #D7F2F4;
+    color: #151919;
 }

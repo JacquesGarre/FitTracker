@@ -1,30 +1,35 @@
-<top-navigation-bar [pageTitle]="program ? program.title : 'Program'" backRoute="/programs"></top-navigation-bar>
+<top-navigation-bar :pageTitle="Edit my program" backRoute="/programs"></top-navigation-bar>
 <ion-content [fullscreen]="true">
-    <h1 *ngIf="program">{{program.title}}</h1>
-    <form [formGroup]="formData">
-        <ion-input label="Program title" label-placement="floating" formControlName="title" type="text"
-            placeholder="Full body, Legs, Arms..."></ion-input>
-        <div *ngIf="formData.get('title')?.invalid && (formData.get('title')?.dirty || formData.get('title')?.touched)">
-            <span *ngIf="formData.get('title')?.hasError('required')">
-                Title is required
-            </span>
-        </div>
-        <ion-item *ngFor="let j of selectedKeys; let i = index;">
-            <ion-select label="Exercise {{i + 1}}" [interfaceOptions]="actionSheetOptions" interface="action-sheet"
-                placeholder="Add an exercise" (ionChange)="exerciseSelected($event, j)" value="{{ selectedExercises[i] }}">
-                <ion-select-option value="{{exercise.id}}" *ngFor="let exercise of exercises">{{exercise.title}}</ion-select-option>
-            </ion-select>
-            <ion-input label="Sets" type="number" (ionChange)="setEntered($event, j)" value="{{ selectedSets[i] }}"></ion-input>
-            <ion-button *ngIf="selectedKeys.length > 1 && i < (selectedKeys.length - 1)" (click)="deleteExercise(j)" class="delete-exercise-btn">Delete</ion-button>
-        </ion-item>
-        <ion-button (click)="updateProgram()" expand="block" shape="round">Save</ion-button>
-        <div *ngIf="error">
-            <span>
-                {{ error }}
-            </span>
-        </div>
-        <ion-button expand="block" (click)="deleteProgram()" shape="round" color="danger">Delete</ion-button>
-        <ion-button expand="block" routerLink="/programs" shape="round">Back</ion-button>
-    </form>
+    <div class="container">
+        <form [formGroup]="formData">
+            <ion-input formControlName="title" type="text" class="program-title"
+                placeholder="Full body, Legs, Arms..."></ion-input>
+            <div
+                *ngIf="formData.get('title')?.invalid && (formData.get('title')?.dirty || formData.get('title')?.touched)">
+                <span *ngIf="formData.get('title')?.hasError('required')">
+                    Title is required
+                </span>
+            </div>
+            <ion-item *ngFor="let j of selectedKeys; let i = index;">
+                <ion-select [interfaceOptions]="actionSheetOptions" interface="action-sheet"
+                    placeholder="Add an exercise" (ionChange)="exerciseSelected($event, j)"
+                    value="{{ selectedExercises[i] }}">
+                    <ion-select-option value="{{exercise.id}}"
+                        *ngFor="let exercise of exercises">{{exercise.title}}</ion-select-option>
+                </ion-select>
+                <ion-input *ngIf="selectedKeys.length > 1 && i < (selectedKeys.length - 1)" label="Sets" type="number" (ionChange)="setEntered($event, j)"
+                    value="{{ selectedSets[i] }}"></ion-input>
+                <ion-button *ngIf="selectedKeys.length > 1 && i < (selectedKeys.length - 1)" (click)="deleteExercise(j)"
+                    class="delete-exercise-btn">Delete</ion-button>
+            </ion-item>
+            <ion-button (click)="updateProgram()" expand="block" shape="round">Save</ion-button>
+            <div *ngIf="error">
+                <span>
+                    {{ error }}
+                </span>
+            </div>
+            <ion-button expand="block" (click)="deleteProgram()" shape="round" color="danger">Delete</ion-button>
+        </form>
+    </div>
 </ion-content>
 <app-menu></app-menu>

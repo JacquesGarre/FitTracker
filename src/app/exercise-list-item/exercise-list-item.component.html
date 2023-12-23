@@ -1,6 +1,6 @@
-<ion-item>
-    <ion-label>{{exercise.title}}</ion-label>
-    <ion-badge *ngFor="let unit of exercise.units" class="unit">{{unit.title}}</ion-badge>
-    <ion-img *ngIf="exercise.miniature" src="/assets/img/exercises/{{exercise.miniature}}"
-                class="exercise-miniature"></ion-img>
+<ion-item style="--background: url('/assets/img/exercises/{{exercise.miniature}}') center center / cover" class="exercise-card-program ion-no-padding">
+    <div class="background-overlay">
+        <ion-label>{{exercise.title}}</ion-label>
+        <ion-badge *ngFor="let unit of exercise.units" class="unit">{{unit.title}}</ion-badge>
+    </div>
 </ion-item>
