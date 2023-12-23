@@ -26,7 +26,7 @@ export class ApiService {
             `${this.API_URL}users/${this.userId}`,
             req,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/merge-patch+json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -39,7 +39,7 @@ export class ApiService {
         return this.http.get<Exercise[]>(
             `${this.API_URL}exercises?page=${page}`,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -52,7 +52,7 @@ export class ApiService {
         return this.http.get<Exercise>(
             `${this.API_URL}exercises/${id}`,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -65,7 +65,7 @@ export class ApiService {
         return this.http.get<Program[]>(
             `${this.API_URL}programs?page=${page}&softDeleted=null`,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -79,8 +79,49 @@ export class ApiService {
             `${this.API_URL}programs`,
             req,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
+    getProgramExercise(programId: any, exerciseId: any) {
+        return this.http.get(
+            `${this.API_URL}program_exercises?program=${programId}&exercise=${exerciseId}`,
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
+    addProgramExercise(req: any) {
+        return this.http.post(
+            `${this.API_URL}program_exercises`,
+            req,
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
+    updateProgramExercise(id: any, req: any) {
+        return this.http.patch(
+            `${this.API_URL}program_exercises/${id}`,
+            req,
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/merge-patch+json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
                 })
@@ -93,7 +134,7 @@ export class ApiService {
             `${this.API_URL}programs/${id}`,
             req,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/merge-patch+json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -109,7 +150,7 @@ export class ApiService {
                 softDeleted: true
             },
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/merge-patch+json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -122,7 +163,7 @@ export class ApiService {
         return this.http.get<Program>(
             `${this.API_URL}programs/${id}`,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -136,7 +177,7 @@ export class ApiService {
             `${this.API_URL}workouts`,
             req,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -150,7 +191,7 @@ export class ApiService {
             `${this.API_URL}workout_exercises`,
             req,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -163,7 +204,7 @@ export class ApiService {
         return this.http.get<Workout>(
             `${this.API_URL}workouts/${id}`,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -177,7 +218,7 @@ export class ApiService {
             `${this.API_URL}workouts/${id}`,
             req,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/merge-patch+json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -186,15 +227,29 @@ export class ApiService {
         );
     }
 
-    getWorkouts(page: any, status: any = null): Observable<Workout[]> {
+    formatDate(date: Date): string {
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+
+        return `${year}-${month}-${day}`;
+    }
+
+    getWorkouts(page: any, status: any = null, plannedAt: any = null): Observable<Workout[]> {
         let url = `${this.API_URL}workouts?page=${page}`;
-        if(status){
+        if (status) {
             url += `&status=${status}`;
+        }
+        if (plannedAt) {
+            let firstDay = new Date(plannedAt);
+            let lastDay = new Date(firstDay);
+            lastDay.setDate(firstDay.getDate() + 1);
+            url += `&plannedAt[before]=${this.formatDate(lastDay)}&plannedAt[after]=${this.formatDate(firstDay)}`;
         }
         return this.http.get<Workout[]>(
             url,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -203,12 +258,12 @@ export class ApiService {
         );
     }
 
-    saveRecord(req:any) {
+    saveRecord(req: any) {
         return this.http.post(
             `${this.API_URL}records`,
             req,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -221,7 +276,7 @@ export class ApiService {
         return this.http.delete(
             `${this.API_URL}records/${id}`,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`
@@ -234,7 +289,7 @@ export class ApiService {
         return this.http.get(
             `${this.API_URL}charts/${id}`,
             {
-                headers: new HttpHeaders({ 
+                headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-KEY': this.API_KEY,
                     'Authorization': `Bearer ${this.auth.currentAccessToken}`

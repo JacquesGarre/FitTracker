@@ -18,6 +18,7 @@ export class AuthGuard implements CanActivate {
     ): boolean | Observable<boolean> | Promise<boolean> {
         return new Promise((resolve, reject) => {
             this.auth.loadToken().then(() => {
+                console.log('auth?', this.auth.isAuthenticated)
                 if (this.auth.isAuthenticated) {
                     resolve(true);
                 } else {

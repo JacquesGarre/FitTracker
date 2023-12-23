@@ -7,7 +7,7 @@
             [color]="workout.workoutExercisesDone < workout.workoutExercises.length ? 'warning' : 'success'"></ion-progress-bar>
         <h6 *ngIf="workout" class="ion-text-center">Exercises completed : {{ workout.workoutExercisesDone ?
             workout.workoutExercisesDone : 0 }} / {{ workout.workoutExercises.length }} ({{
-            workout.workoutExercisesDone/workout.workoutExercises.length * 100 }}%)</h6>
+            workout.workoutExercisesDone/workout.workoutExercises.length * 100 | number:'1.0-0'}}%)</h6>
         <ion-accordion-group *ngIf="program && workout" class="exercices-accordion-group">
             <ion-accordion *ngFor="let workoutExercise of workout.workoutExercises">
                 <ion-item slot="header" color="light" class="ion-text-center">

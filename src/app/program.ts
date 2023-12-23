@@ -5,4 +5,5 @@ export interface Program {
     title: string,
     user: string,
     exercises: Exercise[]
+    programExercises: any[]
 }

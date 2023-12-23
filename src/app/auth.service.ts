@@ -49,6 +49,7 @@ export class AuthService {
         const token = await Preferences.get({
             key: this.ACCESS_TOKEN_KEY,
         });
+        console.log(token)
         if (token && token.value) {
             this.setToken(token.value)
         }

@@ -31,6 +31,9 @@ export class CreateProgramPage implements OnInit {
     selectedExercises: any = {
         0: "",
     };
+    selectedSets: any = {
+        0: "",
+    };
     selectedKeys = Object.keys(this.selectedExercises);
 
     actionSheetOptions = {
@@ -60,7 +63,7 @@ export class CreateProgramPage implements OnInit {
     ngOnInit() {
     }
 
-    async addProgram() { 
+    async addProgram() {
         this.error = '';
         if (this.formData.valid) {
             const loading = await this.loadingCtrl.create({
@@ -68,21 +71,33 @@ export class CreateProgramPage implements OnInit {
             });
             loading.present();
 
-            let exercises = [];
-            for(const key of this.selectedKeys){
+            let exercises: any = [];
+            for (const key of this.selectedKeys) {
                 let exerciseID = this.selectedExercises[key];
-                if(exerciseID){
-                    exercises.push(`api/exercises/${exerciseID}`)
+                let sets = this.selectedSets[key];
+                if (exerciseID) {
+                    exercises.push({
+                        'id': `api/exercises/${exerciseID}`,
+                        'sets': sets
+                    })
                 }
             }
+
             let body = {
                 "title": this.formData.get('title')?.value,
                 "user": `api/users/${this.auth.currentUserId}`,
-                "exercises": exercises
             }
-
             this.api.addProgram(body).subscribe(
                 (data: any) => {
+                    // create each program exercise
+                    for (const exercise of exercises) {
+                        let body = {
+                            "program": `api/programs/${data.id}`,
+                            "exercise": exercise.id,
+                            "sets": parseInt(exercise.sets)
+                        }
+                        this.api.addProgramExercise(body).subscribe();
+                    }
                     loading.dismiss();
                     this.router.navigate(['programs']);
                 },
@@ -96,13 +111,18 @@ export class CreateProgramPage implements OnInit {
 
     exerciseSelected(event: any, i: any) {
         this.selectedExercises[parseInt(i)] = event.detail.value;
-        this.selectedExercises[parseInt(i)+1] = '';
-        this.selectedKeys = Object.keys(this.selectedExercises);    
+        this.selectedExercises[parseInt(i) + 1] = '';
+        this.selectedKeys = Object.keys(this.selectedExercises);
+    }
+
+    setEntered(event: any, i: any) {
+        this.selectedSets[parseInt(i)] = event.detail.value;
     }
 
     deleteExercise(i: any) {
         delete this.selectedExercises[i];
-        this.selectedKeys = Object.keys(this.selectedExercises);    
+        delete this.selectedSets[i];
+        this.selectedKeys = Object.keys(this.selectedExercises);
     }
 
 }

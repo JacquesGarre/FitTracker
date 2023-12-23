@@ -26,6 +26,9 @@ export class ProgramDetailsPage implements OnInit {
     selectedExercises: any = {
         0: "",
     };
+    selectedSets: any = {
+        0: "",
+    };
     selectedKeys = Object.keys(this.selectedExercises);
     actionSheetOptions = {
         header: 'Exercises',
@@ -58,9 +61,11 @@ export class ProgramDetailsPage implements OnInit {
                 );
 
                 let i = 0;
-                for(const exercise of this.program.exercises){
-                    this.selectedExercises[i] = exercise.id;
+                for(const programExercise of this.program.programExercises){
+                    this.selectedExercises[i] = programExercise.exercise.id;
                     this.selectedExercises[i+1] = '';
+                    this.selectedSets[i] = programExercise.sets;
+                    this.selectedSets[i+1] = '';
                     i++;
                 }
                 this.selectedKeys = Object.keys(this.selectedExercises);    
@@ -104,19 +109,28 @@ export class ProgramDetailsPage implements OnInit {
             });
             loading.present();
 
-            let exercises = [];
-            for(const key of this.selectedKeys){
+            let exercises: any = [];
+            for (const key of this.selectedKeys) {
                 let exerciseID = this.selectedExercises[key];
-                if(exerciseID){
-                    exercises.push(`api/exercises/${exerciseID}`)
+                let sets = this.selectedSets[key];
+                if (exerciseID) {
+                    exercises.push({
+                        'program': `api/programs/${this.program.id}`,
+                        'exercise': `api/exercises/${exerciseID}`,
+                        'sets': parseInt(sets)
+                    })
                 }
             }
+            
             let body = {
                 "title": this.formData.get('title')?.value,
-                "exercises": exercises
+                "programExercises":[]
             }
             this.api.updateProgram(this.program.id, body).subscribe(
                 (data: any) => {
+                    for (const exercise of exercises) {
+                        this.api.addProgramExercise(exercise).subscribe();
+                    }
                     loading.dismiss();
                     this.router.navigate(['programs']);
                 },
@@ -137,6 +151,10 @@ export class ProgramDetailsPage implements OnInit {
         this.selectedExercises[parseInt(i)] = event.detail.value;
         this.selectedExercises[parseInt(i)+1] = '';
         this.selectedKeys = Object.keys(this.selectedExercises);    
+    }
+
+    setEntered(event: any, i: any) {
+        this.selectedSets[parseInt(i)] = event.detail.value;
     }
 
 

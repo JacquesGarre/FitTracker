@@ -58,7 +58,7 @@ export class LoginPage {
                     let token = data.token;
                     await this.auth.saveToken(token);
                     loading.dismiss();
-                    this.router.navigate(['/home']);
+                    this.router.navigate(['/start-workout']);
                 },
                 (error: any) => {
                     this.error = error.error.detail;

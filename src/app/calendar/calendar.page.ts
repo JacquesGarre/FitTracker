@@ -13,6 +13,8 @@ import { Workout } from '../workout';
 import { ModalController } from '@ionic/angular';
 import { Program } from '../program';
 import { AuthService } from '../auth.service';
+import { WorkoutExercise } from '../workout-exercise';
+import { Set } from '../set';
 
 @Component({
     selector: 'app-calendar',
@@ -34,6 +36,7 @@ export class CalendarPage implements OnInit {
     programs: Program[] = [];
     selectedProgram: string = '';
     eventDate: any;
+    workout!: Workout;
 
     actionSheetOptions = {
         header: 'Programs',
@@ -71,6 +74,10 @@ export class CalendarPage implements OnInit {
             },
             eventClick: function(event: any){
                 that.selectedEvent = event;
+                that.workout = event.event.extendedProps.workout
+
+                that.initSets();
+                console.log(that.workout)
                 that.modalTitle = event.event._def.title + ' of '
                 that.modalDate = event.event._instance.range.start
                 that.isModalOpen = true
@@ -80,6 +87,63 @@ export class CalendarPage implements OnInit {
     
     }
 
+    
+    initSets() {
+        for (let i in this.workout.workoutExercises) {
+            this.workout.workoutExercises[i].setsDone = 0;
+            let workoutExercise = this.workout.workoutExercises[i];
+            this.workout.workoutExercises[i].sets = this.getSets(workoutExercise);
+            this.computeWorkoutExercise(this.workout.workoutExercises[i]);
+            this.computeWorkout(this.workout)
+        }
+    }
+
+    getSets(workoutExercise: WorkoutExercise): Set[] {
+        const sets: Set[] = [];
+        workoutExercise.records.forEach((record) => {
+            const setId = record.setId.toString();
+            const unitAbbreviation = record.unit.abbreviation;
+            let transformedRecord = sets.find((item) => item.setId === setId);
+            if (!transformedRecord) {
+                transformedRecord = {
+                    setId: setId,
+                    unitDone: 0,
+                    status: 'in-progress'
+                };
+                sets.push(transformedRecord);
+                transformedRecord['recordIds'] = [];
+            }
+            transformedRecord[unitAbbreviation] = record.value;
+            transformedRecord['recordIds'].push(record.id)
+        });
+
+        sets.sort((a, b) => parseInt(a.setId) - parseInt(b.setId));
+        return sets;
+    }
+
+    computeWorkoutExercise(workoutExercise: WorkoutExercise){
+        let setsDone = 0;
+        for(const set of workoutExercise.sets){
+            for(const unit of workoutExercise.exercise.units){
+                let key = unit.abbreviation;
+                if(set[key] && set[key].length){
+                    setsDone += 1;
+                    break;
+                }
+            }
+        }
+        workoutExercise.setsDone = setsDone;
+    }
+
+    computeWorkout(workout: Workout){
+        let workoutExercisesDone = 0;
+        for(const workoutExercise of workout.workoutExercises){
+            if(workoutExercise.setsDone && workoutExercise.setsDone === workoutExercise.sets.length){
+                workoutExercisesDone += 1;
+            }
+        }
+        workout.workoutExercisesDone = workoutExercisesDone;
+    }
 
     ngAfterViewInit() {
         const calendarApi = this.fullcalendar.getApi();
@@ -91,6 +155,7 @@ export class CalendarPage implements OnInit {
                         title: workout.program.title,
                         start: workout.startedAt ? workout.startedAt : workout.plannedAt,
                         end: workout.startedAt ? workout.endedAt : workout.plannedAt,
+                        workout: workout
                     };
                     calendarApi.addEvent(event);
                 }
@@ -111,15 +176,11 @@ export class CalendarPage implements OnInit {
             this.error = 'Date is required'
             return;
         }
-        console.log('program selected : ', this.selectedProgram)
-        console.log('date : ', this.eventDate)
-
-
         var date = new Date(this.eventDate);
         let body = {
             "program": `api/programs/${this.selectedProgram}`,
             "user": `api/users/${this.auth.currentUserId}`,
-            "startedAt": date.toJSON(),
+            "plannedAt": date.toJSON(),
             "status": "planned"
         }
         this.api.addWorkout(body).subscribe(

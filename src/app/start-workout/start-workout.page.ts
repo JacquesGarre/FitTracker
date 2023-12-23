@@ -20,6 +20,7 @@ import { Workout } from '../workout';
 export class StartWorkoutPage implements OnInit {
 
     programs!: Program[];
+    plannedWorkouts: Workout[] = [];
     workout!: Workout;
     error: string = '';
 
@@ -40,10 +41,17 @@ export class StartWorkoutPage implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    ionViewWillEnter() {
         this.init();
     }
 
+
     async init() {
+
+        this.plannedWorkouts = []
+
         this.api.getWorkouts(1, 'in-progress').subscribe(
             (data: Workout[]) => {
                 if(data.length){
@@ -59,6 +67,16 @@ export class StartWorkoutPage implements OnInit {
             }
         );
 
+        this.api.getWorkouts(1, 'planned', new Date()).subscribe(
+            (data: Workout[]) => {
+                if(data.length){
+                    for(const workout of data){
+                        this.plannedWorkouts.push(workout)
+                    }
+                }
+            }
+        );
+
     }
 
     programSelected(event:any) {
@@ -66,13 +84,34 @@ export class StartWorkoutPage implements OnInit {
         this.selectedProgram = event.detail.value;
     }
 
-    async startWorkout() {
+    async startWorkout(workout: any = null) {
+
+        var now = new Date();
+
+        if(workout !== null){
+            let body = {
+                plannedAt: null,
+                status: 'in-progress',
+                startedAt: now.toJSON(),
+            }
+            this.api.updateWorkout(workout.id, body).subscribe(
+                (data: any) => {
+                    this.router.navigate(['workout', data.id]);
+                },
+                (error: any) => {
+                    this.error = error.error.detail;
+                }
+            );
+            return;
+        }
+
+
         if(!this.selectedProgram.length){
             this.error = 'Program is required'
             return;
         }
 
-        var now = new Date();
+        
         let body = {
             "program": `api/programs/${this.selectedProgram}`,
             "user": `api/users/${this.auth.currentUserId}`,

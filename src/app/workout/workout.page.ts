@@ -58,25 +58,41 @@ export class WorkoutPage implements OnInit {
     }
 
     getSets(workoutExercise: WorkoutExercise): Set[] {
-        const sets: Set[] = [];
-        workoutExercise.records.forEach((record) => {
-            const setId = record.setId.toString();
-            const unitAbbreviation = record.unit.abbreviation;
-            let transformedRecord = sets.find((item) => item.setId === setId);
-            if (!transformedRecord) {
-                transformedRecord = {
-                    setId: setId,
-                    unitDone: 0,
-                    status: 'in-progress'
-                };
-                sets.push(transformedRecord);
-                transformedRecord['recordIds'] = [];
-            }
-            transformedRecord[unitAbbreviation] = record.value;
-            transformedRecord['recordIds'].push(record.id)
-        });
 
-        sets.sort((a, b) => parseInt(a.setId) - parseInt(b.setId));
+        const sets: Set[] = [];
+        this.api.getProgramExercise(
+            this.workout.program.id,
+            workoutExercise.exercise.id
+        ).subscribe((data: any) => {
+            let programExercise = data[0];
+            let setId = 1;
+            while (setId <= programExercise.sets) {
+                sets.push({
+                    setId: setId.toString(),
+                    unitDone: 0,
+                    status: 'in-progress',
+                    recordIds: []
+                })
+                setId++;
+            }
+            workoutExercise.records.forEach((record) => {
+                const setId = record.setId.toString();
+                const unitAbbreviation = record.unit.abbreviation;
+                let transformedRecord = sets.find((item) => item.setId === setId);
+                if (!transformedRecord) {
+                    transformedRecord = {
+                        setId: setId,
+                        unitDone: 0,
+                        status: 'in-progress'
+                    };
+                    sets.push(transformedRecord);
+                    transformedRecord['recordIds'] = [];
+                }
+                transformedRecord[unitAbbreviation] = record.value;
+                transformedRecord['recordIds'].push(record.id)
+            });
+            sets.sort((a, b) => parseInt(a.setId) - parseInt(b.setId));
+        })
         return sets;
     }
 

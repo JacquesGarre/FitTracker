@@ -14,6 +14,7 @@
                 placeholder="Add an exercise" (ionChange)="exerciseSelected($event, j)">
                 <ion-select-option value="{{exercise.id}}" *ngFor="let exercise of exercises">{{exercise.title}}</ion-select-option>
             </ion-select>
+            <ion-input label="Sets" type="number" (ionChange)="setEntered($event, j)"></ion-input>
             <ion-button *ngIf="selectedKeys.length > 1 && i < (selectedKeys.length - 1)" (click)="deleteExercise(j)" class="delete-exercise-btn">Delete</ion-button>
         </ion-item>
         <ion-button (click)="addProgram()" expand="block" shape="round">Save</ion-button>
