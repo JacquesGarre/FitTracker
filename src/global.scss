@@ -24,3 +24,75 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+
+ion-content {
+    --background: #151919;
+}
+
+ion-toolbar {
+    --background: #151919;
+    color: #FEFEFE;
+}
+
+ion-header, ion-footer {
+    box-shadow: none !important;
+}
+
+ion-tab-bar {
+    --background: #151919;
+    color: #FEFEFE;
+    border: none;
+}
+
+ion-tab-button.selected {
+    color: #D7F2F4!important;
+}
+
+ion-card {
+    margin-inline: 30px;
+    margin-bottom: 20px;
+}
+
+ion-card-title {
+    font-family: "Montserrat";
+    color: #FEFEFE;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+ion-badge {
+    padding: 7px;
+    font-family: "Montserrat";
+    border-radius: 15px;
+    font-weight: 400;
+    font-size: 11px;
+    margin-right: 10px !important;
+    background-color: #D7F2F4;
+    color: #151919;
+}
+
+ion-title {
+    font-family: 'Montserrat';
+    font-weight: 200;
+    font-size: 17px;
+    padding-inline: 0;
+}
+
+.exercise-card {
+    background-size: cover;
+    height: 120px;
+    background-repeat: no-repeat;
+    border-radius: 17px;
+    display: flex;
+    -webkit-box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
+    box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
+}
+
+.exercise-card ion-card-header {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    background: linear-gradient(36deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2189250700280112) 80%);
+}
