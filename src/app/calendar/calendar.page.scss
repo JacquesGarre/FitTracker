@@ -44,4 +44,120 @@
 
     }
 
+    .fc-button-primary {
+        background-color: transparent !important;
+        font-family: system-ui;
+    }
+
+    .fc-col-header-cell-cushion {
+        font-family: system-ui;
+    }
+
+    table, th, td {
+        border-color:var(--fc-button-border-color) !important
+    }
+
+    th {
+        background-color: #282D2D;
+        
+    }
+
+    th .fc-col-header-cell-cushion{
+        color: #fefefe;
+    }
+
+    .fc-event-title {
+        font-size: 10px !important;
+    }
+
+    .fc .fc-daygrid-day.fc-day-today {
+        background-color: var(--fc-button-border-color);
+    }
+}
+
+.delete-exercise-btn {
+    margin-left: 10px;
+}
+
+ion-input {
+    color: #fefefe;
+}
+
+.program-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.input-label-placement-start.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md {
+    margin-inline-end: 3px !important;
+}
+
+.action-col {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.save-btn {
+    margin-top: 40px;
+}
+
+ion-select {
+    font-family: system-ui;
+}
+ion-input {
+    font-family: system-ui;
+}
+
+.label-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-col ion-select {
+    width: auto;
+}
+
+ion-select.has-value::part(icon) {
+    display: none!important;
+}
+
+ion-col {
+    padding: 0;
+}
+
+ion-item {
+    border-radius: 15px;
+    margin-bottom: 20px;
+    --background: #282D2D;
+    color: #fefefe;
+    font-family: "Montserrat";
+    font-weight: 600;
+}
+
+ion-title {
+    margin-left: 20px;
+}
+
+ion-buttons ion-icon {
+    margin-right: 10px;
+}
+
+ion-card {
+    --background: #282D2D;
+    box-shadow: 0px 18px 5px -10px rgba(0, 0, 0, 0.75);
+}
+
+ion-list {
+    background: transparent;
+}
+
+ion-card ion-item {
+    margin-bottom: 0px;
+    font-family: system-ui;
+}
+
+ion-card ion-item ion-label {
+    font-weight: 400;
+    font-family: system-ui;
 }

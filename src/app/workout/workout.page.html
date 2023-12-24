@@ -1,22 +1,20 @@
 <top-navigation-bar :pageTitle="Current workout" backRoute="/start-workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
     <div class="ion-padding">
-        <h1 *ngIf="program" class="ion-text-center">{{ program.title }} session - {{ workout.startedAt | date:'EEE, dd
+        <h1 *ngIf="program" class="ion-text-center">{{ program.title }}<br>{{ workout.startedAt | date:'EEE, dd
             MMMM' }}</h1>
         <ion-progress-bar *ngIf="workout" [value]="workout.workoutExercisesDone/workout.workoutExercises.length"
             [color]="workout.workoutExercisesDone < workout.workoutExercises.length ? 'warning' : 'success'"></ion-progress-bar>
         <h6 *ngIf="workout" class="ion-text-center">Exercises completed : {{ workout.workoutExercisesDone ?
-            workout.workoutExercisesDone : 0 }} / {{ workout.workoutExercises.length }} ({{
-            workout.workoutExercisesDone/workout.workoutExercises.length * 100 | number:'1.0-0'}}%)</h6>
+            workout.workoutExercisesDone : 0 }} / {{ workout.workoutExercises.length }}</h6>
         <ion-accordion-group *ngIf="program && workout" class="exercices-accordion-group">
             <ion-accordion *ngFor="let workoutExercise of workout.workoutExercises">
-                <ion-item slot="header" color="light" class="ion-text-center">
+                <ion-item slot="header" class="ion-text-center">
                     <ion-label class="exercise-header">
                         {{workoutExercise.exercise.title}}
                         <ion-chip *ngIf="workoutExercise.sets.length"
                             [color]="workoutExercise.setsDone < workoutExercise.sets.length ? (workoutExercise.setsDone == 0 ? 'default' : 'warning'  ) : 'success'">
-                            {{workoutExercise.setsDone}} / {{workoutExercise.sets.length}} ({{ workoutExercise.setsDone
-                            / workoutExercise.sets.length * 100 | number:'1.0-0'}}%)
+                            {{workoutExercise.setsDone}} / {{workoutExercise.sets.length}}
                             <ion-icon
                                 *ngIf="workoutExercise.sets.length && workoutExercise.setsDone == workoutExercise.sets.length"
                                 name="checkmark" color="success"></ion-icon>
@@ -31,11 +29,8 @@
                         <ion-col>
                             <ion-row *ngFor="let set of workoutExercise.sets; let i = index;"
                                 class="ion-align-items-center">
-                                <ion-col size="auto" class="ion-align-items-center ion-justify-content-center">
-                                    Set {{i + 1}}
-                                </ion-col>
                                 <ion-col *ngFor="let unit of workoutExercise.exercise.units">
-                                    <ion-input *ngIf="set" (ionBlur)="saveSet($event, set.setId, workoutExercise, unit)"
+                                    <ion-input class="record-input" *ngIf="set" (ionBlur)="saveSet($event, set.setId, workoutExercise, unit)"
                                         label="{{unit.abbreviation}}" value="{{set[unit.abbreviation]}}"
                                         [ngClass]="{'input-success': set[unit.abbreviation] && set[unit.abbreviation].length > 0 }"
                                         label-placement="floating" fill="outline" type="number" placeholder="0">
@@ -49,8 +44,7 @@
                             </ion-row>
                             <ion-row>
                                 <ion-col>
-                                    <ion-button (click)="addSet(workoutExercise)" expand="block" shape="round"
-                                        color="secondary">Add a set</ion-button>
+                                    <ion-button (click)="addSet(workoutExercise)" expand="block" shape="round" class="add-set-btn">Add a set</ion-button>
                                 </ion-col>
                             </ion-row>
                         </ion-col>

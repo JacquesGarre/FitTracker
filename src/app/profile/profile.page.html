@@ -1,9 +1,8 @@
 <top-navigation-bar :pageTitle="Profile" backRoute="/start-workout"></top-navigation-bar>
 <ion-content class="ion-padding">
-    <p>{{userEmail}}</p>
     <h1>Change your password</h1>
     <form [formGroup]="formData">
-        <ion-input label="Password" label-placement="floating" formControlName="plainPassword" type="password"></ion-input>
+        <ion-input label="Password" label-placement="stacked" formControlName="plainPassword" type="password" placeholder="Enter your new password"></ion-input>
         <div *ngIf="formData.get('plainPassword')?.invalid && (formData.get('plainPassword')?.dirty || formData.get('plainPassword')?.touched)">
             <span *ngIf="formData.get('plainPassword')?.hasError('required')">
                 Password is required
@@ -15,7 +14,7 @@
                 Password is not strong enough
             </span>
         </div>
-        <ion-input label="Password confirmation" label-placement="floating" formControlName="confirmPassword" type="password"></ion-input>
+        <ion-input label="Password confirmation" label-placement="stacked" formControlName="confirmPassword" type="password" placeholder="Confirm your new password"></ion-input>
         <div *ngIf="formData.get('confirmPassword')?.invalid && (formData.get('confirmPassword')?.dirty || formData.get('confirmPassword')?.touched)">
             <span *ngIf="formData.get('confirmPassword')?.hasError('required')">
                 Password confirmation is required
@@ -24,14 +23,14 @@
                 Password confirmation doesn't match your password
             </span>
         </div>
-        <ion-button (click)="updatePassword()" expand="block">Update password</ion-button>
+        <ion-button (click)="updatePassword()" expand="block" shape="round" class="register-btn" color="success">Update password</ion-button>
         <div *ngIf="error">
             <span>
                 {{ error }}
             </span>
         </div>
-        <ion-button expand="block" routerLink="/start-workout" shape="round">Back</ion-button>
-        <ion-button expand="block" (click)="logout()" shape="round">Logout</ion-button>
+        <ion-button expand="block" routerLink="/start-workout" shape="round" class="btn">Back</ion-button>
+        <ion-button expand="block" (click)="logout()" shape="round" class="btn" color="danger">Logout</ion-button>
     </form>
 </ion-content>
 <app-menu></app-menu>

@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
     <h1>Create account</h1>
     <form [formGroup]="formData">
-        <ion-input label="Email" label-placement="floating" formControlName="email" type="email" placeholder="Enter your email"></ion-input>
+        <ion-input label="Email" label-placement="stacked" formControlName="email" type="email" placeholder="Enter your email"></ion-input>
         <div *ngIf="formData.get('email')?.invalid && (formData.get('email')?.dirty || formData.get('email')?.touched)">
             <span *ngIf="formData.get('email')?.hasError('required')">
                 Email is required
@@ -10,7 +10,7 @@
                 Invalid email address
             </span>
         </div>
-        <ion-input label="Password" label-placement="floating" formControlName="plainPassword" type="password"></ion-input>
+        <ion-input label="Password" label-placement="stacked" formControlName="plainPassword" type="password" placeholder="Enter your password"></ion-input>
         <div *ngIf="formData.get('plainPassword')?.invalid && (formData.get('plainPassword')?.dirty || formData.get('plainPassword')?.touched)">
             <span *ngIf="formData.get('plainPassword')?.hasError('required')">
                 Password is required
@@ -22,7 +22,7 @@
                 Password is not strong enough
             </span>
         </div>
-        <ion-input label="Password confirmation" label-placement="floating" formControlName="confirmPassword" type="password"></ion-input>
+        <ion-input label="Password confirmation" label-placement="stacked" formControlName="confirmPassword" type="password" placeholder="Confirm your password"></ion-input>
         <div *ngIf="formData.get('confirmPassword')?.invalid && (formData.get('confirmPassword')?.dirty || formData.get('confirmPassword')?.touched)">
             <span *ngIf="formData.get('confirmPassword')?.hasError('required')">
                 Password confirmation is required
@@ -31,7 +31,7 @@
                 Password confirmation doesn't match your password
             </span>
         </div>
-        <ion-button (click)="register()" expand="block" shape="round">Register</ion-button>
+        <ion-button (click)="register()" expand="block" shape="round" class="register-btn">Register</ion-button>
         <div *ngIf="error">
             <span>
                 {{ error }}

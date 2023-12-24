@@ -1,6 +1,6 @@
 <top-navigation-bar :pageTitle="My progress" backRoute="/start-workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
-    <div class="ion-padding">
+    <div>
 
         <ion-card *ngFor="let item of charts | keyvalue">
             <ion-card-header>
@@ -9,7 +9,7 @@
             <ion-card-content>
                 <ion-segment [(ngModel)]="selectedSegment[item.key]" class="unitSegments">
                     <ion-segment-button *ngFor="let exercise of item.value; let i = index" value="{{item.key + '_' + i}}" [ngClass]="{ 'segment-button-checked' : selectedSegment[item.key] === item.key + '_' + i  }">
-                        <ion-label>{{exercise.options.yAxis[0].unit.title}}</ion-label>
+                        <ion-label>{{exercise.options.yAxis[0].unit.abbreviation}}</ion-label>
                     </ion-segment-button>
                 </ion-segment>
                 <div *ngFor="let exercise of item.value; let i = index">

@@ -58,6 +58,9 @@ export class ProgressPage implements OnInit {
                                             legend: chartData.legend,
                                             title: chartData.title,
                                             tooltip: chartData.tooltip,
+                                            chart: {
+                                                backgroundColor: 'rgba(0,0,0,0)'
+                                            },
                                             plotOptions: chartData.plotOptions,
                                             xAxis: chartData.xAxis[0],
                                             yAxis: chartData.yAxis,

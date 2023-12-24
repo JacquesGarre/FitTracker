@@ -157,6 +157,8 @@ export class CalendarPage implements OnInit {
                         end: workout.startedAt ? workout.endedAt : workout.plannedAt,
                         workout: workout
                     };
+
+
                     calendarApi.addEvent(event);
                 }
             }
