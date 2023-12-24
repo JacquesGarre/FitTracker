@@ -31,7 +31,7 @@ export class MenuComponent implements OnInit {
 
     @Input() centerBtn!: string;
     @Input() workout!: Workout;
-    title: string = 'Start workout'
+    title: string = 'Start'
     route: string = '/start-workout'
     loading: boolean = true;
 
@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
             (data: Workout[]) => {
                 if (data.length) {
                     let workout = data[0]
-                    this.title = 'Continue workout'
+                    this.title = 'Resume'
                     this.route = '/workout/'+workout.id
                 }
                 this.loading = false

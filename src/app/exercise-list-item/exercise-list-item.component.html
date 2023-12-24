@@ -1,6 +1,6 @@
-<ion-item style="--background: url('/assets/img/exercises/{{exercise.miniature}}') center center / cover" class="exercise-card-program ion-no-padding">
+<ion-item style="--background: url('/assets/img/exercises/{{programExercise.exercise.miniature}}') center center / cover" class="exercise-card-program ion-no-padding">
     <div class="background-overlay">
-        <ion-label>{{exercise.title}}</ion-label>
-        <ion-badge *ngFor="let unit of exercise.units" class="unit">{{unit.title}}</ion-badge>
+        <ion-label class="title">{{programExercise.exercise.title}}</ion-label>
+        <ion-label class="subtitle" *ngIf="programExercise.sets > 0">{{programExercise.sets}} set{{ programExercise.sets > 1 ? 's' : '' }}</ion-label>
     </div>
 </ion-item>

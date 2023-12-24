@@ -104,11 +104,6 @@ export class ProgramDetailsPage implements OnInit {
     async updateProgram() {
         this.error = '';
         if (this.formData.valid) {
-            const loading = await this.loadingCtrl.create({
-                message: 'Saving your program...',
-            });
-            loading.present();
-
             let exercises: any = [];
             for (const key of this.selectedKeys) {
                 let exerciseID = this.selectedExercises[key];
@@ -131,12 +126,11 @@ export class ProgramDetailsPage implements OnInit {
                     for (const exercise of exercises) {
                         this.api.addProgramExercise(exercise).subscribe();
                     }
-                    loading.dismiss();
+
                     this.router.navigate(['programs']);
                 },
                 (error: any) => {
                     this.error = error.error.detail;
-                    loading.dismiss();
                 }
             );
         }

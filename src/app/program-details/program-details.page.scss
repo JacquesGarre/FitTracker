@@ -20,7 +20,46 @@ ion-item {
 .program-title {
     color: #fefefe;
     font-family: "Montserrat";
-    margin-bottom: 15px;
+    margin-bottom: 30px;
+    margin-top: 15px;
     font-size: 20px;
     text-align: center;
+}
+
+.input-label-placement-start.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md {
+    margin-inline-end: 3px !important;
+}
+
+.action-col {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.save-btn {
+    margin-top: 40px;
+}
+
+ion-select {
+    font-family: system-ui;
+}
+ion-input {
+    font-family: system-ui;
+}
+
+.label-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-col ion-select {
+    width: auto;
+}
+
+ion-select.has-value::part(icon) {
+    display: none!important;
+}
+
+ion-col {
+    padding: 0;
 }

@@ -6,12 +6,12 @@
         </ion-card-header>
         <ion-card-content>
             <ion-list lines="full">
-                <exercise-list-item *ngFor="let programExercise of program.programExercises" [exercise]="programExercise.exercise"></exercise-list-item>
+                <exercise-list-item *ngFor="let programExercise of program.programExercises" [programExercise]="programExercise"></exercise-list-item>
             </ion-list>
         </ion-card-content>
     </ion-card>
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-        <ion-fab-button routerLink="/create-program">
+        <ion-fab-button routerLink="/create-program" color="success">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>

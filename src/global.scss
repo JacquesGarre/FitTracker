@@ -28,7 +28,7 @@
 ion-segment-button {
     --color-checked: #FEFEFE;
     font-weight: 100;
-    font-size: 11px;
+    font-size: 13px;
     text-transform: capitalize;
     font-family: "Montserrat";
     min-width: unset;
@@ -39,7 +39,7 @@ ion-content {
 }
 
 ion-toolbar {
-    --background: #151919;
+    --background: transparent;
     color: #FEFEFE;
 }
 
@@ -48,10 +48,16 @@ ion-footer {
     box-shadow: none !important;
 }
 
+ion-header {
+    background: #151919;
+}
+
 ion-tab-bar {
-    --background: #151919;
+    --background: transparent;
     color: #FEFEFE;
     border: none;
+    font-family: system-ui;
+    height: 100px;
 }
 
 ion-tab-button.selected {
@@ -109,7 +115,7 @@ ion-title {
 
 .exercise-detail-background {
     background-position: center !important;
-    background-size: cover!important;
+    background-size: cover !important;
     min-height: 100%;
     display: flex;
     flex-direction: column;
@@ -139,5 +145,21 @@ ion-button.button-block {
 
 .button-solid {
     --background: #D7F2F4;
-    color: #151919;
+    --color: #151919;
+}
+
+h1 {
+    text-align: center;
+    color: #FEFEFE;
+    font-family: 'Montserrat';
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+ion-fab-button {
+    box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.75);
+    border-radius: 100%;
+    position: absolute;
+    right: 5px;
+    bottom: -30px;
 }

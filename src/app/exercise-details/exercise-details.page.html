@@ -4,13 +4,7 @@
         style="background: url('/assets/img/exercises/{{exercise.miniature}}')">
         <div class="overlay">
             <ion-card>
-                <!-- <ion-card-header>
-                    <ion-card-title>
-                        {{exercise.title}}
-                    </ion-card-title>
-                </ion-card-header> -->
                 <ion-card-content>
-                    <ion-badge *ngFor="let unit of exercise.units" class="unit">{{unit.title}}</ion-badge>
                     <div class="description">{{exercise.description}}</div>
                 </ion-card-content>
             </ion-card>

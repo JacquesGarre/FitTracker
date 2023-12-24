@@ -3,3 +3,60 @@ ion-tab-button.selected {
     color: #007bff; // Change to your desired color
     // Add any other styles as needed
 }
+
+ion-toolbar {
+    height: 95px;
+    --min-height: 95px;
+}
+
+ion-tab-button:not(.center-btn) {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 10px;
+    width: 65px;
+    font-family: system-ui;
+    font-weight: 600;
+}
+
+.center-btn {
+    border-radius: 100%;
+    height: 70px !important;
+    width: 70px !important;
+    max-width: 70px !important;
+    max-height: 70px !important;
+    min-width: 70px !important;
+    min-height: 70px!important;
+    font-family: system-ui;
+    font-weight: 600;
+    font-size: 17px;
+    bottom: 36px;
+    z-index: 2222;
+    background: linear-gradient(180deg, rgba(45,211,111,1) 0%, rgba(45,211,111,0.7) 100%);
+    color: #fefefe;
+    -webkit-box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.75);
+}
+
+.center-btn.finish {
+    background: linear-gradient(180deg, rgba(235,68,90,1) 0%, rgba(235,68,90,0.7) 100%);
+}
+
+ion-tabs {
+    height: 95px;
+}
+
+ion-tab-bar {
+    height: 95px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.toolbar-background {
+    width: 100%;
+    height: 60px;
+    background: #282d2d;
+    position: absolute;
+    bottom: 0px;
+    box-shadow: 0px 0px 12px -1px rgba(0,0,0,1);
+}

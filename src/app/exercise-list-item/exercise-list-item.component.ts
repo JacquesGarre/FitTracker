@@ -14,10 +14,12 @@ import { RouterLink, ActivatedRoute, Router, RouterLinkActive, NavigationEnd } f
 })
 export class ExerciseListItemComponent implements OnInit {
 
-    @Input() exercise!: Exercise;
+    @Input() programExercise!: any;
 
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        console.log(this.programExercise)
+     }
 
 }

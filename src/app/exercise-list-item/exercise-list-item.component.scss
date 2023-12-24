@@ -29,7 +29,6 @@ ion-item {
 }
 
 ion-label {
-    margin-bottom: 10px;
     font-family: "Montserrat";
     color: #FEFEFE!important;
     font-size: 20px!important;
@@ -38,4 +37,22 @@ ion-label {
 
 ion-badge {
     padding: 6px;
+}
+
+.label-text-wrapper {
+    margin-inline-end: 4px!important;
+}
+
+.title {
+    font-family: "Montserrat";
+    color: #FEFEFE!important;
+    font-size: 20px!important;
+    font-weight: 100!important;
+}
+
+.subtitle {
+    font-family: system-ui;
+    color: #FEFEFE!important;
+    font-size: 15px!important;
+    font-weight: 100!important;
 }
