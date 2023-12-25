@@ -59,14 +59,17 @@ export class ProgressPage implements OnInit {
                                             title: chartData.title,
                                             tooltip: chartData.tooltip,
                                             chart: {
-                                                backgroundColor: 'rgba(0,0,0,0)'
+                                                backgroundColor: 'rgba(0,0,0,0)',
+                                                type: 'line'
                                             },
-                                            plotOptions: chartData.plotOptions,
+                                            //plotOptions: chartData.plotOptions,
                                             xAxis: chartData.xAxis[0],
                                             yAxis: chartData.yAxis,
                                             series: chartData.series
                                         }
                                     }
+
+                                    console.log('chart', chart)
                            
                                     if(this.charts.get(chartData.exercise.title) == undefined){
                                         this.charts.set(chartData.exercise.title, []);

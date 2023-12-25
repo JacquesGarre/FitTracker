@@ -13,7 +13,10 @@
                     </ion-segment-button>
                 </ion-segment>
                 <div *ngFor="let exercise of item.value; let i = index">
-                    <highcharts-chart *ngIf="selectedSegment !== undefined && selectedSegment[item.key] == item.key + '_' + i" [Highcharts]="Highcharts" [options]="exercise.options"
+                    <highcharts-chart 
+                        *ngIf="selectedSegment !== undefined && selectedSegment[item.key] == item.key + '_' + i" 
+                        [Highcharts]="Highcharts" 
+                        [options]="exercise.options"
                         [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
                     </highcharts-chart>
                 </div>

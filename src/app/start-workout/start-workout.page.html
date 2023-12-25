@@ -1,9 +1,9 @@
-<top-navigation-bar :pageTitle="Start workout"></top-navigation-bar>
+<top-navigation-bar :pageTitle="FitTracker"></top-navigation-bar>
 <ion-content [fullscreen]="true">
     <div *ngIf="programs && programs.length > 0 && plannedWorkouts && plannedWorkouts.length > 0">
-        <h1>Workouts planned for today</h1>
+        <h1>Workout planned for today</h1>
         <div *ngFor="let workout of plannedWorkouts">
-            <ion-button (click)="startWorkout(workout)" expand="block" shape="round" color="success">Start {{workout.program.title}}</ion-button>
+            <ion-button (click)="startWorkout(workout)" expand="block" shape="round" color="success" class="planned-workout-btn">Start {{workout.program.title}}</ion-button>
             <div *ngIf="error">
                 <span>
                     {{ error }}
@@ -30,7 +30,7 @@
     <div *ngIf="!programs || programs.length == 0">
         <h1>Welcome to FitTracker!</h1>
         <p>You don't have any program yet. Start by creating your own personalized program!</p>
-        <ion-button expand="block" routerLink="/create-program" shape="round">Create my program</ion-button>
+        <ion-button expand="block" routerLink="/create-program" shape="round" class="create-program-btn">Create my program</ion-button>
     </div>
 
 </ion-content>
