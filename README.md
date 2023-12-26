@@ -1,5 +1,6 @@
 # Setup
 
+- npm install
 - ionic serve
 
 # Build
