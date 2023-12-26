@@ -1,5 +1,11 @@
+# Requirements
+
+- node v20+ (node -v)
+- npm
+
 # Setup
 
+- npm i -g @ionic/cli
 - npm install
 - ionic serve
 
