@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true">
-    <h1>Login</h1>
+    <h1>Login {{ prod ? '' : '(dev env)' }}</h1>
     <form [formGroup]="formData">
         <ion-input label="Email" label-placement="stacked" formControlName="email" type="email" placeholder="Enter your email"></ion-input>
         <div *ngIf="formData.get('email')?.invalid && (formData.get('email')?.dirty || formData.get('email')?.touched)">

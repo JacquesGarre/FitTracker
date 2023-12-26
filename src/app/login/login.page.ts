@@ -6,6 +6,7 @@ import { ToastController, LoadingController } from '@ionic/angular';
 import { IonHeader, IonToolbar, IonInput, IonTitle, IonContent, IonButton, IonRouterLink } from '@ionic/angular/standalone';
 import { AuthService } from '../auth.service';
 import { ToastService } from '../toast.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginPage {
     email: string = '';
     error: string = '';
     formData: FormGroup;
+    prod: boolean = environment.production
 
     constructor(
         private route: ActivatedRoute, 
