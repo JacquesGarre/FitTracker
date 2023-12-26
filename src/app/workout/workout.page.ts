@@ -12,15 +12,25 @@ import { Program } from '../program';
 import { Set } from '../set';
 import { WorkoutExercise } from '../workout-exercise';
 import { Unit } from '../unit';
-import { IonInput } from '@ionic/angular';
 import { ToastService } from '../toast.service';
+import { IonAccordion, IonAccordionGroup, IonChip, IonIcon, IonItem, IonLabel, IonProgressBar } from '@ionic/angular/standalone';
 
 @Component({
     selector: 'app-workout',
     templateUrl: './workout.page.html',
     styleUrls: ['./workout.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent]
+    imports: [IonicModule, CommonModule, 
+        FormsModule, NavigationBarComponent, 
+        MenuComponent,
+        IonProgressBar,
+        IonAccordionGroup,
+        IonAccordion,
+        IonItem,
+        IonLabel,
+        IonChip,
+        IonIcon
+    ]
 })
 export class WorkoutPage implements OnInit {
 

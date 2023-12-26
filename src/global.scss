@@ -127,6 +127,7 @@ ion-title {
 .overlay {
     background: linear-gradient(36deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.2189250700280112) 80%);
     backdrop-filter: blur(2px);
+    width: 100%;
     padding-top: 15px;
     padding-bottom: 15px;
     min-height: 100vh;

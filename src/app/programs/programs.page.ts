@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ApiService } from '../api.service';
 import { Program } from '../program';
-import { IonRouterLink } from '@ionic/angular/standalone';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabButton, IonIcon, IonList, IonRouterLink } from '@ionic/angular/standalone';
 import { RouterLink, Router, NavigationExtras } from '@angular/router';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import { MenuComponent } from '../menu/menu.component';
@@ -15,7 +15,9 @@ import { ExerciseListItemComponent } from '../exercise-list-item/exercise-list-i
     templateUrl: './programs.page.html',
     styleUrls: ['./programs.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent, RouterLink, ExerciseListItemComponent]
+    imports: [IonicModule, CommonModule, FormsModule, IonFab, IonFabButton, 
+        IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, 
+        IonList, NavigationBarComponent, MenuComponent, RouterLink, ExerciseListItemComponent]
 })
 export class ProgramsPage implements OnInit {
 

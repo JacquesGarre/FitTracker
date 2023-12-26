@@ -8,6 +8,7 @@ import { RouterLink, Router, NavigationExtras } from '@angular/router';
 import { Exercise } from '../exercise';
 import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
+import { IonCol, IonGrid, IonInput, IonItem, IonRow, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 
 
 interface SelectedExercises {
@@ -19,7 +20,18 @@ interface SelectedExercises {
     templateUrl: './create-program.page.html',
     styleUrls: ['./create-program.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, NavigationBarComponent, MenuComponent, RouterLink]
+    imports: [IonicModule, CommonModule, 
+        FormsModule, ReactiveFormsModule, 
+        NavigationBarComponent, 
+        MenuComponent, RouterLink,
+        IonItem,
+        IonGrid,
+        IonRow,
+        IonCol,
+        IonSelect,
+        IonSelectOption,
+        IonInput
+    ]
 })
 export class CreateProgramPage implements OnInit {
 

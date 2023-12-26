@@ -15,13 +15,25 @@ import { Program } from '../program';
 import { AuthService } from '../auth.service';
 import { WorkoutExercise } from '../workout-exercise';
 import { Set } from '../set';
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonDatetimeButton, IonHeader, IonModal, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
     selector: 'app-calendar',
     templateUrl: './calendar.page.html',
     styleUrls: ['./calendar.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent, FullCalendarModule]
+    imports: [IonicModule, CommonModule, FormsModule, 
+        NavigationBarComponent, MenuComponent, FullCalendarModule,
+        IonModal,
+        IonHeader,
+        IonToolbar,
+        IonContent,
+        IonDatetimeButton,
+        IonCard,
+        IonCardHeader,
+        IonCardSubtitle,
+        IonCardTitle
+    ]
 })
 export class CalendarPage implements OnInit {
 
