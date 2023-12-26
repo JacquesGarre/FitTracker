@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule, LoadingController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { RouterLink, Router, NavigationExtras } from '@angular/router';
 import { IonRouterLink } from '@ionic/angular/standalone';
 import { AuthService } from '../auth.service';
@@ -26,7 +26,6 @@ export class ProfilePage implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private loadingCtrl: LoadingController,
         private api: ApiService,
         private toast: ToastService,
         private auth: AuthService
@@ -56,33 +55,22 @@ export class ProfilePage implements OnInit {
     async updatePassword() {
         this.error = '';
         if (this.formData.valid) {
-            const loading = await this.loadingCtrl.create({
-                message: 'Updating your password...',
-            });
-            loading.present();
             let body = {
                 "plainPassword": this.formData.get('plainPassword')?.value
             }
             this.api.updateUser(body).subscribe(
                 (data: any) => {
-                    loading.dismiss();
                     this.toast.passwordUpdated()
                 },
                 (error: any) => {
                     this.error = error.error.detail;
-                    loading.dismiss();
                 }
             );
         }
     }
 
     async logout() {
-        const loading = await this.loadingCtrl.create({
-            message: 'Logging you out...',
-        });
-        loading.present();
         await this.auth.logout()
-        loading.dismiss();
     }
 
     passwordValidator(controlName: string, matchingControlName: string) {

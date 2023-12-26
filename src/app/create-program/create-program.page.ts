@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, LoadingController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import { FormsModule, FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from '../menu/menu.component';
@@ -44,7 +44,6 @@ export class CreateProgramPage implements OnInit {
     constructor(
         private fb: FormBuilder,
         private api: ApiService,
-        private loadingCtrl: LoadingController,
         private router: Router,
         private auth: AuthService
     ) {
@@ -66,11 +65,6 @@ export class CreateProgramPage implements OnInit {
     async addProgram() {
         this.error = '';
         if (this.formData.valid) {
-            const loading = await this.loadingCtrl.create({
-                message: 'Saving your program...',
-            });
-            loading.present();
-
             let exercises: any = [];
             for (const key of this.selectedKeys) {
                 let exerciseID = this.selectedExercises[key];
@@ -98,12 +92,10 @@ export class CreateProgramPage implements OnInit {
                         }
                         this.api.addProgramExercise(body).subscribe();
                     }
-                    loading.dismiss();
                     this.router.navigate(['programs']);
                 },
                 (error: any) => {
                     this.error = error.error.detail;
-                    loading.dismiss();
                 }
             );
         }

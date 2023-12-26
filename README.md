@@ -11,5 +11,8 @@
 
 # Build
 
+- npx capacitor-assets generate
 - npm run build
-- npx cap copy && npx cap sync
+- npx cap copy 
+- npx cap sync
+- npx cap open android

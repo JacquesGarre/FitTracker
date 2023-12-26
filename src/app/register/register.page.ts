@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule, LoadingController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { RouterLink, Router, NavigationExtras } from '@angular/router';
 import { IonRouterLink } from '@ionic/angular/standalone';
 import { AuthService } from '../auth.service';
@@ -22,7 +22,6 @@ export class RegisterPage implements OnInit {
     constructor(
         private fb: FormBuilder,
         private auth: AuthService, 
-        private loadingCtrl: LoadingController,
         private router: Router
     ) {
 
@@ -66,17 +65,12 @@ export class RegisterPage implements OnInit {
     async register() { 
         this.error = '';
         if (this.formData.valid) {
-            const loading = await this.loadingCtrl.create({
-                message: 'Creating your account...',
-            });
-            loading.present();
             let body = {
                 "email": this.formData.get('email')?.value,
                 "plainPassword": this.formData.get('plainPassword')?.value
             }
             this.auth.register(body).subscribe(
                 (data: any) => {
-                    loading.dismiss();
                     let navigationExtras: NavigationExtras = {
                         state: {
                             email: data.email
@@ -86,7 +80,6 @@ export class RegisterPage implements OnInit {
                 },
                 (error: any) => {
                     this.error = error.error.detail;
-                    loading.dismiss();
                 }
             );
         }

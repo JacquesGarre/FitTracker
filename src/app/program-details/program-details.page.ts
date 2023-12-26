@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, LoadingController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import { FormsModule, FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from '../menu/menu.component';
@@ -42,7 +42,6 @@ export class ProgramDetailsPage implements OnInit {
         private auth: AuthService,
         private toast: ToastService,
         private fb: FormBuilder,
-        private loadingCtrl: LoadingController,
         private router: Router
     ) {
         this.formData = this.fb.group(
@@ -85,18 +84,12 @@ export class ProgramDetailsPage implements OnInit {
     }
 
     async deleteProgram() {
-        const loading = await this.loadingCtrl.create({
-            message: 'Deleting your program...',
-        });
-        loading.present();
         this.api.deleteProgram(this.program.id).subscribe(
             (data: any) => {
-                loading.dismiss();
                 this.router.navigate(['programs']);
             },
             (error: any) => {
                 this.error = error.error.detail;
-                loading.dismiss();
             }
         );
     }

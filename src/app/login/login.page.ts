@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ToastController, LoadingController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { IonHeader, IonToolbar, IonInput, IonTitle, IonContent, IonButton, IonRouterLink } from '@ionic/angular/standalone';
 import { AuthService } from '../auth.service';
 import { ToastService } from '../toast.service';
@@ -27,7 +27,6 @@ export class LoginPage {
         private router: Router,
         private toast: ToastService,
         private fb: FormBuilder,
-        private loadingCtrl: LoadingController,
         private auth: AuthService
     ) {
         this.route.queryParams.subscribe(params => {
@@ -47,10 +46,6 @@ export class LoginPage {
     async login() { 
         this.error = '';
         if (this.formData.valid) {
-            const loading = await this.loadingCtrl.create({
-                message: 'Login into your account...',
-            });
-            loading.present();
             let body = {
                 "email": this.formData.get('email')?.value,
                 "password": this.formData.get('plainPassword')?.value
@@ -59,12 +54,10 @@ export class LoginPage {
                 async (data: any) => {
                     let token = data.token;
                     await this.auth.saveToken(token);
-                    loading.dismiss();
                     this.router.navigate(['/start-workout']);
                 },
                 (error: any) => {
                     this.error = error.error.detail;
-                    loading.dismiss();
                 }
             );
         }
