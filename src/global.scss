@@ -95,7 +95,7 @@ ion-title {
 }
 
 .exercise-card {
-    background-size: cover;
+    background-size: cover !important;
     height: 120px;
     background-repeat: no-repeat;
     border-radius: 17px;
@@ -109,6 +109,9 @@ ion-title {
     display: flex;
     justify-content: space-between;
     height: 100%;
+    border-radius: 17px;
+    background-size: cover!important;
+    width: 100%;
     background: linear-gradient(36deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.2189250700280112) 80%);
     backdrop-filter: blur(1px);
 }

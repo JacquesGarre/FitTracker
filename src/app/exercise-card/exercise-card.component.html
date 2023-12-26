@@ -1,8 +1,8 @@
-<ion-card [routerLink]="route ? route : '/exercises/'+exercise.id " class="exercise-card" style="--background: url('/assets/img/exercises/{{exercise.miniature}}')">
-    <ion-card-header>
-        <ion-card-title>{{exercise.title}}</ion-card-title>
-        <!-- <ion-card-subtitle>
-            <ion-badge *ngFor="let unit of exercise.units" class="unit">{{unit.title}}</ion-badge>
-        </ion-card-subtitle> -->
-    </ion-card-header>
-</ion-card>
+<div>
+    <ion-card [routerLink]="route ? route : '/exercises/'+exercise.id " class="exercise-card"
+        style="background: url('/assets/img/exercises/{{exercise.miniature}}')">
+        <ion-card-header>
+            <ion-card-title>{{exercise.title}}</ion-card-title>
+        </ion-card-header>
+    </ion-card>
+</div>
