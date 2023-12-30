@@ -17,5 +17,6 @@
 - npm run build
 - npx cap copy 
 - npx cap sync
-- Run in android studio (as administrator) to check for potential bugs
+- ionic serve --prod (to test locally)
+- ionic capacitor run android --livereload (to test on android)
 - Go to app flow to build the app from the last commit
