@@ -6,7 +6,7 @@
         </ion-card-header>
         <ion-card-content>
             <ion-list lines="full">
-                <exercise-list-item *ngFor="let programExercise of program.programExercises" [programExercise]="programExercise"></exercise-list-item>
+                <exercise-card *ngFor="let programExercise of program.programExercises" [exercise]="programExercise.exercise" [sets]="programExercise.sets"></exercise-card>
             </ion-list>
         </ion-card-content>
     </ion-card>

@@ -10,12 +10,10 @@ import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular
 import interactionPlugin from '@fullcalendar/interaction';
 import { ApiService } from '../api.service';
 import { Workout } from '../workout';
-import { ModalController } from '@ionic/angular';
 import { Program } from '../program';
 import { AuthService } from '../auth.service';
 import { WorkoutExercise } from '../workout-exercise';
 import { Set } from '../set';
-import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonDatetimeButton, IonHeader, IonModal, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
     selector: 'app-calendar',
@@ -23,16 +21,7 @@ import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonD
     styleUrls: ['./calendar.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule, 
-        NavigationBarComponent, MenuComponent, FullCalendarModule,
-        IonModal,
-        IonHeader,
-        IonToolbar,
-        IonContent,
-        IonDatetimeButton,
-        IonCard,
-        IonCardHeader,
-        IonCardSubtitle,
-        IonCardTitle
+        NavigationBarComponent, MenuComponent, FullCalendarModule
     ]
 })
 export class CalendarPage implements OnInit {

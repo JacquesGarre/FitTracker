@@ -14,7 +14,6 @@ ion-card {
 
 .description {
     color: #fefefec7;
-    margin-top: 10px;
 }
 
 .progress-card {
@@ -23,4 +22,32 @@ ion-card {
 
 .highcharts-chart-tab {
     margin-top: 15px;
+}
+
+ion-badge.ion-color-success {
+    background-color: #2dd36f !important;
+}
+
+.subtitle {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.exercise-title {
+    margin-bottom: 10px;
+}
+
+ion-badge {
+    margin-right: 0px !important;
+    margin-left: 10px !important;
+}
+
+.exercise-description ion-card-header {
+    padding-bottom: 5px!important;
+}
+
+.exercise-description ion-card-title {
+    text-align: center;
+    margin-bottom: 15px;
 }

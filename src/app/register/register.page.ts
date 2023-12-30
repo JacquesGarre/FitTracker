@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterLink, Router, NavigationExtras } from '@angular/router';
-import { IonRouterLink } from '@ionic/angular/standalone';
+import { IonInput, IonRouterLink } from '@ionic/angular/standalone';
 import { AuthService } from '../auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -15,6 +15,8 @@ import { HttpErrorResponse } from '@angular/common/http';
     imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, IonRouterLink, RouterLink]
 })
 export class RegisterPage implements OnInit {
+
+    @ViewChild('emailInput', { static: false }) emailInput!: IonInput;
 
     formData: FormGroup;
     error: string = '';
@@ -84,4 +86,11 @@ export class RegisterPage implements OnInit {
             );
         }
     }
+
+    ionViewDidEnter() {
+        if (this.emailInput) {
+            this.emailInput.setFocus();
+        }
+    }
+
 }

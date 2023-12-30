@@ -13,7 +13,6 @@ import { Set } from '../set';
 import { WorkoutExercise } from '../workout-exercise';
 import { Unit } from '../unit';
 import { ToastService } from '../toast.service';
-import { IonAccordion, IonAccordionGroup, IonChip, IonIcon, IonItem, IonLabel, IonProgressBar } from '@ionic/angular/standalone';
 
 @Component({
     selector: 'app-workout',
@@ -22,14 +21,7 @@ import { IonAccordion, IonAccordionGroup, IonChip, IonIcon, IonItem, IonLabel, I
     standalone: true,
     imports: [IonicModule, CommonModule, 
         FormsModule, NavigationBarComponent, 
-        MenuComponent,
-        IonProgressBar,
-        IonAccordionGroup,
-        IonAccordion,
-        IonItem,
-        IonLabel,
-        IonChip,
-        IonIcon
+        MenuComponent
     ]
 })
 export class WorkoutPage implements OnInit {

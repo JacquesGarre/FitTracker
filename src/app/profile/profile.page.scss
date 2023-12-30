@@ -9,6 +9,7 @@ ion-content {
 
 ion-input {
     color: #fefefe;
+    margin-bottom: 20px;
 }
 
 .program-title {
@@ -71,4 +72,8 @@ ion-item {
 
 .btn {
     margin-bottom: 25px;
+}
+
+ion-content::part(background) {
+    height: 100vh;
 }

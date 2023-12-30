@@ -8,7 +8,6 @@ import { RouterLink, Router, NavigationExtras } from '@angular/router';
 import { Exercise } from '../exercise';
 import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
-import { IonCol, IonGrid, IonInput, IonItem, IonRow, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 
 
 interface SelectedExercises {
@@ -23,14 +22,7 @@ interface SelectedExercises {
     imports: [IonicModule, CommonModule, 
         FormsModule, ReactiveFormsModule, 
         NavigationBarComponent, 
-        MenuComponent, RouterLink,
-        IonItem,
-        IonGrid,
-        IonRow,
-        IonCol,
-        IonSelect,
-        IonSelectOption,
-        IonInput
+        MenuComponent, RouterLink
     ]
 })
 export class CreateProgramPage implements OnInit {

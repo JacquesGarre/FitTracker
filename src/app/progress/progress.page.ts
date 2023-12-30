@@ -8,7 +8,6 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
 import { ApiService } from '../api.service';
 import { Exercise } from '../exercise';
-import { IonSegment, IonSegmentButton } from '@ionic/angular/standalone';
 
 @Component({
     selector: 'app-progress',
@@ -16,9 +15,7 @@ import { IonSegment, IonSegmentButton } from '@ionic/angular/standalone';
     styleUrls: ['./progress.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule, 
-        NavigationBarComponent, MenuComponent, HighchartsChartModule,
-        IonSegment,
-        IonSegmentButton
+        NavigationBarComponent, MenuComponent, HighchartsChartModule
     ]
 })
 export class ProgressPage implements OnInit {

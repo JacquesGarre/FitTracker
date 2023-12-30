@@ -142,7 +142,7 @@ ion-button.button-block {
     width: 100%;
     margin: 0 auto;
     font-family: 'Montserrat';
-    font-weight: 200;
+    font-weight: bold;
     font-size: 15px;
     text-transform: capitalize;
 }
@@ -179,4 +179,50 @@ ion-fab-button {
 
 .highcharts-credits {
     fill:transparent!important;
+}
+
+.input-error {
+    padding: 4px;
+    padding-left: 15px;
+    font-size: 12px;
+    color: #eb445a;
+    font-family: system-ui;
+}
+
+.dev-env {
+    color: red;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    width: 81px;
+    margin: 0 auto;
+    display: block;
+    font-style: italic;
+}
+
+ion-input {
+    --highlight-color-focused: #45D36F!important;
+}
+
+ion-input {
+    background: #282D2D;
+}
+
+.difficulty-bar span {
+    display: inline-block;
+    height: 24px;
+    width: 7px;
+    margin: 1px;
+    border-radius: 5px;
+}
+
+.difficulty-bar span:nth-of-type(1) {
+    height: 12px;
+}
+.difficulty-bar span:nth-of-type(2) {
+    height: 19px;
+}
+.difficulty-bar span:nth-of-type(3) {
+    height: 24px;
 }

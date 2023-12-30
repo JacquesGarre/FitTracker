@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, FormGroup, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
-import { IonHeader, IonToolbar, IonInput, IonTitle, IonContent, IonButton, IonRouterLink } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonRouterLink, IonImg, IonInput } from '@ionic/angular/standalone';
 import { AuthService } from '../auth.service';
 import { ToastService } from '../toast.service';
 import { environment } from 'src/environments/environment';
@@ -13,9 +13,15 @@ import { environment } from 'src/environments/environment';
     templateUrl: 'login.page.html',
     styleUrls: ['login.page.scss'],
     standalone: true,
-    imports: [IonHeader, IonToolbar, CommonModule, IonTitle, IonContent, IonButton, RouterLink, IonRouterLink, IonInput, FormsModule, ReactiveFormsModule],
+    imports: [IonHeader, IonToolbar, CommonModule, IonTitle, IonContent, 
+        IonButton, RouterLink, IonRouterLink, 
+        FormsModule, ReactiveFormsModule, IonImg, IonInput
+    ],
 })
 export class LoginPage {
+
+    @ViewChild('emailInput', { static: false }) emailInput!: IonInput;
+
 
     email: string = '';
     error: string = '';
@@ -23,7 +29,7 @@ export class LoginPage {
     prod: boolean = environment.production
 
     constructor(
-        private route: ActivatedRoute, 
+        private route: ActivatedRoute,
         private router: Router,
         private toast: ToastService,
         private fb: FormBuilder,
@@ -43,7 +49,22 @@ export class LoginPage {
         );
     }
 
-    async login() { 
+    // ionViewWillEnter() {
+    //     this.route.queryParams.subscribe(params => {
+    //         if (this.router?.getCurrentNavigation()?.extras.state) {
+    //             this.email = this.router?.getCurrentNavigation()?.extras?.state?.['email'];
+    //             this.toast.accountCreated()
+    //         }
+    //     });
+    // }
+
+    ionViewDidEnter() {
+        if (this.emailInput) {
+            this.emailInput.setFocus();
+        }
+    }
+
+    async login() {
         this.error = '';
         if (this.formData.valid) {
             let body = {
@@ -57,7 +78,7 @@ export class LoginPage {
                     this.router.navigate(['/start-workout']);
                 },
                 (error: any) => {
-                    this.error = error.error.detail;
+                    this.error = error.error.message;
                 }
             );
         }

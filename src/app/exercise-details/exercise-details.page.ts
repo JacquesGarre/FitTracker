@@ -12,7 +12,6 @@ import { Program } from '../program';
 import { Set } from '../set';
 import { WorkoutExercise } from '../workout-exercise';
 import { Unit } from '../unit';
-import { IonInput } from '@ionic/angular';
 import { ToastService } from '../toast.service';
 import { Exercise } from '../exercise';
 import { HighchartsChartModule } from 'highcharts-angular';
