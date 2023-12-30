@@ -17,3 +17,5 @@
 - npm run build
 - npx cap copy 
 - npx cap sync
+- Run in android studio to check for potential bugs
+- Go to app flow to build the app from the last commit
