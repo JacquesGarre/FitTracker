@@ -68,6 +68,7 @@ export class StartWorkoutPage implements OnInit {
 
         this.api.getWorkouts(1, 'planned', new Date()).subscribe(
             (data: Workout[]) => {
+                console.log('workout planned?', data);
                 if(data.length){
                     for(const workout of data){
                         this.plannedWorkouts.push(workout)
