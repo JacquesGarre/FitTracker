@@ -285,22 +285,22 @@ export class ApiService {
         );
     }
 
-    // getChartByExercise(id: any) {
-    //     return this.http.get(
-    //         `${this.API_URL}charts/${id}`,
-    //         {
-    //             headers: new HttpHeaders({
-    //                 'Content-Type': 'application/json',
-    //                 'X-API-KEY': this.API_KEY,
-    //                 'Authorization': `Bearer ${this.auth.currentAccessToken}`
-    //             })
-    //         }
-    //     );
-    // }
+    getChartByExercise(id: any) {
+        return this.http.get(
+            `${this.API_URL}charts/exercise/${id}`,
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
 
     getChartByUser() {
         return this.http.get(
-            `${this.API_URL}charts/${this.auth.currentUserId}`,
+            `${this.API_URL}charts/user-charts`,
             {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json',
