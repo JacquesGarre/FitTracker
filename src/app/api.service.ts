@@ -245,7 +245,6 @@ export class ApiService {
             let lastDay = new Date(firstDay);
             lastDay.setDate(firstDay.getDate() + 1);
             url += `&plannedAt[strictly_before]=${this.formatDate(lastDay)}&plannedAt[after]=${this.formatDate(firstDay)}`;
-            console.log('url workout planned?', url);
         }
         
         return this.http.get<Workout[]>(
