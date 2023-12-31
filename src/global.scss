@@ -257,3 +257,11 @@ ion-input {
     padding-left: 3px;
     padding-right: 3px;
 }
+
+.search-bar .filters-dropdown {
+    background-color: transparent;
+}
+
+ion-input.text-search-input {
+    min-height: 40px !important;
+}
