@@ -42,45 +42,65 @@ export class ProgressPage implements OnInit {
         this.exercises = []
         this.charts = new Map()
         this.width = 100; this.height = 100;
-        this.api.getExercises(1).subscribe(
-            (data: Exercise[]) => {
-                this.exercises = data;
-                for(const exercice of this.exercises){
-                    this.api.getChartByExercise(exercice.id).subscribe(
-                        (data: any) => {    
-                            for(const index in data){
-                                let chartData = data[index];
-                                this.selectedSegment[chartData.exercise.title] = chartData.exercise.title +'_'+ 0
-                                if(chartData.series.length){
-                                    let chart = {
-                                        title: chartData.chartTitle,
-                                        options: {
-                                            legend: chartData.legend,
-                                            title: chartData.title,
-                                            tooltip: chartData.tooltip,
-                                            chart: {
-                                                backgroundColor: 'rgba(0,0,0,0)',
-                                                type: 'line'
-                                            },
-                                            //plotOptions: chartData.plotOptions,
-                                            xAxis: chartData.xAxis[0],
-                                            yAxis: chartData.yAxis,
-                                            series: chartData.series
-                                        }
-                                    }
 
-                                    console.log('chart', chart)
-                           
-                                    if(this.charts.get(chartData.exercise.title) == undefined){
-                                        this.charts.set(chartData.exercise.title, []);
-                                    }
-                                    this.charts.get(chartData.exercise.title).push(chart)
-                                }
-                            }
-                        }
-                    );
-                } 
+        this.api.getChartByUser().subscribe(
+            (data) => {
+                console.log(data)
             }
-        );
+        )
+
+        // for each exercise
+
+        // get chart
+
+        // !important : 
+            /*
+                this.exercises = data;
+
+                if(this.charts.get(chartData.exercise.title) == undefined){
+                    this.charts.set(chartData.exercise.title, []);
+                }
+                this.charts.get(chartData.exercise.title).push(chart)
+
+            */
+
+        // this.api.getExercises(1).subscribe(
+        //     (data: Exercise[]) => {
+        //         this.exercises = data;
+        //         for(const exercice of this.exercises){
+        //             this.api.getChartByExercise(exercice.id).subscribe(
+        //                 (data: any) => {    
+        //                     for(const index in data){
+        //                         let chartData = data[index];
+        //                         this.selectedSegment[chartData.exercise.title] = chartData.exercise.title +'_'+ 0
+        //                         if(chartData.series.length){
+        //                             let chart = {
+        //                                 title: chartData.chartTitle,
+        //                                 options: {
+        //                                     legend: chartData.legend,
+        //                                     title: chartData.title,
+        //                                     tooltip: chartData.tooltip,
+        //                                     chart: {
+        //                                         backgroundColor: 'rgba(0,0,0,0)',
+        //                                         type: 'line'
+        //                                     },
+        //                                     //plotOptions: chartData.plotOptions,
+        //                                     xAxis: chartData.xAxis[0],
+        //                                     yAxis: chartData.yAxis,
+        //                                     series: chartData.series
+        //                                 }
+        //                             }
+                           
+        //                             if(this.charts.get(chartData.exercise.title) == undefined){
+        //                                 this.charts.set(chartData.exercise.title, []);
+        //                             }
+        //                             this.charts.get(chartData.exercise.title).push(chart)
+        //                         }
+        //                     }
+        //                 }
+        //             );
+        //         } 
+        //     }
+        // );
     }
 }

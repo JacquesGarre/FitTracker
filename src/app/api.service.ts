@@ -285,9 +285,22 @@ export class ApiService {
         );
     }
 
-    getChartByExercise(id: any) {
+    // getChartByExercise(id: any) {
+    //     return this.http.get(
+    //         `${this.API_URL}charts/${id}`,
+    //         {
+    //             headers: new HttpHeaders({
+    //                 'Content-Type': 'application/json',
+    //                 'X-API-KEY': this.API_KEY,
+    //                 'Authorization': `Bearer ${this.auth.currentAccessToken}`
+    //             })
+    //         }
+    //     );
+    // }
+
+    getChartByUser() {
         return this.http.get(
-            `${this.API_URL}charts/${id}`,
+            `${this.API_URL}charts/${this.auth.currentUserId}`,
             {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json',
