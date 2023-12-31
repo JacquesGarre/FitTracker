@@ -1,6 +1,6 @@
 <div>
     <ion-card [routerLink]="route ? route : '/exercises/'+exercise.id " class="exercise-card"
-        [style]="sets ? 'margin-inline:0px!important;' : ''">
+        [style]="fromProgram ? 'margin-inline:0px!important;' : ''">
         <ion-card-header>
             <ion-card-title>
                 {{exercise.title}} {{sets ? 'X' : ''}}{{sets}}

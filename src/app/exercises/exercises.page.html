@@ -1,5 +1,10 @@
 <top-navigation-bar :pageTitle="Exercises" backRoute="/start-workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
-    <exercise-card *ngFor="let exercise of exercises" [exercise]="exercise"></exercise-card>
+    <div class="loader" *ngIf="loading">
+        <ion-spinner name="bubbles" color="success"></ion-spinner>
+    </div>
+    <div *ngIf="!loading">
+        <exercise-card *ngFor="let exercise of exercises" [exercise]="exercise"></exercise-card>
+    </div>
 </ion-content>
 <app-menu></app-menu>

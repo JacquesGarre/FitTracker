@@ -20,6 +20,7 @@ import { ExerciseCardComponent } from '../exercise-card/exercise-card.component'
 export class ExercisesPage implements OnInit {
 
     exercises!: Exercise[];
+    loading: boolean = true;
 
     constructor(
         private api: ApiService
@@ -27,6 +28,7 @@ export class ExercisesPage implements OnInit {
         this.api.getExercises(1).subscribe(
             (data: Exercise[]) => {
                 this.exercises = data;
+                this.loading = false;
             }
         );
     }
