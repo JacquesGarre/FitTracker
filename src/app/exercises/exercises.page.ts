@@ -52,6 +52,22 @@ export class ExercisesPage implements OnInit {
         );
     }
 
+    onInput(event: any) {
+        if(event.detail.value == ''){
+            this.textSearch = '';
+            this.typeSearch = [];
+            this.muscleGroupSearch = [];
+            this.difficultySearch = [];
+        }
+    }
+
+    ionViewWillEnter() {
+        this.textSearch = '';
+        this.typeSearch = [];
+        this.muscleGroupSearch = [];
+        this.difficultySearch = [];
+    }
+
     ngOnInit() {
         
     }
