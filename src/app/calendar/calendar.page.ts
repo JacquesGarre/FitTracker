@@ -76,9 +76,7 @@ export class CalendarPage implements OnInit {
             eventClick: function(event: any){
                 that.selectedEvent = event;
                 that.workout = event.event.extendedProps.workout
-
                 that.initSets();
-                console.log(that.workout)
                 that.modalTitle = event.event._def.title + ' of '
                 that.modalDate = event.event._instance.range.start
                 that.isModalOpen = true
@@ -146,8 +144,9 @@ export class CalendarPage implements OnInit {
         workout.workoutExercisesDone = workoutExercisesDone;
     }
 
-    ngAfterViewInit() {
+    ionViewWillEnter() {
         const calendarApi = this.fullcalendar.getApi();
+        calendarApi.removeAllEvents();
         this.api.getWorkouts(1).subscribe(
             (workouts: Workout[]) => {
                 for (const workout of workouts) {
@@ -158,8 +157,6 @@ export class CalendarPage implements OnInit {
                         end: workout.startedAt ? workout.endedAt : workout.plannedAt,
                         workout: workout
                     };
-
-
                     calendarApi.addEvent(event);
                 }
             }
