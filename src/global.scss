@@ -246,3 +246,14 @@ ion-input {
     padding-inline: 20px;
     padding-bottom: 10px;
 }
+
+.search-bar ion-select {
+    font-size: 12px;
+    min-height: 30px;
+}
+
+.search-bar .filters {
+    padding-top: 5px;
+    padding-left: 3px;
+    padding-right: 3px;
+}

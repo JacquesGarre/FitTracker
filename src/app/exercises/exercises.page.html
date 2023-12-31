@@ -3,27 +3,35 @@
     <ion-input fill="outline" type="text" placeholder="Search for an exercise..." [(ngModel)]="textSearch" [clearInput]="true">
         <ion-icon slot="end" name="search-outline" aria-hidden="true"></ion-icon>
     </ion-input>
-    <ion-select label="Type" [multiple]="true" interface="popover" [(ngModel)]="typeSearch">
-        <ion-select-option *ngFor="let type of types" [value]="type">
-            {{type}}
-        </ion-select-option>
-    </ion-select>
-    <ion-select label="Muscle groups" [multiple]="true" interface="popover" [(ngModel)]="muscleGroupSearch">
-        <ion-select-option *ngFor="let muscleGroup of muscleGroups" [value]="muscleGroup">
-            {{muscleGroup}}
-        </ion-select-option>
-    </ion-select>
-    <ion-select label="Difficulty" [multiple]="true" interface="popover" [(ngModel)]="difficultySearch">
-        <ion-select-option value="1">
-            Beginner
-        </ion-select-option>
-        <ion-select-option value="2">
-            Intermediate
-        </ion-select-option>
-        <ion-select-option value="3">
-            Advanced
-        </ion-select-option>
-    </ion-select>
+    <div class="filters">
+        <div>
+            <ion-select label="Type" [multiple]="true" interface="popover" [(ngModel)]="typeSearch">
+                <ion-select-option *ngFor="let type of types" [value]="type">
+                    {{type}}
+                </ion-select-option>
+            </ion-select>
+        </div>
+        <div>
+            <ion-select label="Muscle groups" [multiple]="true" interface="popover" [(ngModel)]="muscleGroupSearch">
+                <ion-select-option *ngFor="let muscleGroup of muscleGroups" [value]="muscleGroup">
+                    {{muscleGroup}}
+                </ion-select-option>
+            </ion-select>
+        </div>
+        <div>
+            <ion-select label="Difficulty" [multiple]="true" interface="popover" [(ngModel)]="difficultySearch">
+                <ion-select-option value="1">
+                    Beginner
+                </ion-select-option>
+                <ion-select-option value="2">
+                    Intermediate
+                </ion-select-option>
+                <ion-select-option value="3">
+                    Advanced
+                </ion-select-option>
+            </ion-select>
+        </div>
+    </div>
 </ion-toolbar>
 <ion-content [fullscreen]="true">
     <div class="loader" *ngIf="loading">
