@@ -14,7 +14,9 @@ import { Exercise } from '../exercise';
     templateUrl: './progress.page.html',
     styleUrls: ['./progress.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent, HighchartsChartModule]
+    imports: [IonicModule, CommonModule, FormsModule, 
+        NavigationBarComponent, MenuComponent, HighchartsChartModule
+    ]
 })
 export class ProgressPage implements OnInit {
 

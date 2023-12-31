@@ -37,6 +37,7 @@ export class AuthService {
             this.currentUserId = '';
             this.currentUserEmail = '';
             this.isAuthenticated = false;
+            this.logout()
             return;
         }
 
@@ -49,7 +50,6 @@ export class AuthService {
         const token = await Preferences.get({
             key: this.ACCESS_TOKEN_KEY,
         });
-        console.log(token)
         if (token && token.value) {
             this.setToken(token.value)
         }

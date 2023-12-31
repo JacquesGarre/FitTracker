@@ -13,8 +13,8 @@ export class ToastService {
 
     async accountCreated() {
         const toast = await this.toastController.create({
-            message: 'Your account has been created',
-            duration: 1500,
+            message: 'Your account has been created!',
+            duration: 3000,
             position: 'bottom',
             color: 'success'
         });
@@ -43,14 +43,14 @@ export class ToastService {
     }
 
     async exerciseFinished(workoutExercise: WorkoutExercise) {
-        const toast = await this.toastController.create({
-            message: 'You just finished the '+workoutExercise.exercise.title+'! Keep it up! 💪',
-            duration: 3000,
-            position: 'bottom',
-            color: 'success',
-            cssClass: 'exercise-finished-toast'
-        });
-        await toast.present();
+        // const toast = await this.toastController.create({
+        //     message: 'You just finished the '+workoutExercise.exercise.title+'! Keep it up! 💪',
+        //     duration: 3000,
+        //     position: 'bottom',
+        //     color: 'success',
+        //     cssClass: 'exercise-finished-toast'
+        // });
+        // await toast.present();
     }
 
 }

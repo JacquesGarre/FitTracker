@@ -1,9 +1,35 @@
 <top-navigation-bar [pageTitle]="exercise ? exercise.title : 'Exercise'" backRoute="/exercises"></top-navigation-bar>
 <ion-content [fullscreen]="true">
-    <div *ngIf="exercise" class="exercise-detail-background"
-        style="background: url('/assets/img/exercises/{{exercise.miniature}}')">
+    <div *ngIf="exercise" class="exercise-detail-background">
         <div class="overlay">
-            <ion-card>
+            <ion-card class="exercise-description">
+                <ion-card-header>
+                    <ion-card-title class="exercise-title">{{exercise.title}}</ion-card-title>
+                    <ion-card-subtitle>
+                        <div class="subtitle">
+                            <span>Type:</span>
+                            <div>
+                                <ion-badge *ngFor="let type of exercise.type" color="success">{{type.title}}</ion-badge>
+                            </div>
+                        </div>
+                        <div class="subtitle">
+                            <span>Targets:</span>
+                            <div>
+                                <ion-badge *ngFor="let group of exercise.muscleGroups">{{group.title}}</ion-badge>
+                            </div>
+                        </div>
+                        <div class="subtitle">
+                            <span>Difficulty:</span>
+                            <div>
+                                <div class="difficulty-bar">
+                                    <span [style]="'border: 1px solid #2dd36f;'"></span>
+                                    <span [style]="exercise.difficulty >= 2 ? 'border: 1px solid #2dd36f;' : 'border: 1px solid #282d2d;'"></span>
+                                    <span [style]="exercise.difficulty >= 3 ? 'border: 1px solid #2dd36f;' : 'border: 1px solid #282d2d;'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-card-subtitle>
+                </ion-card-header>
                 <ion-card-content>
                     <div class="description">{{exercise.description}}</div>
                 </ion-card-content>

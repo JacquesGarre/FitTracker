@@ -2,15 +2,14 @@
 <ion-content [fullscreen]="true">
     <h1>Create your program</h1>
     <form [formGroup]="formData">
-        <ion-input label="Program title" label-placement="stacked" formControlName="title" type="text" class="program-title"
-            placeholder="Full body, Legs, Arms..."></ion-input>
-        <div *ngIf="formData.get('title')?.invalid && (formData.get('title')?.dirty || formData.get('title')?.touched)">
+        <ion-input label="Program name" label-placement="stacked" fill="outline" formControlName="title" type="text" class="program-title"
+            placeholder="Enter your program name"></ion-input>
+        <div *ngIf="formData.get('title')?.invalid && (formData.get('title')?.dirty || formData.get('title')?.touched)" class="input-error">
             <span *ngIf="formData.get('title')?.hasError('required')">
                 Title is required
             </span>
         </div>
         <ion-item *ngFor="let j of selectedKeys; let i = index;">
-
             <ion-grid> 
                 <ion-row>
                     <ion-col class="label-col" [style]="selectedKeys.length > 1 && i < (selectedKeys.length - 1) ? '' : 'align-items: center'">
@@ -35,12 +34,12 @@
                 </ion-row>
             </ion-grid>
         </ion-item>
-        <ion-button (click)="addProgram()" expand="block" shape="round" class="save-btn" color="success">Save</ion-button>
-        <div *ngIf="error">
+        <div class="input-error" *ngIf="error">
             <span>
                 {{ error }}
             </span>
         </div>
+        <ion-button (click)="addProgram()" expand="block" shape="round" class="save-btn" color="success">Save</ion-button>
     </form>
 </ion-content>
 <app-menu></app-menu>

@@ -10,7 +10,6 @@ import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular
 import interactionPlugin from '@fullcalendar/interaction';
 import { ApiService } from '../api.service';
 import { Workout } from '../workout';
-import { ModalController } from '@ionic/angular';
 import { Program } from '../program';
 import { AuthService } from '../auth.service';
 import { WorkoutExercise } from '../workout-exercise';
@@ -21,7 +20,9 @@ import { Set } from '../set';
     templateUrl: './calendar.page.html',
     styleUrls: ['./calendar.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent, FullCalendarModule]
+    imports: [IonicModule, CommonModule, FormsModule, 
+        NavigationBarComponent, MenuComponent, FullCalendarModule
+    ]
 })
 export class CalendarPage implements OnInit {
 

@@ -2,7 +2,7 @@
 <ion-content [fullscreen]="true">
     <div class="container">
         <form [formGroup]="formData">
-            <ion-input formControlName="title" type="text" class="program-title"
+            <ion-input formControlName="title" type="text" fill="outline" class="program-title"
                 placeholder="Full body, Legs, Arms..."></ion-input>
             <div
                 *ngIf="formData.get('title')?.invalid && (formData.get('title')?.dirty || formData.get('title')?.touched)">

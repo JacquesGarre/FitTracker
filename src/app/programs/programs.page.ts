@@ -9,13 +9,15 @@ import { RouterLink, Router, NavigationExtras } from '@angular/router';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import { MenuComponent } from '../menu/menu.component';
 import { ExerciseListItemComponent } from '../exercise-list-item/exercise-list-item.component';
+import { ExerciseCardComponent } from '../exercise-card/exercise-card.component';
 
 @Component({
     selector: 'app-programs',
     templateUrl: './programs.page.html',
     styleUrls: ['./programs.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, NavigationBarComponent, MenuComponent, RouterLink, ExerciseListItemComponent]
+    imports: [IonicModule, CommonModule, FormsModule,
+        NavigationBarComponent, MenuComponent, RouterLink, ExerciseListItemComponent, ExerciseCardComponent]
 })
 export class ProgramsPage implements OnInit {
 

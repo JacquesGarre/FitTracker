@@ -1,7 +1,10 @@
 ion-card {
-    margin-inline: 20px;
+    margin-left: 20px !important;
+    margin-bottom: 20px;
+    margin-right: 20px !important;
     margin-bottom: 20px;
     background: rgba(40, 45, 45, 0.5);
+    background-size: cover;
     -webkit-box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
     box-shadow: 0px 18px 5px -10px rgba(0,0,0,0.75);
@@ -11,7 +14,6 @@ ion-card {
 
 .description {
     color: #fefefec7;
-    margin-top: 10px;
 }
 
 .progress-card {
@@ -20,4 +22,32 @@ ion-card {
 
 .highcharts-chart-tab {
     margin-top: 15px;
+}
+
+ion-badge.ion-color-success {
+    background-color: #2dd36f !important;
+}
+
+.subtitle {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.exercise-title {
+    margin-bottom: 10px;
+}
+
+ion-badge {
+    margin-right: 0px !important;
+    margin-left: 10px !important;
+}
+
+.exercise-description ion-card-header {
+    padding-bottom: 5px!important;
+}
+
+.exercise-description ion-card-title {
+    text-align: center;
+    margin-bottom: 15px;
 }

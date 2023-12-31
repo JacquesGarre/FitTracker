@@ -1,8 +1,23 @@
-<ion-card [routerLink]="route ? route : '/exercises/'+exercise.id " class="exercise-card" style="--background: url('/assets/img/exercises/{{exercise.miniature}}')">
-    <ion-card-header>
-        <ion-card-title>{{exercise.title}}</ion-card-title>
-        <!-- <ion-card-subtitle>
-            <ion-badge *ngFor="let unit of exercise.units" class="unit">{{unit.title}}</ion-badge>
-        </ion-card-subtitle> -->
-    </ion-card-header>
-</ion-card>
+<div>
+    <ion-card [routerLink]="route ? route : '/exercises/'+exercise.id " class="exercise-card"
+        [style]="sets ? 'margin-inline:0px!important;' : ''">
+        <ion-card-header>
+            <ion-card-title>
+                {{exercise.title}} {{sets ? 'X' : ''}}{{sets}}
+                <ion-badge *ngFor="let type of exercise.type" color="success">{{type.title}}</ion-badge>
+            </ion-card-title>
+            <div class="footer">
+                <div>
+                    <ion-badge class="muscle-group" *ngFor="let group of exercise.muscleGroups">{{group.title}}</ion-badge>
+                </div>
+                <div>
+                    <div class="difficulty-bar">
+                        <span [style]="'border: 1px solid #2dd36f;'"></span>
+                        <span [style]="exercise.difficulty >= 2 ? 'border: 1px solid #2dd36f;' : 'border: 1px solid #282d2d;'"></span>
+                        <span [style]="exercise.difficulty >= 3 ? 'border: 1px solid #2dd36f;' : 'border: 1px solid #282d2d;'"></span>
+                    </div>
+                </div>
+            </div>            
+        </ion-card-header>
+    </ion-card>
+</div>

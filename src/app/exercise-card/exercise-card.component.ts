@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterLink, ActivatedRoute, Router, RouterLinkActive, NavigationEnd } from '@angular/router';
 
+
 @Component({
     selector: 'exercise-card',
     templateUrl: './exercise-card.component.html',
@@ -16,6 +17,7 @@ export class ExerciseCardComponent implements OnInit {
 
     @Input() exercise!: Exercise;
     @Input() route!: string;
+    @Input() sets!: number;
 
     constructor() { }
 

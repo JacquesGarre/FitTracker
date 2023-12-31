@@ -28,15 +28,16 @@
         </div>
     </div>
     <div *ngIf="!programs || programs.length == 0">
+        <ion-img src="/assets/icon/ion-foregound.png"></ion-img>
         <h1>Welcome to FitTracker!</h1>
-        <p>You don't have any program yet. Start by creating your own personalized program!</p>
-        <ion-button expand="block" routerLink="/create-program" shape="round" class="create-program-btn">Create my program</ion-button>
+        <p class="info-text">You don't have any program yet. <br>Start by creating your own personalized program!</p>
+        <ion-button expand="block" routerLink="/create-program" shape="round" class="create-program-btn" color="success">Create my program</ion-button>
     </div>
 
 </ion-content>
 
 <ion-toolbar *ngIf="programs && programs.length > 0" class="secondary-toolbar">
-    <ion-button expand="block" routerLink="/create-program" shape="round">Create a new program</ion-button>
+    <ion-button expand="block" routerLink="/create-program" shape="round" color="success">Create a new program</ion-button>
 </ion-toolbar>
 
 <app-menu></app-menu>

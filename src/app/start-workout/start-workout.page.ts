@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, LoadingController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import { MenuComponent } from '../menu/menu.component';
 import { ApiService } from '../api.service';
@@ -34,7 +34,6 @@ export class StartWorkoutPage implements OnInit {
     constructor(
         private api: ApiService,
         private auth: AuthService,
-        private loadingCtrl: LoadingController,
         private router: Router
     ) {
         

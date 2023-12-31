@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonHeader, IonToolbar, IonTitle, IonSpinner, IonContent, IonButtons, IonButton, IonIcon, IonNavLink, IonTabs, IonTabBar, IonTabButton, IonFooter } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonSpinner, IonButtons, IonButton, IonIcon, IonNavLink, IonTabs, IonTabBar, IonTabButton, IonFooter } from '@ionic/angular/standalone';
 import { RouterLink, ActivatedRoute, Router, RouterLinkActive, NavigationEnd, ResolveEnd } from '@angular/router';
 import { Workout } from '../workout';
 import { AuthService } from '../auth.service';
 import { ApiService } from '../api.service';
-import { IonicModule, LoadingController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { filter } from 'rxjs';
 
 @Component({
@@ -36,7 +36,6 @@ export class MenuComponent implements OnInit {
     loading: boolean = true;
 
     constructor(
-        private loadingCtrl: LoadingController,
         private auth: AuthService,
         private api: ApiService,
         private router: Router,
@@ -60,11 +59,6 @@ export class MenuComponent implements OnInit {
     }
 
     async finishWorkout(workout: Workout) {
-        const loading = await this.loadingCtrl.create({
-            message: 'Ending your workout...',
-        });
-        loading.present();
-
         var now = new Date();
         let body = {
             "endedAt": now.toJSON(),
@@ -72,7 +66,6 @@ export class MenuComponent implements OnInit {
         }
         this.api.updateWorkout(this.workout.id, body).subscribe(
             (data: any) => {
-                loading.dismiss();
                 this.router.navigate(['start-workout']);
             }
         );

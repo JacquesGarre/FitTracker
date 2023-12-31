@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, LoadingController } from '@ionic/angular';
+import { IonicModule  } from '@ionic/angular';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
@@ -12,7 +12,6 @@ import { Program } from '../program';
 import { Set } from '../set';
 import { WorkoutExercise } from '../workout-exercise';
 import { Unit } from '../unit';
-import { IonInput } from '@ionic/angular';
 import { ToastService } from '../toast.service';
 import { Exercise } from '../exercise';
 import { HighchartsChartModule } from 'highcharts-angular';
