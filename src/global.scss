@@ -237,3 +237,12 @@ ion-input {
 .action-sheet-group {
     overflow: auto !important;
 }
+
+.search-bar {
+    background: #151919;
+    -webkit-box-shadow: 0px 18px 13px 10px rgb(0 0 0 / 28%);
+    -moz-box-shadow: 0px 18px 13px 10px rgb(0 0 0 / 28%);
+    box-shadow: 0px 18px 13px 10px rgb(0 0 0 / 28%);
+    padding-inline: 20px;
+    padding-bottom: 10px;
+}
