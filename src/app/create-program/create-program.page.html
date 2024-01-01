@@ -10,56 +10,65 @@
                 Title is required
             </span>
         </div>
-        <ion-button (click)="openModal()">
-            Add an exercise
+        <div class="program-exercise-container" *ngFor="let exercise of programExercises">
+            <exercise-card [exercise]="exercise" [fromProgram]="true" [programExercise]="true" class="program-exercise" style="width: 90%;"></exercise-card>
+            <ion-icon color="danger" name="close" (click)="deleteExercise(exercise)"></ion-icon>
+        </div>
+        <ion-button (click)="openModal()" color="success" shape="round" expand="block" style="margin-top:30px;">
+            Add exercise
         </ion-button>
-        <ion-item *ngFor="let j of selectedKeys; let i = index;">
-            <ion-grid>
-                <ion-row>
-                    <ion-col class="label-col"
-                        [style]="selectedKeys.length > 1 && i < (selectedKeys.length - 1) ? '' : 'align-items: center'">
-                        <ion-select justify="center" [interfaceOptions]="actionSheetOptions" interface="action-sheet"
-                            placeholder="Add an exercise"
-                            [style]="selectedKeys.length > 1 && i < (selectedKeys.length - 1) ? 'width:auto' : ''"
-                            (ionChange)="exerciseSelected($event, j)" value="{{ selectedExercises[i] }}">
-                            <ion-select-option value="{{exercise.id}}"
-                                *ngFor="let exercise of exercises">{{exercise.title}}
-                            </ion-select-option>
-                        </ion-select>
-                    </ion-col>
-                    <ion-col class="action-col" *ngIf="selectedKeys.length > 1 && i < (selectedKeys.length - 1)">
-                        <ion-input label="X" type="number" (ionChange)="setEntered($event, j)"
-                            value="{{ selectedSets[i] ? selectedSets[i] : 1 }}"></ion-input>
-                        <ion-icon color="danger" name="close" (click)="deleteExercise(j)"></ion-icon>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-item>
         <div class="input-error" *ngIf="error">
             <span>
                 {{ error }}
             </span>
         </div>
-        <ion-button (click)="addProgram()" expand="block" shape="round" class="save-btn"
-            color="success">Save</ion-button>
+        <ion-button (click)="addProgram()" expand="block" shape="round" class="save-btn" style="margin-bottom: 20px;"
+        color="success">Save program</ion-button>
     </form>
 
     <ion-modal #modal [isOpen]="isModalOpen">
         <ng-template>
             <ion-header>
                 <ion-toolbar>
-                    <ion-title>Add an exercise</ion-title>
+                    <ion-title>Select an exercise</ion-title>
                     <ion-buttons slot="end">
                         <ion-icon size="large" name="close" (click)="closeModal()"></ion-icon>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
-            <ion-content class="ion-padding">
-                Content
+            <ion-content>
+                <exercises-list [addExerciseToProgram]="true"
+                    (exerciseSelected)="onExerciseSelected($event)"></exercises-list>
             </ion-content>
         </ng-template>
     </ion-modal>
 
-
+    <ion-modal #setsModal [isOpen]="isSetsModalOpen">
+        <ng-template>
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>Define the number of sets</ion-title>
+                    <ion-buttons slot="end">
+                        <ion-icon size="large" name="close" (click)="closeSetsModal()"></ion-icon>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+                <div class="ion-padding">
+                    <h2>Exercise selected : </h2>
+                    <exercise-card [exercise]="selectedExercise" [fromProgram]="true"></exercise-card>
+                    <h2 style="margin-top:100px;">How many sets? </h2>
+                    <div class="sets-input-container">
+                        <ion-icon name="remove-outline" (click)="decrementSets()"></ion-icon>
+                        <h2>{{setsCount}} Set{{ setsCount > 1 ? 's' : ''}}</h2>
+                        <ion-icon name="add-outline" (click)="incrementSets()"></ion-icon>
+                    </div>
+                    <ion-button (click)="addExerciseToProgram()" expand="block" shape="round" class="save-btn"  style="padding-inline: 20px;"
+                        color="success">Add to your program</ion-button>
+                </div>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+    
 </ion-content>
 <app-menu></app-menu>

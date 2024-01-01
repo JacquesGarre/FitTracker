@@ -19,6 +19,7 @@ export class ExerciseCardComponent implements OnInit {
     @Input() route!: string;
     @Input() sets!: number;
     @Input() fromProgram: boolean = false;
+    @Input() programExercise: boolean = false;
 
     constructor() { }
 

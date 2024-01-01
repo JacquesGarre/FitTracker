@@ -10,5 +10,6 @@ export interface Exercise {
     description: string,
     difficulty: number,
     muscleGroups: MuscleGroup[],
-    type: ExerciseType[]
+    type: ExerciseType[],
+    setsCount: number
 }

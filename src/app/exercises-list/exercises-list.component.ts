@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Exercise } from '../exercise';
 import { ApiService } from '../api.service';
 import { IonicModule } from '@ionic/angular';
@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { MenuComponent } from '../menu/menu.component';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import { ExerciseCardComponent } from '../exercise-card/exercise-card.component';
+import { ex } from '@fullcalendar/core/internal-common';
 
 @Component({
     selector: 'exercises-list',
@@ -18,6 +19,9 @@ import { ExerciseCardComponent } from '../exercise-card/exercise-card.component'
 })
 export class ExercisesListComponent implements OnInit {
 
+    @Input() addExerciseToProgram: boolean = false;
+    @Output() exerciseSelected: EventEmitter<any> = new EventEmitter<any>();
+
     exercises!: Exercise[];
     loading: boolean = true;
     textSearch: string = '';
@@ -26,6 +30,7 @@ export class ExercisesListComponent implements OnInit {
     difficultySearch: number[] = [];
     types: string[] = [];
     muscleGroups: string[] = [];
+    selectedExercise: any;
 
     constructor(
         private api: ApiService
@@ -139,5 +144,13 @@ export class ExercisesListComponent implements OnInit {
 
         return matchTitle && matchMuscleGroup && matchType && matchDifficulty;
     }
+
+    selectExercise(exercise: Exercise) {
+        if(this.addExerciseToProgram){
+            console.log('Exercise SELECTED : ', exercise)
+            this.exerciseSelected.emit(exercise);
+        }
+    }
+
 
 }

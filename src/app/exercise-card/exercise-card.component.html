@@ -1,13 +1,13 @@
 <div>
-    <ion-card *ngIf="fromProgram" class="exercise-card" style="margin-inline:0px!important;">
+    <ion-card *ngIf="fromProgram" class="exercise-card" [style]="programExercise ? 'margin-inline: 0px;height: 95px;':''">
         <ion-card-header>
-            <ion-card-title>
-                {{exercise.title}} {{sets ? 'X' : ''}}{{sets}}
-                <ion-badge *ngFor="let type of exercise.type" color="success">{{type.title}}</ion-badge>
+            <ion-card-title [style]="programExercise ? 'font-size: 13px;':''">
+                {{exercise.title}} {{exercise.setsCount ? 'X' : ''}}{{exercise.setsCount}}
+                <ion-badge *ngFor="let type of exercise.type" color="success" [style]="programExercise ? 'font-size: 9px;':''">{{type.title}}</ion-badge>
             </ion-card-title>
             <div class="footer">
                 <div>
-                    <ion-badge class="muscle-group"
+                    <ion-badge class="muscle-group" [style]="programExercise ? 'font-size: 9px;':''"
                         *ngFor="let group of exercise.muscleGroups">{{group.title}}</ion-badge>
                 </div>
                 <div>
