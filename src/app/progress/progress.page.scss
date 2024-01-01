@@ -5,3 +5,40 @@
 ion-card {
     --background: #282D2D;
 }
+
+
+p {
+    text-align: center;
+    color: #fefefe;
+    font-family: "Montserrat";
+}
+
+.create-program-btn {
+    margin-top: 50px;
+    padding-inline: 20px;
+}
+
+.planned-workout-btn {
+    margin-bottom: 150px;
+}
+
+.info-text {
+    font-weight: 100;
+    text-align: center;
+    font-size: 15px;
+}
+
+highcharts-chart {
+    height:150px !important;
+}
+
+ion-card-title {
+    font-family: "Montserrat";
+    color: #FEFEFE;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+ion-card-header {
+    padding-bottom: 2px;
+}

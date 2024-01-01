@@ -19,11 +19,7 @@ ion-item {
 
 .program-title {
     color: #fefefe;
-    font-family: "Montserrat";
-    margin-bottom: 30px;
-    margin-top: 15px;
-    font-size: 20px;
-    text-align: center;
+    margin-bottom: 20px;
 }
 
 .input-label-placement-start.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md {
@@ -62,4 +58,112 @@ ion-select.has-value::part(icon) {
 
 ion-col {
     padding: 0;
+}
+
+.program-exercise .exercise-card {
+    margin-inline: 0!important;
+    margin-top: 20px!important;
+}
+
+.program-exercise-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.delete-exercise-btn {
+    margin-left: 10px;
+}
+
+ion-content {
+    --padding-start:20px;
+    --padding-end:20px;
+}
+
+ion-input {
+    color: #fefefe;
+}
+
+.program-title {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.input-label-placement-start.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md {
+    margin-inline-end: 3px !important;
+}
+
+.action-col {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.save-btn {
+    margin-top: 40px;
+}
+
+ion-select {
+    font-family: system-ui;
+}
+ion-input {
+    font-family: system-ui;
+}
+
+.label-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-col ion-select {
+    width: auto;
+}
+
+ion-select.has-value::part(icon) {
+    display: none!important;
+}
+
+ion-col {
+    padding: 0;
+}
+
+ion-item {
+    border-radius: 15px;
+    --background: #282D2D;
+    color: #fefefe;
+    font-family: "Montserrat";
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+ion-modal ion-content::part(scroll){
+    padding: 0 !important;
+}
+
+ion-modal ion-title {
+    padding-left: 20px;
+}
+
+.sets-input-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-inline: 50px;
+}
+
+.sets-input-container ion-icon {
+    font-size: 30px;
+    color:#fefefe;
+}
+
+.program-exercise .exercise-card {
+    margin-inline: 0!important;
+    margin-top: 20px!important;
+}
+
+.program-exercise-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

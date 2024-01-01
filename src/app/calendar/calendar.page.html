@@ -1,6 +1,9 @@
 <top-navigation-bar :pageTitle="My calendar" backRoute="/start-workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
-    <div class="ion-padding">
+    <div class="loader" *ngIf="loading">
+        <ion-spinner name="bubbles" color="success"></ion-spinner>
+    </div>
+    <div class="ion-padding" *ngIf="!loading">
 
 
         <full-calendar #fullcalendar *ngIf="calendarOptions" [options]="calendarOptions"></full-calendar>

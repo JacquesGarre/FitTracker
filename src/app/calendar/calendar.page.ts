@@ -38,6 +38,7 @@ export class CalendarPage implements OnInit {
     selectedProgram: string = '';
     eventDate: any;
     workout!: Workout;
+    loading: boolean = true;
 
     actionSheetOptions = {
         header: 'Programs',
@@ -51,6 +52,7 @@ export class CalendarPage implements OnInit {
         this.api.getPrograms(1).subscribe(
             (data: Program[]) => {
                 this.programs = data;
+                this.loading = false;
             }
         );
     }

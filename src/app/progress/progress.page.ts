@@ -26,6 +26,7 @@ export class ProgressPage implements OnInit {
     width!: number;
     height!: number;
     charts!: Map<any, any>;
+    loading: boolean = true;
 
     exercises!: Exercise[];
     
@@ -37,13 +38,17 @@ export class ProgressPage implements OnInit {
     }
 
     ngOnInit(): void {
+        let that = this;
+        setTimeout(function(){
+            that.loading = false;
+        }, 1000)
     }
 
 
     ionViewWillEnter(): void {
         this.exercises = []
         this.charts = new Map()
-        this.width = 100; this.height = 100;
+        this.width = 100; this.height = 70;
 
         this.api.getChartByUser().subscribe(
             (response: any) => {
@@ -77,7 +82,11 @@ export class ProgressPage implements OnInit {
                         this.charts.get(data.exercise.title).push(chart)
                     }
                 }
+
             }
-        )
+        );
+
+
+        
     }
 }

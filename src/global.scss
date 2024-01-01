@@ -26,7 +26,7 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 ion-segment-button {
-    --color-checked: #FEFEFE;
+    --color-checked: #2dd36f;
     font-weight: 100;
     font-size: 13px;
     text-transform: capitalize;
@@ -135,7 +135,7 @@ ion-title {
 
 .segment-button-checked {
     background: var(--background-checked);
-    color: #FEFEFE;
+    color: #2dd36f;
 }
 
 ion-button.button-block {

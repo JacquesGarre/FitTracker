@@ -1,8 +1,8 @@
 <div>
-    <ion-card *ngIf="fromProgram" class="exercise-card" [style]="programExercise ? 'margin-inline: 0px;height: 95px;':''">
+    <ion-card *ngIf="exercise && fromProgram" class="exercise-card" [style]="programExercise ? 'margin-inline: 0px;height: 95px;':''">
         <ion-card-header>
             <ion-card-title [style]="programExercise ? 'font-size: 13px;':''">
-                {{exercise.title}} {{exercise.setsCount ? 'X' : ''}}{{exercise.setsCount}}
+                {{exercise.title}} {{exercise.setsCount || sets ? 'X' : ''}}{{exercise.setsCount || sets}}
                 <ion-badge *ngFor="let type of exercise.type" color="success" [style]="programExercise ? 'font-size: 9px;':''">{{type.title}}</ion-badge>
             </ion-card-title>
             <div class="footer">
@@ -22,7 +22,7 @@
             </div>
         </ion-card-header>
     </ion-card>
-    <ion-card *ngIf="!fromProgram" [routerLink]="route ? route : '/exercises/'+exercise.id " class="exercise-card">
+    <ion-card *ngIf="exercise && !fromProgram" [routerLink]="route ? route : '/exercises/'+exercise.id " class="exercise-card">
         <ion-card-header>
             <ion-card-title>
                 {{exercise.title}} {{sets ? 'X' : ''}}{{sets}}

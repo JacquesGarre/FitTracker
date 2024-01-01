@@ -1,16 +1,24 @@
 <top-navigation-bar :pageTitle="My programs" backRoute="/start-workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
+    <div class="loader" *ngIf="loading">
+        <ion-spinner name="bubbles" color="success"></ion-spinner>
+    </div>
+    <div *ngIf="!loading && (!programs || programs.length == 0)">
+        <ion-img src="/assets/icon/ion-foregound.png"></ion-img>
+        <p class="info-text">You don't have any program yet. <br>Start by creating your own personalized program!</p>
+        <ion-button expand="block" routerLink="/create-program" shape="round" class="create-program-btn" color="success">Create my program</ion-button>
+    </div>
     <ion-card *ngFor="let program of programs" [routerLink]="'/programs/' + program.id">
         <ion-card-header>
             <ion-card-title class="ion-text-center">{{program.title}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
             <ion-list lines="full">
-                <exercise-card *ngFor="let programExercise of program.programExercises" [exercise]="programExercise.exercise" [sets]="programExercise.sets" [fromProgram]="true"></exercise-card>
+                <exercise-card *ngFor="let programExercise of program.programExercises" [exercise]="programExercise.exercise" [sets]="programExercise.sets" [fromProgram]="true" [programExercise]="true"></exercise-card>
             </ion-list>
         </ion-card-content>
     </ion-card>
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="programs && programs.length">
         <ion-fab-button routerLink="/create-program" color="success">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>

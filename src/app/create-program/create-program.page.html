@@ -14,7 +14,7 @@
             <exercise-card [exercise]="exercise" [fromProgram]="true" [programExercise]="true" class="program-exercise" style="width: 90%;"></exercise-card>
             <ion-icon color="danger" name="close" (click)="deleteExercise(exercise)"></ion-icon>
         </div>
-        <ion-button (click)="openModal()" color="success" shape="round" expand="block" style="margin-top:30px;">
+        <ion-button (click)="openModal()" shape="round" expand="block" style="margin-top:30px;">
             Add exercise
         </ion-button>
         <div class="input-error" *ngIf="error">

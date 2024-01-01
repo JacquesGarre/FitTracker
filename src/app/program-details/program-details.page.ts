@@ -10,19 +10,29 @@ import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
 import { ToastService } from '../toast.service';
 import { Program } from '../program';
+import { ExerciseCardComponent } from '../exercise-card/exercise-card.component';
+import { ExercisesListComponent } from '../exercises-list/exercises-list.component';
 
 @Component({
     selector: 'app-program-details',
     templateUrl: './program-details.page.html',
     styleUrls: ['./program-details.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, NavigationBarComponent, MenuComponent, RouterLink]
+    imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, NavigationBarComponent, MenuComponent, RouterLink, ExerciseCardComponent, ExercisesListComponent]
 })
 export class ProgramDetailsPage implements OnInit {
 
     program!: Program;
     error: string = '';
     formData: FormGroup;
+
+
+    isModalOpen = false;
+    isSetsModalOpen = false;
+    selectedExercise!: Exercise;
+    setsCount: number = 1;
+    programExercises: Exercise[] = [];
+
     selectedExercises: any = {
         0: "",
     };
@@ -57,19 +67,11 @@ export class ProgramDetailsPage implements OnInit {
                     {
                         title: [this.program.title, [Validators.required]],
                     }
-                );
-
-                let i = 0;
+                ); 
                 for(const programExercise of this.program.programExercises){
-                    this.selectedExercises[i] = programExercise.exercise.id;
-                    this.selectedExercises[i+1] = '';
-                    this.selectedSets[i] = programExercise.sets;
-                    this.selectedSets[i+1] = '';
-                    i++;
-                }
-                this.selectedKeys = Object.keys(this.selectedExercises);    
-   
-
+                    programExercise.exercise.setsCount = programExercise.sets
+                    this.programExercises.push(programExercise.exercise)
+                }              
             }
         )
         this.api.getExercises(1).subscribe(
@@ -97,29 +99,20 @@ export class ProgramDetailsPage implements OnInit {
     async updateProgram() {
         this.error = '';
         if (this.formData.valid) {
-            let exercises: any = [];
-            for (const key of this.selectedKeys) {
-                let exerciseID = this.selectedExercises[key];
-                let sets = this.selectedSets[key];
-                if (exerciseID) {
-                    exercises.push({
-                        'program': `api/programs/${this.program.id}`,
-                        'exercise': `api/exercises/${exerciseID}`,
-                        'sets': parseInt(sets)
-                    })
-                }
-            }
-            
             let body = {
                 "title": this.formData.get('title')?.value,
                 "programExercises":[]
             }
             this.api.updateProgram(this.program.id, body).subscribe(
                 (data: any) => {
-                    for (const exercise of exercises) {
-                        this.api.addProgramExercise(exercise).subscribe();
+                    for (const exercise of this.programExercises) {
+                        let body = {
+                            "program": `api/programs/${data.id}`,
+                            "exercise": `api/exercises/${exercise.id}`,
+                            "sets": exercise.setsCount
+                        }
+                        this.api.addProgramExercise(body).subscribe();
                     }
-
                     this.router.navigate(['programs']);
                 },
                 (error: any) => {
@@ -129,20 +122,48 @@ export class ProgramDetailsPage implements OnInit {
         }
     }
 
-    deleteExercise(i: any) {
-        delete this.selectedExercises[i];
-        this.selectedKeys = Object.keys(this.selectedExercises);    
+    deleteExercise(exercise: Exercise) {
+        const indexToRemove = this.programExercises.findIndex(programExercise => programExercise.id === exercise.id);
+        if (indexToRemove !== -1) {
+            this.programExercises.splice(indexToRemove, 1);
+        }
     }
 
-    exerciseSelected(event: any, i: any) {
-        this.selectedExercises[parseInt(i)] = event.detail.value;
-        this.selectedExercises[parseInt(i)+1] = '';
-        this.selectedKeys = Object.keys(this.selectedExercises);    
+
+    addExerciseToProgram() {
+        this.selectedExercise.setsCount = this.setsCount
+        this.programExercises.push(this.selectedExercise);
+        this.isModalOpen = false;
+        this.isSetsModalOpen = false;
+        this.setsCount = 1;
     }
 
-    setEntered(event: any, i: any) {
-        this.selectedSets[parseInt(i)] = event.detail.value;
+    onExerciseSelected(exercise: any): void {
+        this.selectedExercise = exercise;
+        this.isModalOpen = false;
+        this.isSetsModalOpen = true;
     }
 
+    incrementSets() {
+        this.setsCount++;
+    }
+
+    decrementSets() {
+        if (this.setsCount > 1) {
+            this.setsCount--;
+        }
+    }
+
+    openModal() {
+        this.isModalOpen = true;
+    }
+
+    closeModal() {
+        this.isModalOpen = false;
+    }
+
+    closeSetsModal() {
+        this.isSetsModalOpen = false;
+    }
 
 }
