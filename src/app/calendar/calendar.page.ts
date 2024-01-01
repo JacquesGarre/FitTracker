@@ -57,34 +57,9 @@ export class CalendarPage implements OnInit {
         );
     }
 
+
     ngOnInit() {
-        let that = this;
-        this.calendarOptions = {
-            plugins: [dayGridPlugin, interactionPlugin],
-            initialView: 'dayGridMonth',
-            weekends: true,
-            events: [],
-            height: 'auto',
-            firstDay: 1,
-            displayEventTime: false,
-            dateClick: function(event: any){
-                that.eventDate = new Date(event.dateStr).toISOString()
-                that.selectedEvent = event;
-                that.modalTitle = 'Plan your workout';
-                that.modalDate = ''
-                that.isModalOpen = true
-                that.modalType = 'newWorkout'
-            },
-            eventClick: function(event: any){
-                that.selectedEvent = event;
-                that.workout = event.event.extendedProps.workout
-                that.initSets();
-                that.modalTitle = event.event._def.title + ' of '
-                that.modalDate = event.event._instance.range.start
-                that.isModalOpen = true
-                that.modalType = 'workoutEvent'
-            }
-        }
+
     
     }
 
@@ -147,6 +122,35 @@ export class CalendarPage implements OnInit {
     }
 
     ionViewWillEnter() {
+
+        let that = this;
+        this.calendarOptions = {
+            plugins: [dayGridPlugin, interactionPlugin],
+            initialView: 'dayGridMonth',
+            weekends: true,
+            events: [],
+            height: 'auto',
+            firstDay: 1,
+            displayEventTime: false,
+            dateClick: function(event: any){
+                that.eventDate = new Date(event.dateStr).toISOString()
+                that.selectedEvent = event;
+                that.modalTitle = 'Plan your workout';
+                that.modalDate = ''
+                that.isModalOpen = true
+                that.modalType = 'newWorkout'
+            },
+            eventClick: function(event: any){
+                that.selectedEvent = event;
+                that.workout = event.event.extendedProps.workout
+                that.initSets();
+                that.modalTitle = event.event._def.title + ' of '
+                that.modalDate = event.event._instance.range.start
+                that.isModalOpen = true
+                that.modalType = 'workoutEvent'
+            }
+        }
+
         const calendarApi = this.fullcalendar.getApi();
         calendarApi.removeAllEvents();
         this.api.getWorkouts(1).subscribe(

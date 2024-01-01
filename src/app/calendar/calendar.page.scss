@@ -6,7 +6,9 @@
         width: 100% !important;
     }
 
-
+    .fc .fc-daygrid-day-number {
+        color: #fefefe !important;
+    }
 
     .fc .fc-bg-event {
         display: flex;
@@ -54,7 +56,21 @@
     }
 
     table, th, td {
-        border-color:var(--fc-button-border-color) !important
+        border-color:#2dd36f66 !important
+    }
+
+    .fc-theme-standard td, .fc-theme-standard th {
+        border:0!important;
+    }
+
+    .fc-scrollgrid {
+        border:0!important;
+    }
+
+    .fc .fc-daygrid-day-top {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 
     th {
@@ -63,7 +79,7 @@
     }
 
     th .fc-col-header-cell-cushion{
-        color: #fefefe;
+        color: #2dd36f;
     }
 
     .fc-event-title {
@@ -161,3 +177,4 @@ ion-card ion-item ion-label {
     font-weight: 400;
     font-family: system-ui;
 }
+
