@@ -31,6 +31,7 @@ export class CreateProgramPage implements OnInit {
     formData: FormGroup;
     exercisesCount: number = 1;
     exercises!: Exercise[];
+    isModalOpen = false;
 
     selectedExercises: any = {
         0: "",
@@ -120,5 +121,15 @@ export class CreateProgramPage implements OnInit {
         delete this.selectedSets[i];
         this.selectedKeys = Object.keys(this.selectedExercises);
     }
+
+    openModal(){
+        this.isModalOpen = true;
+    }
+
+    closeModal(){
+        this.isModalOpen = false;
+    }
+
+    
 
 }
