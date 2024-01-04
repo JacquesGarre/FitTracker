@@ -1,43 +1,45 @@
 <top-navigation-bar :pageTitle="FitTracker"></top-navigation-bar>
 <ion-content [fullscreen]="true">
-    <div *ngIf="programs && programs.length > 0 && plannedWorkouts && plannedWorkouts.length > 0">
-        <h1>Workout planned for today</h1>
-        <div *ngFor="let workout of plannedWorkouts">
-            <ion-button (click)="startWorkout(workout)" expand="block" shape="round" color="success" class="planned-workout-btn">Start {{workout.program.title}}</ion-button>
+    <div class="loader" *ngIf="(inProgressWorkoutsLoading || plannedWorkoutsLoading || startWorkoutLoading)">
+        <ion-spinner name="bubbles" color="success"></ion-spinner>
+    </div>
+    <div *ngIf="!(inProgressWorkoutsLoading || plannedWorkoutsLoading || startWorkoutLoading)">
+        <div *ngIf="programs && programs.length > 0 && plannedWorkouts && plannedWorkouts.length > 0">
+            <h1>Workout planned for today</h1>
+            <div *ngFor="let workout of plannedWorkouts">
+                <ion-button (click)="startWorkout(workout)" expand="block" shape="round" color="success" class="planned-workout-btn">Start {{workout.program.title}}</ion-button>
+                <div *ngIf="error">
+                    <span>
+                        {{ error }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="programs && programs.length > 0">
+            <h1>Start a workout</h1>
+            <ion-item>
+                <ion-select label="Program" [interfaceOptions]="actionSheetOptions" interface="action-sheet"
+                    placeholder="Choose a program" (ionChange)="programSelected($event)">
+                    <ion-select-option value="{{program.id}}"
+                        *ngFor="let program of programs">{{program.title}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-button (click)="startWorkout()" expand="block" shape="round" color="success">Start</ion-button>
             <div *ngIf="error">
                 <span>
                     {{ error }}
                 </span>
             </div>
         </div>
-    </div>
-    <div *ngIf="programs && programs.length > 0">
-        <h1>Start a workout</h1>
-        <ion-item>
-            <ion-select label="Program" [interfaceOptions]="actionSheetOptions" interface="action-sheet"
-                placeholder="Choose a program" (ionChange)="programSelected($event)">
-                <ion-select-option value="{{program.id}}"
-                    *ngFor="let program of programs">{{program.title}}</ion-select-option>
-            </ion-select>
-        </ion-item>
-        <ion-button (click)="startWorkout()" expand="block" shape="round" color="success">Start</ion-button>
-        <div *ngIf="error">
-            <span>
-                {{ error }}
-            </span>
+        <div *ngIf="!programs || programs.length == 0">
+            <ion-img src="/assets/icon/ion-foregound.png"></ion-img>
+            <h1>Welcome to FitTracker!</h1>
+            <p class="info-text">You don't have any program yet. <br>Start by creating your own personalized program!</p>
+            <ion-button expand="block" routerLink="/create-program" shape="round" class="create-program-btn" color="success">Create my program</ion-button>
         </div>
     </div>
-    <div *ngIf="!programs || programs.length == 0">
-        <ion-img src="/assets/icon/ion-foregound.png"></ion-img>
-        <h1>Welcome to FitTracker!</h1>
-        <p class="info-text">You don't have any program yet. <br>Start by creating your own personalized program!</p>
-        <ion-button expand="block" routerLink="/create-program" shape="round" class="create-program-btn" color="success">Create my program</ion-button>
-    </div>
-
 </ion-content>
-
-<ion-toolbar *ngIf="programs && programs.length > 0" class="secondary-toolbar">
+<ion-toolbar *ngIf="!(inProgressWorkoutsLoading || plannedWorkoutsLoading || startWorkoutLoading) && programs && programs.length > 0" class="secondary-toolbar">
     <ion-button expand="block" routerLink="/create-program" shape="round" color="success">Create a new program</ion-button>
 </ion-toolbar>
-
 <app-menu></app-menu>

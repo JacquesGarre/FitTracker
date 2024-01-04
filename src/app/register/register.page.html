@@ -1,43 +1,56 @@
 <ion-content [fullscreen]="true">
-    <ion-img src="/assets/icon/ion-foregound.png"></ion-img>
-    <h1>Create your account</h1>
-    <form [formGroup]="formData">
-        <ion-input label="Email" label-placement="stacked" fill="outline"  formControlName="email" type="email" placeholder="Enter your email"></ion-input>
-        <div *ngIf="formData.get('email')?.invalid && (formData.get('email')?.dirty || formData.get('email')?.touched)" class="input-error">
-            <span *ngIf="formData.get('email')?.hasError('required')">
-                Email is required
-            </span>
-            <span *ngIf="formData.get('email')?.hasError('email')">
-                Invalid email address
-            </span>
-        </div>
-        <ion-input label="Password" label-placement="stacked" fill="outline"  formControlName="plainPassword" type="password" placeholder="Enter your password"></ion-input>
-        <div *ngIf="formData.get('plainPassword')?.invalid && (formData.get('plainPassword')?.dirty || formData.get('plainPassword')?.touched)" class="input-error">
-            <span *ngIf="formData.get('plainPassword')?.hasError('required')">
-                Password is required
-            </span>
-            <span *ngIf="formData.get('plainPassword')?.hasError('minLength')">
-                Password should be at least 5 characters long
-            </span>
-            <span *ngIf="formData.get('plainPassword')?.hasError('pattern')">
-                Password is not strong enough
-            </span>
-        </div>
-        <ion-input label="Password confirmation" label-placement="stacked" fill="outline"  formControlName="confirmPassword" type="password" placeholder="Confirm your password"></ion-input>
-        <div *ngIf="formData.get('confirmPassword')?.invalid && (formData.get('confirmPassword')?.dirty || formData.get('confirmPassword')?.touched)" class="input-error">
-            <span *ngIf="formData.get('confirmPassword')?.hasError('required')">
-                Password confirmation is required
-            </span>
-            <span *ngIf="formData.get('confirmPassword')?.hasError('confirmedValidator')">
-                Password confirmation doesn't match your password
-            </span>
-        </div>
-        <div *ngIf="error" class="input-error">
-            <span>
-                {{ error }}
-            </span>
-        </div>
-        <ion-button (click)="register()" expand="block" shape="round" class="register-btn" color="success">Save</ion-button>
-        <ion-button expand="block" routerLink="/login" shape="round">Back to login</ion-button>
-    </form>
+    <div class="loader" *ngIf="loading">
+        <ion-spinner name="bubbles" color="success"></ion-spinner>
+    </div>
+    <div *ngIf="!loading">
+        <ion-img src="/assets/icon/ion-foregound.png"></ion-img>
+        <h1>Create your account</h1>
+        <form [formGroup]="formData">
+            <ion-input label="Email" label-placement="stacked" fill="outline" formControlName="email" type="email"
+                placeholder="Enter your email"></ion-input>
+            <div *ngIf="formData.get('email')?.invalid && (formData.get('email')?.dirty || formData.get('email')?.touched)"
+                class="input-error">
+                <span *ngIf="formData.get('email')?.hasError('required')">
+                    Email is required
+                </span>
+                <span *ngIf="formData.get('email')?.hasError('email') || formData.get('email')?.hasError('pattern')">
+                    Invalid email address
+                </span>
+            </div>
+            <ion-input label="Password" label-placement="stacked" fill="outline" formControlName="plainPassword"
+                type="password" placeholder="Enter your password"></ion-input>
+            <div *ngIf="formData.get('plainPassword')?.invalid && (formData.get('plainPassword')?.dirty || formData.get('plainPassword')?.touched)"
+                class="input-error">
+                <span *ngIf="formData.get('plainPassword')?.hasError('required')">
+                    Password is required
+                </span>
+                <span *ngIf="formData.get('plainPassword')?.hasError('minLength')">
+                    Password should be at least 5 characters long
+                </span>
+                <span *ngIf="formData.get('plainPassword')?.hasError('pattern')">
+                    Password is not strong enough
+                </span>
+            </div>
+            <ion-input label="Password confirmation" label-placement="stacked" fill="outline"
+                formControlName="confirmPassword" type="password" placeholder="Confirm your password"></ion-input>
+            <div *ngIf="formData.get('confirmPassword')?.invalid && (formData.get('confirmPassword')?.dirty || formData.get('confirmPassword')?.touched)"
+                class="input-error">
+                <span *ngIf="formData.get('confirmPassword')?.hasError('required')">
+                    Password confirmation is required
+                </span>
+                <span *ngIf="formData.get('confirmPassword')?.hasError('confirmedValidator')">
+                    Password confirmation doesn't match your password
+                </span>
+            </div>
+            <div *ngIf="error" class="input-error">
+                <span>
+                    {{ error }}
+                </span>
+            </div>
+            <ion-button (click)="register()" expand="block" shape="round" class="register-btn" color="success">Create my
+                account</ion-button>
+            <ion-button expand="block" routerLink="/login" shape="round">Back to login</ion-button>
+        </form>
+    </div>
+
 </ion-content>

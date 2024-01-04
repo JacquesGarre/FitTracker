@@ -18,6 +18,8 @@ export class RegisterPage implements OnInit {
 
     @ViewChild('emailInput', { static: false }) emailInput!: IonInput;
 
+    loading: boolean = false;
+
     formData: FormGroup;
     error: string = '';
 
@@ -29,7 +31,7 @@ export class RegisterPage implements OnInit {
 
         this.formData = this.fb.group(
             {
-                email: ['', [Validators.required, Validators.email]],
+                email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9. _%+-]+@[a-zA-Z0-9. -]+\\.[a-zA-Z]{2,}$')]],
                 plainPassword: ['', [Validators.compose([
                     Validators.minLength(5),
                     Validators.required,
@@ -66,25 +68,39 @@ export class RegisterPage implements OnInit {
 
     async register() { 
         this.error = '';
-        if (this.formData.valid) {
-            let body = {
-                "email": this.formData.get('email')?.value,
-                "plainPassword": this.formData.get('plainPassword')?.value
-            }
-            this.auth.register(body).subscribe(
-                (data: any) => {
-                    let navigationExtras: NavigationExtras = {
-                        state: {
-                            email: data.email
-                        }
-                    };
-                    this.router.navigate(['login'], navigationExtras);
-                },
-                (error: any) => {
-                    this.error = error.error.detail;
-                }
-            );
+        if (!this.formData.valid) {
+            this.error = 'Some required fields are missing';
+            return;
         }
+
+        this.loading = true;
+        let body = {
+            "email": this.formData.get('email')?.value,
+            "plainPassword": this.formData.get('plainPassword')?.value
+        }
+        this.auth.register(body).subscribe(
+            (data: any) => {
+                let body = {
+                    "email": this.formData.get('email')?.value,
+                    "password": this.formData.get('plainPassword')?.value
+                }
+                this.auth.login(body).subscribe(
+                    async (data: any) => {
+                        let token = data.token;
+                        await this.auth.saveToken(token);
+                        this.router.navigate(['/start-workout']);
+                    },
+                    (error: any) => {
+                        this.error = error.error.message;
+                        this.loading = false
+                    }
+                );
+            },
+            (error: any) => {
+                this.error = error.error.detail;
+                this.loading = false;
+            }
+        );
     }
 
     ionViewDidEnter() {

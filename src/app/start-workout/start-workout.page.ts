@@ -23,6 +23,9 @@ export class StartWorkoutPage implements OnInit {
     plannedWorkouts: Workout[] = [];
     workout!: Workout;
     error: string = '';
+    inProgressWorkoutsLoading: boolean = true;
+    plannedWorkoutsLoading: boolean = true;
+    startWorkoutLoading: boolean = false;
 
     actionSheetOptions = {
         header: 'Programs',
@@ -43,6 +46,9 @@ export class StartWorkoutPage implements OnInit {
     }
 
     ionViewWillEnter() {
+        this.inProgressWorkoutsLoading = true;
+        this.plannedWorkoutsLoading = true;
+        this.startWorkoutLoading = false;
         this.init();
     }
 
@@ -60,6 +66,7 @@ export class StartWorkoutPage implements OnInit {
                     this.api.getPrograms(1).subscribe(
                         (data: Program[]) => {
                             this.programs = data;
+                            this.inProgressWorkoutsLoading = false;
                         }
                     );
                 }
@@ -68,12 +75,12 @@ export class StartWorkoutPage implements OnInit {
 
         this.api.getWorkouts(1, 'planned', new Date()).subscribe(
             (data: Workout[]) => {
-                console.log('workout planned?', data);
                 if(data.length){
                     for(const workout of data){
                         this.plannedWorkouts.push(workout)
                     }
                 }
+                this.plannedWorkoutsLoading = false;
             }
         );
 
@@ -89,6 +96,7 @@ export class StartWorkoutPage implements OnInit {
         var now = new Date();
 
         if(workout !== null){
+            this.startWorkoutLoading = true;
             let body = {
                 plannedAt: null,
                 status: 'in-progress',
@@ -100,6 +108,7 @@ export class StartWorkoutPage implements OnInit {
                 },
                 (error: any) => {
                     this.error = error.error.detail;
+                    this.startWorkoutLoading = false;
                 }
             );
             return;
@@ -118,12 +127,14 @@ export class StartWorkoutPage implements OnInit {
             "startedAt": now.toJSON(),
             "status": "in-progress"
         }
+        this.startWorkoutLoading = true;
         this.api.addWorkout(body).subscribe(
             (data: any) => {
                 this.router.navigate(['workout', data.id]);
             },
             (error: any) => {
                 this.error = error.error.detail;
+                this.startWorkoutLoading = false;
             }
         );
     }
