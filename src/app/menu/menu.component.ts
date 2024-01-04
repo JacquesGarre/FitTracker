@@ -54,6 +54,9 @@ export class MenuComponent implements OnInit {
                     this.route = '/workout/'+workout.id
                 }
                 this.loading = false
+            },
+            (error: any) => {
+                this.auth.logout()              
             }
         );
     }

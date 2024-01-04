@@ -6,7 +6,7 @@
     <div class="ion-padding" *ngIf="!loading">
 
 
-        <full-calendar #fullcalendar *ngIf="calendarOptions" [options]="calendarOptions"></full-calendar>
+        <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
         <ion-modal #modal [isOpen]="isModalOpen">
             <ng-template>
                 <ion-header>

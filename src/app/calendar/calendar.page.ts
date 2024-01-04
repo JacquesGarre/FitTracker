@@ -20,7 +20,7 @@ import { Set } from '../set';
     templateUrl: './calendar.page.html',
     styleUrls: ['./calendar.page.scss'],
     standalone: true,
-    imports: [IonicModule, CommonModule, FormsModule, 
+    imports: [IonicModule, CommonModule, FormsModule,
         NavigationBarComponent, MenuComponent, FullCalendarModule
     ]
 })
@@ -28,7 +28,7 @@ export class CalendarPage implements OnInit {
 
     @ViewChild('fullcalendar') fullcalendar!: FullCalendarComponent;
     isModalOpen = false;
-    calendarOptions: CalendarOptions | undefined;
+
     selectedEvent: any;
     modalTitle: string = '';
     modalDate: any;
@@ -39,7 +39,7 @@ export class CalendarPage implements OnInit {
     eventDate: any;
     workout!: Workout;
     loading: boolean = true;
-
+    calendarOptions: CalendarOptions | undefined;
     actionSheetOptions = {
         header: 'Programs',
         subHeader: 'Select a program',
@@ -48,17 +48,13 @@ export class CalendarPage implements OnInit {
     constructor(
         private api: ApiService,
         private auth: AuthService
-    ) { 
+    ) {
         this.api.getPrograms(1).subscribe(
             (data: Program[]) => {
                 this.programs = data;
                 this.loading = false;
             }
         );
-    }
-
-
-    ngOnInit() {
 
         let that = this;
         this.calendarOptions = {
@@ -69,7 +65,7 @@ export class CalendarPage implements OnInit {
             height: 'auto',
             firstDay: 1,
             displayEventTime: false,
-            dateClick: function(event: any){
+            dateClick: function (event: any) {
                 that.eventDate = new Date(event.dateStr).toISOString()
                 that.selectedEvent = event;
                 that.modalTitle = 'Plan your workout';
@@ -77,7 +73,7 @@ export class CalendarPage implements OnInit {
                 that.isModalOpen = true
                 that.modalType = 'newWorkout'
             },
-            eventClick: function(event: any){
+            eventClick: function (event: any) {
                 that.selectedEvent = event;
                 that.workout = event.event.extendedProps.workout
                 that.initSets();
@@ -87,29 +83,12 @@ export class CalendarPage implements OnInit {
                 that.modalType = 'workoutEvent'
             }
         }
-
-        if(this.fullcalendar){
-            const calendarApi = this.fullcalendar.getApi();
-            calendarApi.removeAllEvents();
-            this.api.getWorkouts(1).subscribe(
-                (workouts: Workout[]) => {
-                    for (const workout of workouts) {
-                        const event = {
-                            className: workout.endedAt ? 'finished' : 'not-started',
-                            title: workout.program.title,
-                            start: workout.startedAt ? workout.startedAt : workout.plannedAt,
-                            end: workout.startedAt ? workout.endedAt : workout.plannedAt,
-                            workout: workout
-                        };
-                        calendarApi.addEvent(event);
-                    }
-                }
-            )
-        }
-    
     }
 
-    
+    ngOnInit() {
+    }
+
+
     initSets() {
         for (let i in this.workout.workoutExercises) {
             this.workout.workoutExercises[i].setsDone = 0;
@@ -143,12 +122,12 @@ export class CalendarPage implements OnInit {
         return sets;
     }
 
-    computeWorkoutExercise(workoutExercise: WorkoutExercise){
+    computeWorkoutExercise(workoutExercise: WorkoutExercise) {
         let setsDone = 0;
-        for(const set of workoutExercise.sets){
-            for(const unit of workoutExercise.exercise.units){
+        for (const set of workoutExercise.sets) {
+            for (const unit of workoutExercise.exercise.units) {
                 let key = unit.abbreviation;
-                if(set[key] && set[key].length){
+                if (set[key] && set[key].length) {
                     setsDone += 1;
                     break;
                 }
@@ -157,10 +136,10 @@ export class CalendarPage implements OnInit {
         workoutExercise.setsDone = setsDone;
     }
 
-    computeWorkout(workout: Workout){
+    computeWorkout(workout: Workout) {
         let workoutExercisesDone = 0;
-        for(const workoutExercise of workout.workoutExercises){
-            if(workoutExercise.setsDone && workoutExercise.setsDone === workoutExercise.sets.length){
+        for (const workoutExercise of workout.workoutExercises) {
+            if (workoutExercise.setsDone && workoutExercise.setsDone === workoutExercise.sets.length) {
                 workoutExercisesDone += 1;
             }
         }
@@ -168,36 +147,37 @@ export class CalendarPage implements OnInit {
     }
 
     ionViewWillEnter() {
-        if(this.fullcalendar){
-            const calendarApi = this.fullcalendar.getApi();
-            calendarApi.removeAllEvents();
-            this.api.getWorkouts(1).subscribe(
-                (workouts: Workout[]) => {
-                    for (const workout of workouts) {
-                        const event = {
-                            className: workout.endedAt ? 'finished' : 'not-started',
-                            title: workout.program.title,
-                            start: workout.startedAt ? workout.startedAt : workout.plannedAt,
-                            end: workout.startedAt ? workout.endedAt : workout.plannedAt,
-                            workout: workout
-                        };
-                        calendarApi.addEvent(event);
-                    }
+        let newEvents:any [] = [];        
+        this.api.getWorkouts(1).subscribe(
+            (workouts: Workout[]) => {
+                for (const workout of workouts) {
+                    const event = {
+                        className: workout.endedAt ? 'finished' : 'not-started',
+                        title: workout.program.title,
+                        start: workout.startedAt ? workout.startedAt : workout.plannedAt,
+                        end: workout.startedAt ? workout.endedAt : workout.plannedAt,
+                        workout: workout
+                    };
+                    newEvents.push(event);
                 }
-            )
-        }
+                this.calendarOptions = {
+                    ...this.calendarOptions,
+                    events: newEvents
+                };
+            }
+        )
     }
 
-    closeModal(){
+    closeModal() {
         this.isModalOpen = false;
     }
 
-    planWorkout(){
-        if(!this.selectedProgram.length){
+    planWorkout() {
+        if (!this.selectedProgram.length) {
             this.error = 'Program is required'
             return;
         }
-        if(!this.eventDate.length){
+        if (!this.eventDate.length) {
             this.error = 'Date is required'
             return;
         }
@@ -227,7 +207,7 @@ export class CalendarPage implements OnInit {
 
     }
 
-    programSelected(event:any) {
+    programSelected(event: any) {
         this.error = '';
         this.selectedProgram = event.detail.value;
     }
