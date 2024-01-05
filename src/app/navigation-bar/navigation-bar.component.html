@@ -1,15 +1,15 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
-        <ion-buttons slot="secondary">
-            <ion-button routerLink="/profile">
-                <ion-icon name="person-circle" size="large"></ion-icon>
-            </ion-button>
-        </ion-buttons>
         <ion-buttons slot="start" *ngIf="backRoute.length">
             <ion-button [routerLink]="backRoute">
                 <ion-icon name="chevron-back" size="large"></ion-icon>
             </ion-button>
         </ion-buttons>
         <ion-title [style]="backRoute.length ? '':'margin-left:25px'">{{pageTitle}}</ion-title>
+        <ion-buttons slot="secondary">
+            <ion-button routerLink="/profile">
+                <ion-icon name="person-circle" size="large"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>

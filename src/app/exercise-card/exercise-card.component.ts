@@ -20,9 +20,12 @@ export class ExerciseCardComponent implements OnInit {
     @Input() sets!: number;
     @Input() fromProgram: boolean = false;
     @Input() programExercise: boolean = false;
+    @Input() records!: any;
 
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        console.log(this.records)
+    }
 
 }

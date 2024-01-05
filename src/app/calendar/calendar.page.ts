@@ -14,6 +14,7 @@ import { Program } from '../program';
 import { AuthService } from '../auth.service';
 import { WorkoutExercise } from '../workout-exercise';
 import { Set } from '../set';
+import { ExerciseCardComponent } from '../exercise-card/exercise-card.component';
 
 @Component({
     selector: 'app-calendar',
@@ -21,7 +22,7 @@ import { Set } from '../set';
     styleUrls: ['./calendar.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule,
-        NavigationBarComponent, MenuComponent, FullCalendarModule
+        NavigationBarComponent, MenuComponent, FullCalendarModule, ExerciseCardComponent
     ]
 })
 export class CalendarPage implements OnInit {
@@ -147,6 +148,10 @@ export class CalendarPage implements OnInit {
     }
 
     ionViewWillEnter() {
+        this.setEvents()
+    }
+
+    setEvents() {
         let newEvents:any [] = [];        
         this.api.getWorkouts(1).subscribe(
             (workouts: Workout[]) => {
@@ -196,6 +201,7 @@ export class CalendarPage implements OnInit {
                     title: workout.program.title,
                     start: workout.startedAt ? workout.startedAt : workout.plannedAt,
                     end: workout.startedAt ? workout.endedAt : workout.plannedAt,
+                    workout: workout
                 };
                 calendarApi.addEvent(event);
                 this.closeModal()
@@ -210,6 +216,15 @@ export class CalendarPage implements OnInit {
     programSelected(event: any) {
         this.error = '';
         this.selectedProgram = event.detail.value;
+    }
+
+    deleteWorkout(workout: Workout) {
+        this.api.deleteWorkout(workout.id).subscribe(
+            (data: any) => {
+                this.setEvents()
+                this.closeModal()
+            }
+        );
     }
 
 }

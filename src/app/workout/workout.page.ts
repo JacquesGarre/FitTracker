@@ -37,14 +37,22 @@ export class WorkoutPage implements OnInit {
     ) { }
 
     ngOnInit() {
-        let workoutID = this.route.snapshot.params['id'];
-        this.api.getWorkout(workoutID).subscribe(
-            (data: Workout) => {
-                this.workout = data;
-                this.initSets()
-                this.program = this.workout.program
-            }
-        );
+        if(this.route.snapshot.params['id']){
+            let workoutID = this.route.snapshot.params['id'];
+            this.api.getWorkout(workoutID).subscribe(
+                (data: Workout) => {
+                    this.workout = data;
+                    this.initSets()
+                    this.program = this.workout.program
+                }
+            );
+        }
+
+        if(this.workout){
+            this.initSets()
+            this.program = this.workout.program
+        }
+
     }
 
 

@@ -32,6 +32,8 @@ ion-card-title {
 .footer {
     display: flex;
     justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 ion-card {
@@ -41,4 +43,15 @@ ion-card {
 
 .muscle-group {
     margin-right: 7px !important;
+}
+
+.records-list {
+    background: transparent;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.records-list ion-item {
+    --background: transparent;
+    color: white;
 }

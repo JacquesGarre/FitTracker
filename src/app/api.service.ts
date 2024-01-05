@@ -213,6 +213,19 @@ export class ApiService {
         );
     }
 
+    deleteWorkout(id: any) {
+        return this.http.delete(
+            `${this.API_URL}workouts/${id}`,
+            {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/merge-patch+json',
+                    'X-API-KEY': this.API_KEY,
+                    'Authorization': `Bearer ${this.auth.currentAccessToken}`
+                })
+            }
+        );
+    }
+
     updateWorkout(id: any, req: any) {
         return this.http.patch(
             `${this.API_URL}workouts/${id}`,

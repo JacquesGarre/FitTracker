@@ -1,5 +1,5 @@
 <div>
-    <ion-card *ngIf="exercise && fromProgram" class="exercise-card" [style]="programExercise ? 'margin-inline: 0px;height: 95px;':''">
+    <ion-card *ngIf="exercise && fromProgram" class="exercise-card" [style]="programExercise ? 'margin-inline: 0px;height: auto;':''">
         <ion-card-header>
             <ion-card-title [style]="programExercise ? 'font-size: 13px;':''">
                 {{exercise.title}} {{exercise.setsCount || sets ? 'X' : ''}}{{exercise.setsCount || sets}}
@@ -19,6 +19,20 @@
                             [style]="exercise.difficulty >= 3 ? 'border: 1px solid #2dd36f;' : 'border: 1px solid #282d2d;'"></span>
                     </div>
                 </div>
+            </div>
+            <div *ngIf="records">
+                <ion-list class="records-list">
+                    <ion-item *ngFor="let set of records">
+                        <ion-label>
+                            Set {{set.setId}}
+                        </ion-label>
+                        <ion-label style="text-align: right;">
+                            <span *ngFor="let unit of exercise.units">
+                                {{set[unit.abbreviation]}} {{ set[unit.abbreviation] ? unit.abbreviation : ''}}
+                            </span>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
             </div>
         </ion-card-header>
     </ion-card>

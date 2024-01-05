@@ -8,6 +8,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
 import { ApiService } from '../api.service';
 import { Exercise } from '../exercise';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-progress',
@@ -15,7 +16,7 @@ import { Exercise } from '../exercise';
     styleUrls: ['./progress.page.scss'],
     standalone: true,
     imports: [IonicModule, CommonModule, FormsModule, 
-        NavigationBarComponent, MenuComponent, HighchartsChartModule
+        NavigationBarComponent, MenuComponent, HighchartsChartModule, RouterLink
     ]
 })
 export class ProgressPage implements OnInit {
@@ -27,8 +28,9 @@ export class ProgressPage implements OnInit {
     height!: number;
     charts!: Map<any, any>;
     loading: boolean = true;
-
     exercises!: Exercise[];
+
+    noCharts: boolean = true;
     
     selectedSegment: any = {};
 
@@ -52,6 +54,12 @@ export class ProgressPage implements OnInit {
 
         this.api.getChartByUser().subscribe(
             (response: any) => {
+                if(!response.length){
+                    this.noCharts = true;
+                    return;
+                }
+                this.noCharts = false;
+
                 for(const index in response){
                     let data = response[index];
                     this.exercises.push(data.exercise)

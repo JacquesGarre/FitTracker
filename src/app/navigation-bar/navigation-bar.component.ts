@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonNavLink } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonNavLink, IonImg } from '@ionic/angular/standalone';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -18,7 +18,8 @@ import { CommonModule } from '@angular/common';
         IonIcon,
         RouterLink,
         IonNavLink,
-        CommonModule
+        CommonModule,
+        IonImg
     ],
 })
 export class NavigationBarComponent implements OnInit {

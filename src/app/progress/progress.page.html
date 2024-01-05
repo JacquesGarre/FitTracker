@@ -4,26 +4,33 @@
         <ion-spinner name="bubbles" color="success"></ion-spinner>
     </div>
     <div *ngIf="!loading">
-        <ion-card *ngFor="let item of charts | keyvalue">
-            <ion-card-header>
-                <ion-card-title class="ion-text-center">{{item.key}}</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-                <ion-segment [(ngModel)]="selectedSegment[item.key]" class="unitSegments">
-                    <ion-segment-button *ngFor="let exercise of item.value; let i = index" value="{{item.key + '_' + i}}" [ngClass]="{ 'segment-button-checked' : selectedSegment[item.key] === item.key + '_' + i  }">
-                        <ion-label>{{exercise.options.yAxis[0].unit.abbreviation}}</ion-label>
-                    </ion-segment-button>
-                </ion-segment>
-                <div *ngFor="let exercise of item.value; let i = index">
-                    <highcharts-chart 
-                        *ngIf="selectedSegment !== undefined && selectedSegment[item.key] == item.key + '_' + i" 
-                        [Highcharts]="Highcharts" 
-                        [options]="exercise.options"
-                        [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
-                    </highcharts-chart>
-                </div>
-            </ion-card-content>
-        </ion-card>
+        <div *ngIf="noCharts">
+            <ion-img src="/assets/icon/ion-foregound.png"></ion-img>
+            <p class="info-text">You don't have any record yet. <br>Start a workout and record your progress over time!</p>
+            <ion-button expand="block" routerLink="/start-workout" shape="round" class="create-program-btn" color="success">Start a workout</ion-button>
+        </div>
+        <div *ngIf="!noCharts">
+            <ion-card *ngFor="let item of charts | keyvalue">
+                <ion-card-header>
+                    <ion-card-title class="ion-text-center">{{item.key}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-segment [(ngModel)]="selectedSegment[item.key]" class="unitSegments">
+                        <ion-segment-button *ngFor="let exercise of item.value; let i = index" value="{{item.key + '_' + i}}" [ngClass]="{ 'segment-button-checked' : selectedSegment[item.key] === item.key + '_' + i  }">
+                            <ion-label>{{exercise.options.yAxis[0].unit.abbreviation}}</ion-label>
+                        </ion-segment-button>
+                    </ion-segment>
+                    <div *ngFor="let exercise of item.value; let i = index">
+                        <highcharts-chart 
+                            *ngIf="selectedSegment !== undefined && selectedSegment[item.key] == item.key + '_' + i" 
+                            [Highcharts]="Highcharts" 
+                            [options]="exercise.options"
+                            [ngStyle]="{'width':width +'%','height':height+'%','display':'block'}">
+                        </highcharts-chart>
+                    </div>
+                </ion-card-content>
+            </ion-card>
+        </div>
     </div>
 
 </ion-content>

@@ -26,6 +26,7 @@ export class StartWorkoutPage implements OnInit {
     inProgressWorkoutsLoading: boolean = true;
     plannedWorkoutsLoading: boolean = true;
     startWorkoutLoading: boolean = false;
+    otherProgramSelected: boolean = false;
 
     actionSheetOptions = {
         header: 'Programs',
@@ -49,7 +50,13 @@ export class StartWorkoutPage implements OnInit {
         this.inProgressWorkoutsLoading = true;
         this.plannedWorkoutsLoading = true;
         this.startWorkoutLoading = false;
+        this.otherProgramSelected = false;
         this.init();
+    }
+
+
+    otherProgram() {
+        this.otherProgramSelected = !this.otherProgramSelected;
     }
 
 
