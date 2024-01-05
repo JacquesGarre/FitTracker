@@ -1,6 +1,9 @@
 <top-navigation-bar :pageTitle="Current workout" backRoute="/start-workout"></top-navigation-bar>
 <ion-content [fullscreen]="true">
-    <div class="ion-padding">
+    <div class="loader" *ngIf="loading">
+        <ion-spinner name="bubbles" color="success"></ion-spinner>
+    </div>
+    <div class="ion-padding" *ngIf="!loading">
         <h1 *ngIf="program" class="ion-text-center">{{ program.title }}<br>{{ workout.startedAt | date:'EEE, dd
             MMMM' }}</h1>
         <ion-progress-bar *ngIf="workout" [value]="workout.workoutExercisesDone/workout.workoutExercises.length"
@@ -12,7 +15,7 @@
                 <ion-item slot="header" class="ion-text-center">
                     <ion-label class="exercise-header">
                         {{workoutExercise.exercise.title}}
-                        <ion-chip *ngIf="workoutExercise.sets.length"
+                        <ion-chip *ngIf="workoutExercise.sets && workoutExercise.sets.length"
                             [color]="workoutExercise.setsDone < workoutExercise.sets.length ? (workoutExercise.setsDone == 0 ? 'default' : 'warning'  ) : 'success'">
                             {{workoutExercise.setsDone}} / {{workoutExercise.sets.length}}
                             <ion-icon
@@ -20,7 +23,7 @@
                                 name="checkmark" color="success"></ion-icon>
                         </ion-chip>
                     </ion-label>
-                    <ion-progress-bar *ngIf="workoutExercise.sets.length"
+                    <ion-progress-bar *ngIf="workoutExercise.sets && workoutExercise.sets.length"
                         [value]="workoutExercise.setsDone / workoutExercise.sets.length"
                         [color]="workoutExercise.setsDone < workoutExercise.sets.length ? (workoutExercise.setsDone == 0 ? 'default' : 'warning'  ) : 'success'"></ion-progress-bar>
                 </ion-item>
@@ -52,6 +55,8 @@
                 </div>
             </ion-accordion>
         </ion-accordion-group>
+        <ion-button *ngIf="workout.status == 'finished'" expand="block" shape="round" color="danger" (click)="deleteWorkout(workout)">Delete workout</ion-button>
     </div>
+
 </ion-content>
 <app-menu centerBtn="endWorkout" [workout]="workout"></app-menu>

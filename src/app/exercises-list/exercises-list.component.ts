@@ -147,7 +147,6 @@ export class ExercisesListComponent implements OnInit {
 
     selectExercise(exercise: Exercise) {
         if(this.addExerciseToProgram){
-            console.log('Exercise SELECTED : ', exercise)
             this.exerciseSelected.emit(exercise);
         }
     }

@@ -10,11 +10,15 @@
                     <ion-icon name="calendar-clear"></ion-icon>
                     Programs
                 </ion-tab-button>
-                <ion-tab-button class="center-btn" [routerLink]="route" routerLinkActive="selected" *ngIf="centerBtn !== 'endWorkout'">
+                <ion-tab-button class="center-btn" (click)="startWorkout()" *ngIf="startWorkoutPage">
+                    <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
+                    <span *ngIf="!loading">Start</span>
+                </ion-tab-button>
+                <ion-tab-button class="center-btn" [routerLink]="route" routerLinkActive="selected" *ngIf="!startWorkoutPage && centerBtn !== 'endWorkout' || workout && workout.status == 'finished'">
                     <ion-spinner name="dots" *ngIf="loading"></ion-spinner>
                     <span *ngIf="!loading">{{ title }}</span>
                 </ion-tab-button>
-                <ion-tab-button class="center-btn finish" (click)="finishWorkout(workout)" *ngIf="centerBtn == 'endWorkout'">
+                <ion-tab-button class="center-btn finish" (click)="finishWorkout(workout)" *ngIf="!startWorkoutPage && centerBtn == 'endWorkout' && workout && workout.status !== 'finished'">
                     Finish
                 </ion-tab-button>
                 <ion-tab-button routerLink="/progress" routerLinkActive="selected" >

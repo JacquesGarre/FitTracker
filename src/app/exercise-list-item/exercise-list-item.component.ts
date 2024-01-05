@@ -19,7 +19,7 @@ export class ExerciseListItemComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        console.log(this.programExercise)
-     }
+    
+    }
 
 }

@@ -75,7 +75,6 @@ export class ExerciseDetailsPage implements OnInit {
                                 this.charts.get(chartData.exercise.title).push(chart)
                             }
                         }
-                        console.log(this.charts)
                     }
                   
                 );

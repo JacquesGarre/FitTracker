@@ -32,14 +32,14 @@ export class ToastService {
     }
 
     async workoutFinished() {
-        // const toast = await this.toastController.create({
-        //     message: 'Congrats! You just finished your workout! You\'re a beast! 🥳 🏆',
-        //     duration: 3000,
-        //     position: 'bottom',
-        //     color: 'success',
-        //     cssClass: 'workout-finished-toast'
-        // });
-        // await toast.present();
+        const toast = await this.toastController.create({
+            message: 'Congratulations for finishing your workout! You\'re a beast 💪! Check your progress below!',
+            duration: 3000,
+            position: 'top',
+            color: 'success',
+            cssClass: 'workout-finished-toast'
+        });
+        await toast.present();
     }
 
     async exerciseFinished(workoutExercise: WorkoutExercise) {

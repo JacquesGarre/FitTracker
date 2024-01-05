@@ -28,83 +28,88 @@ export class WorkoutPage implements OnInit {
 
     workout!: Workout;
     program!: Program;
+    loading: boolean = true;
 
     constructor(
         private route: ActivatedRoute,
         private api: ApiService,
         private auth: AuthService,
-        private toast: ToastService
-    ) { }
+        private toast: ToastService,
+        private router: Router
+    ) { 
 
-    ngOnInit() {
+    }
+
+    ngOnInit() { }
+
+    ionViewWillEnter() {
         if(this.route.snapshot.params['id']){
             let workoutID = this.route.snapshot.params['id'];
             this.api.getWorkout(workoutID).subscribe(
                 (data: Workout) => {
                     this.workout = data;
-                    this.initSets()
                     this.program = this.workout.program
+                    this.initSets()
                 }
             );
         }
-
-        if(this.workout){
-            this.initSets()
-            this.program = this.workout.program
-        }
+        
 
     }
-
 
     initSets() {
         for (let i in this.workout.workoutExercises) {
             this.workout.workoutExercises[i].setsDone = 0;
             let workoutExercise = this.workout.workoutExercises[i];
-            this.workout.workoutExercises[i].sets = this.getSets(workoutExercise);
-            this.computeWorkoutExercise(this.workout.workoutExercises[i]);
-            this.computeWorkout(this.workout)
-        }
-      
-    }
 
-    getSets(workoutExercise: WorkoutExercise): Set[] {
-
-        const sets: Set[] = [];
-        this.api.getProgramExercise(
-            this.workout.program.id,
-            workoutExercise.exercise.id
-        ).subscribe((data: any) => {
-            let programExercise = data[0];
-            let setId = 1;
-            while (setId <= programExercise.sets) {
-                sets.push({
-                    setId: setId.toString(),
-                    unitDone: 0,
-                    status: 'in-progress',
-                    recordIds: []
-                })
-                setId++;
-            }
-            workoutExercise.records.forEach((record) => {
-                const setId = record.setId.toString();
-                const unitAbbreviation = record.unit.abbreviation;
-                let transformedRecord = sets.find((item) => item.setId === setId);
-                if (!transformedRecord) {
-                    transformedRecord = {
-                        setId: setId,
+            this.api.getProgramExercise(
+                this.workout.program.id,
+                workoutExercise.exercise.id
+            ).subscribe((data: any) => {
+                let sets: any = [];
+                let programExercise = data[0];
+                let setId = 1;
+                while (setId <= programExercise.sets) {
+                    sets.push({
+                        setId: setId.toString(),
                         unitDone: 0,
-                        status: 'in-progress'
-                    };
-                    sets.push(transformedRecord);
-                    transformedRecord['recordIds'] = [];
+                        status: 'in-progress',
+                        recordIds: []
+                    })
+                    setId++;
                 }
-                transformedRecord[unitAbbreviation] = record.value;
-                transformedRecord['recordIds'].push(record.id)
-            });
-            sets.sort((a, b) => parseInt(a.setId) - parseInt(b.setId));
-        })
-        return sets;
+                workoutExercise.records.forEach((record) => {
+                    const setId = record.setId.toString();
+                    const unitAbbreviation = record.unit.abbreviation;
+                    let transformedRecord = sets.find((item: any) => item.setId === setId);
+                    if (!transformedRecord) {
+                        transformedRecord = {
+                            setId: setId,
+                            unitDone: 0,
+                            status: 'in-progress'
+                        };
+                        sets.push(transformedRecord);
+                        transformedRecord['recordIds'] = [];
+                    }
+                    transformedRecord[unitAbbreviation] = record.value;
+                    transformedRecord['recordIds'].push(record.id)
+                    for(const unit of workoutExercise.exercise.units){
+                        if(transformedRecord.hasOwnProperty(unit.abbreviation) && transformedRecord[unit.abbreviation] !== null){
+                            transformedRecord.status = 'done';
+                            break;
+                        }
+                    }
+                });
+                sets.sort((a: any, b: any) => parseInt(a.setId) - parseInt(b.setId));
+                this.workout.workoutExercises[i].sets = sets;
+                this.computeWorkoutExercise(i);
+                this.computeWorkout();
+            })
+        }
+        this.loading = false
+        
     }
+
 
     saveSet(event: any, setId: any, workoutExercise: WorkoutExercise, unit: Unit) {
 
@@ -137,8 +142,8 @@ export class WorkoutPage implements OnInit {
             this.workout.workoutExercises[workoutIndex].sets[setIndex]['recordIds'].push(data.id)
         });
 
-        this.computeWorkoutExercise(this.workout.workoutExercises[workoutIndex]);
-        this.computeWorkout(this.workout);
+        this.computeWorkoutExercise(workoutIndex);
+        this.computeWorkout();
 
         if(
             !this.workout.workoutExercises[workoutIndex].toasterShown 
@@ -183,8 +188,8 @@ export class WorkoutPage implements OnInit {
                     recordIds: recordIds
                 }
             )
-            this.computeWorkoutExercise(this.workout.workoutExercises[workoutIndex]);
-            this.computeWorkout(this.workout)
+            this.computeWorkoutExercise(workoutIndex);
+            this.computeWorkout()
         }
         
     }
@@ -202,35 +207,46 @@ export class WorkoutPage implements OnInit {
             if (set) {
                 let index = this.workout.workoutExercises[workoutIndex].sets.indexOf(set);
                 this.workout.workoutExercises[workoutIndex].sets.splice(index, 1);
-                this.computeWorkoutExercise(this.workout.workoutExercises[workoutIndex]);
-                this.computeWorkout(this.workout)
+                this.computeWorkoutExercise(workoutIndex);
+                this.computeWorkout()
             }
         }
        
     }
 
-    computeWorkoutExercise(workoutExercise: WorkoutExercise){
+    computeWorkoutExercise(workoutIndex: any){
         let setsDone = 0;
+        let workoutExercise = this.workout.workoutExercises[workoutIndex]
         for(const set of workoutExercise.sets){
             for(const unit of workoutExercise.exercise.units){
-                let key = unit.abbreviation;
-                if(set[key] && set[key].length){
-                    setsDone += 1;
+                if(set.hasOwnProperty(unit.abbreviation) && set[unit.abbreviation] !== null){
+                    set.status = 'done';
                     break;
                 }
             }
+            if(set.status == 'done'){
+                setsDone++;
+            }
         }
-        workoutExercise.setsDone = setsDone;
+        this.workout.workoutExercises[workoutIndex].setsDone = setsDone;
     }
 
-    computeWorkout(workout: Workout){
+    computeWorkout(){
         let workoutExercisesDone = 0;
-        for(const workoutExercise of workout.workoutExercises){
+        for(const workoutExercise of this.workout.workoutExercises){
             if(workoutExercise.setsDone && workoutExercise.setsDone === workoutExercise.sets.length){
                 workoutExercisesDone += 1;
             }
         }
-        workout.workoutExercisesDone = workoutExercisesDone;
+        this.workout.workoutExercisesDone = workoutExercisesDone;
+    }
+
+    deleteWorkout(workout: Workout) {
+        this.api.deleteWorkout(workout.id).subscribe(
+            (data: any) => {
+                this.router.navigate(['calendar']);
+            }
+        );
     }
 
 }

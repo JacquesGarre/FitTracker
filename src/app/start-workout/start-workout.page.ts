@@ -9,6 +9,7 @@ import { Program } from '../program';
 import { AuthService } from '../auth.service';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { Workout } from '../workout';
+import { SharedService } from '../shared.service';
 
 @Component({
     selector: 'app-start-workout',
@@ -38,12 +39,16 @@ export class StartWorkoutPage implements OnInit {
     constructor(
         private api: ApiService,
         private auth: AuthService,
-        private router: Router
+        private router: Router,
+        private sharedService: SharedService
     ) {
-        
+
     }
 
     ngOnInit() {
+        this.sharedService.startWorkout$.subscribe(() => {
+            this.startWorkout();
+        });
     }
 
     ionViewWillEnter() {
@@ -66,7 +71,7 @@ export class StartWorkoutPage implements OnInit {
 
         this.api.getWorkouts(1, 'in-progress').subscribe(
             (data: Workout[]) => {
-                if(data.length){
+                if (data.length) {
                     this.workout = data[0];
                     this.router.navigate(['workout', this.workout.id]);
                 } else {
@@ -82,8 +87,8 @@ export class StartWorkoutPage implements OnInit {
 
         this.api.getWorkouts(1, 'planned', new Date()).subscribe(
             (data: Workout[]) => {
-                if(data.length){
-                    for(const workout of data){
+                if (data.length) {
+                    for (const workout of data) {
                         this.plannedWorkouts.push(workout)
                     }
                 }
@@ -93,7 +98,7 @@ export class StartWorkoutPage implements OnInit {
 
     }
 
-    programSelected(event:any) {
+    programSelected(event: any) {
         this.error = '';
         this.selectedProgram = event.detail.value;
     }
@@ -102,7 +107,7 @@ export class StartWorkoutPage implements OnInit {
 
         var now = new Date();
 
-        if(workout !== null){
+        if (workout !== null) {
             this.startWorkoutLoading = true;
             let body = {
                 plannedAt: null,
@@ -122,12 +127,12 @@ export class StartWorkoutPage implements OnInit {
         }
 
 
-        if(!this.selectedProgram.length){
+        if (!this.selectedProgram.length) {
             this.error = 'Program is required'
             return;
         }
 
-        
+
         let body = {
             "program": `api/programs/${this.selectedProgram}`,
             "user": `api/users/${this.auth.currentUserId}`,

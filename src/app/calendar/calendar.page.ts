@@ -15,6 +15,7 @@ import { AuthService } from '../auth.service';
 import { WorkoutExercise } from '../workout-exercise';
 import { Set } from '../set';
 import { ExerciseCardComponent } from '../exercise-card/exercise-card.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-calendar',
@@ -48,7 +49,8 @@ export class CalendarPage implements OnInit {
 
     constructor(
         private api: ApiService,
-        private auth: AuthService
+        private auth: AuthService,
+        private router: Router
     ) {
         this.api.getPrograms(1).subscribe(
             (data: Program[]) => {
@@ -75,13 +77,8 @@ export class CalendarPage implements OnInit {
                 that.modalType = 'newWorkout'
             },
             eventClick: function (event: any) {
-                that.selectedEvent = event;
                 that.workout = event.event.extendedProps.workout
-                that.initSets();
-                that.modalTitle = event.event._def.title + ' of '
-                that.modalDate = event.event._instance.range.start
-                that.isModalOpen = true
-                that.modalType = 'workoutEvent'
+                that.router.navigate(['workout', that.workout.id]);
             }
         }
     }

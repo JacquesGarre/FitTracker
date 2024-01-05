@@ -7,6 +7,8 @@ import { AuthService } from '../auth.service';
 import { ApiService } from '../api.service';
 import { IonicModule } from '@ionic/angular';
 import { filter } from 'rxjs';
+import { SharedService } from '../shared.service';
+import { ToastService } from '../toast.service';
 
 @Component({
     selector: 'app-menu',
@@ -34,16 +36,36 @@ export class MenuComponent implements OnInit {
     title: string = 'Start'
     route: string = '/start-workout'
     loading: boolean = true;
+    startWorkoutPage: boolean = false;
 
     constructor(
         private auth: AuthService,
         private api: ApiService,
         private router: Router,
+        private activatedRoute: ActivatedRoute,
+        private sharedService: SharedService,
+        private toastService: ToastService
     ) {
+        this.startWorkoutPage = activatedRoute.component?.name == 'StartWorkoutPage'
         this.fetchCurrentWorkout();
+        if(this.workout && this.workout.status == 'finished'){
+            this.title = 'Start'
+            this.route = '/start-workout/'
+            this.centerBtn = 'startWorkout'
+        }
     }
     
-    ngOnInit() { }
+    ngOnInit() { 
+        console.log('ngOnInit')
+    }
+
+    ionViewWillEnter() {
+        console.log('ionViewWillEnter')
+    }
+
+    startWorkout() {
+        this.sharedService.startWorkout();
+    }
 
     fetchCurrentWorkout() {
         this.api.getWorkouts(1, 'in-progress').subscribe(
@@ -62,6 +84,7 @@ export class MenuComponent implements OnInit {
     }
 
     async finishWorkout(workout: Workout) {
+        
         var now = new Date();
         let body = {
             "endedAt": now.toJSON(),
@@ -69,7 +92,9 @@ export class MenuComponent implements OnInit {
         }
         this.api.updateWorkout(this.workout.id, body).subscribe(
             (data: any) => {
-                this.router.navigate(['start-workout']);
+                this.toastService.workoutFinished().then(() => {
+                    this.router.navigate(['progress']);
+                })
             }
         );
     }
