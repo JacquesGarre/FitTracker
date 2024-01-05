@@ -33,7 +33,7 @@ export class ToastService {
 
     async workoutFinished() {
         const toast = await this.toastController.create({
-            message: 'Congratulations for finishing your workout! You\'re a beast 💪! Check your progress below!',
+            message: "Congratulations for finishing your workout! You're a beast 💪! Check your progress below!",
             duration: 3000,
             position: 'top',
             color: 'success',
