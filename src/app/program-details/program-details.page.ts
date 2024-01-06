@@ -100,7 +100,7 @@ export class ProgramDetailsPage implements OnInit {
     ionViewWillEnter() {
     }
 
-    async updateProgram() {
+    async updateProgram(redirect: boolean = false) {
         this.error = '';
         if (!this.formData.valid) {
             this.error = 'Program name is required';
@@ -124,18 +124,15 @@ export class ProgramDetailsPage implements OnInit {
                     }
                     this.api.addProgramExercise(body).subscribe();
                 }
+                if(redirect){
+                    this.router.navigate(['programs']);
+                }
             },
             (error: any) => {
                 this.error = error.error.detail;
             }
         );
     }
-
-    saveProgram(){
-        this.updateProgram().then(() => {
-            this.router.navigate(['programs']);
-        })
-    }   
 
     deleteExercise(exercise: Exercise) {
         const indexToRemove = this.programExercises.findIndex(programExercise => programExercise.id === exercise.id);

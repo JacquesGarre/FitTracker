@@ -27,9 +27,17 @@ export class ProgramsPage implements OnInit {
     constructor(
         private api: ApiService
     ) {
+        console.log('constructor')
+        this.api.getPrograms(1).subscribe(
+            (data: Program[]) => {
+                this.programs = data;
+                this.loading = false;
+            }
+        );
     }
 
     ionViewWillEnter(){
+        console.log('ionViewWillEnter')
         this.api.getPrograms(1).subscribe(
             (data: Program[]) => {
                 this.programs = data;
@@ -39,6 +47,7 @@ export class ProgramsPage implements OnInit {
     }
 
     ngOnInit() {
+        console.log('ngOnInit')
     }
 
 }
