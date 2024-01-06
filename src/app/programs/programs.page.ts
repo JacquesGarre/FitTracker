@@ -27,7 +27,6 @@ export class ProgramsPage implements OnInit {
     constructor(
         private api: ApiService
     ) {
-
     }
 
     ionViewWillEnter(){

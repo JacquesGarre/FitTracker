@@ -7,7 +7,12 @@
         <div *ngIf="formData.get('title')?.invalid && (formData.get('title')?.dirty || formData.get('title')?.touched)"
             class="input-error">
             <span *ngIf="formData.get('title')?.hasError('required')">
-                Title is required
+                Program name is required
+            </span>
+        </div>
+        <div class="input-error" *ngIf="error">
+            <span>
+                {{ error }}
             </span>
         </div>
         <div class="program-exercise-container" *ngFor="let exercise of programExercises">
@@ -17,11 +22,6 @@
         <ion-button (click)="openModal()" shape="round" expand="block" style="margin-top:30px;">
             Add exercise
         </ion-button>
-        <div class="input-error" *ngIf="error">
-            <span>
-                {{ error }}
-            </span>
-        </div>
         <ion-button (click)="addProgram()" expand="block" shape="round" class="save-btn" style="margin-bottom: 20px;"
         color="success">Save program</ion-button>
     </form>

@@ -33,7 +33,8 @@ export class CreateProgramPage implements OnInit {
     isModalOpen = false;
     isSetsModalOpen = false;
     selectedExercise!: Exercise;
-    setsCount: number = 1;
+    setsCount: number = 3;
+
 
     programExercises: Exercise[] = [];
     actionSheetOptions = {
@@ -62,32 +63,57 @@ export class CreateProgramPage implements OnInit {
     ngOnInit() {
     }
 
+    ionViewWillEnter() {
+        this.error = '';
+        this.exercisesCount = 1;
+        this.exercises = [];
+        this.isModalOpen = false;
+        this.isSetsModalOpen = false;
+        this.setsCount = 3;
+    }
+
     async addProgram() {
         this.error = '';
-        if (this.formData.valid) {
-            let body = {
-                "title": this.formData.get('title')?.value,
-                "user": `api/users/${this.auth.currentUserId}`,
-            }
-            this.api.addProgram(body).subscribe(
-                (data: any) => {
-                    // create each program exercise
-                    for (const exercise of this.programExercises) {
-                        let body = {
-                            "program": `api/programs/${data.id}`,
-                            "exercise": `api/exercises/${exercise.id}`,
-                            "sets": exercise.setsCount
-                        }
-                        this.api.addProgramExercise(body).subscribe();
-                    }
-
-                    this.router.navigate(['programs']);
-                },
-                (error: any) => {
-                    this.error = error.error.detail;
-                }
-            );
+        if (!this.formData.valid) {
+            this.error = 'Program name is required';
+            return;
         }
+        if(!this.programExercises.length){
+            this.error = 'Add at least 1 exercise';
+            return;
+        }
+
+        let body = {
+            "title": this.formData.get('title')?.value,
+            "user": `api/users/${this.auth.currentUserId}`,
+        }
+        this.api.addProgram(body).subscribe(
+            (data: any) => {
+
+
+                // create each program exercise
+                for (const exercise of this.programExercises) {
+                    let body = {
+                        "program": `api/programs/${data.id}`,
+                        "exercise": `api/exercises/${exercise.id}`,
+                        "sets": exercise.setsCount
+                    }
+                    this.api.addProgramExercise(body).subscribe();
+                }
+                this.error = '';
+                this.exercisesCount = 1;
+                this.exercises = [];
+                this.isModalOpen = false;
+                this.isSetsModalOpen = false;
+                this.setsCount = 3;
+
+                this.router.navigate(['programs/'+data.id]);
+            },
+            (error: any) => {
+                this.error = error.error.detail;
+            }
+        );
+        
     }
 
     deleteExercise(exercise: Exercise) {
@@ -120,7 +146,10 @@ export class CreateProgramPage implements OnInit {
         this.programExercises.push(this.selectedExercise);
         this.isModalOpen = false;
         this.isSetsModalOpen = false;
-        this.setsCount = 1;
+        this.setsCount = 3;
+
+        // save program and go to details page
+        this.addProgram()
     }
 
     incrementSets() {

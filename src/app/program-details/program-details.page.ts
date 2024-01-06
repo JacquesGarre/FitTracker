@@ -30,7 +30,7 @@ export class ProgramDetailsPage implements OnInit {
     isModalOpen = false;
     isSetsModalOpen = false;
     selectedExercise!: Exercise;
-    setsCount: number = 1;
+    setsCount: number = 3;
     programExercises: Exercise[] = [];
 
     selectedExercises: any = {
@@ -83,6 +83,7 @@ export class ProgramDetailsPage implements OnInit {
     }
 
     ngOnInit() {
+    
     }
 
     async deleteProgram() {
@@ -96,49 +97,67 @@ export class ProgramDetailsPage implements OnInit {
         );
     }
 
+    ionViewWillEnter() {
+    }
+
     async updateProgram() {
         this.error = '';
-        if (this.formData.valid) {
-            let body = {
-                "title": this.formData.get('title')?.value,
-                "programExercises":[]
-            }
-            this.api.updateProgram(this.program.id, body).subscribe(
-                (data: any) => {
-                    for (const exercise of this.programExercises) {
-                        let body = {
-                            "program": `api/programs/${data.id}`,
-                            "exercise": `api/exercises/${exercise.id}`,
-                            "sets": exercise.setsCount
-                        }
-                        this.api.addProgramExercise(body).subscribe();
-                    }
-                    this.router.navigate(['programs']);
-                },
-                (error: any) => {
-                    this.error = error.error.detail;
-                }
-            );
+        if (!this.formData.valid) {
+            this.error = 'Program name is required';
+            return;
         }
+        if(!this.programExercises.length){
+            this.error = 'Add at least 1 exercise';
+            return;
+        }
+        let body = {
+            "title": this.formData.get('title')?.value,
+            "programExercises":[]
+        }
+        this.api.updateProgram(this.program.id, body).subscribe(
+            (data: any) => {
+                for (const exercise of this.programExercises) {
+                    let body = {
+                        "program": `api/programs/${data.id}`,
+                        "exercise": `api/exercises/${exercise.id}`,
+                        "sets": exercise.setsCount
+                    }
+                    this.api.addProgramExercise(body).subscribe();
+                }
+            },
+            (error: any) => {
+                this.error = error.error.detail;
+            }
+        );
     }
+
+    saveProgram(){
+        this.updateProgram().then(() => {
+            this.router.navigate(['programs']);
+        })
+    }   
 
     deleteExercise(exercise: Exercise) {
         const indexToRemove = this.programExercises.findIndex(programExercise => programExercise.id === exercise.id);
         if (indexToRemove !== -1) {
             this.programExercises.splice(indexToRemove, 1);
         }
+        this.updateProgram()
     }
 
 
     addExerciseToProgram() {
+        this.error = '';
         this.selectedExercise.setsCount = this.setsCount
         this.programExercises.push(this.selectedExercise);
         this.isModalOpen = false;
         this.isSetsModalOpen = false;
-        this.setsCount = 1;
+        this.setsCount = 3;
+        this.updateProgram()
     }
 
     onExerciseSelected(exercise: any): void {
+        this.error = '';
         this.selectedExercise = exercise;
         this.isModalOpen = false;
         this.isSetsModalOpen = true;

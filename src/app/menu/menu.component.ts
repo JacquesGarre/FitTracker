@@ -56,11 +56,9 @@ export class MenuComponent implements OnInit {
     }
     
     ngOnInit() { 
-        console.log('ngOnInit')
     }
 
     ionViewWillEnter() {
-        console.log('ionViewWillEnter')
     }
 
     startWorkout() {

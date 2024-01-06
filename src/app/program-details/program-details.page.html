@@ -13,18 +13,17 @@
             <exercise-card [exercise]="exercise" [fromProgram]="true" [programExercise]="true" class="program-exercise" style="width: 90%;"></exercise-card>
             <ion-icon color="danger" name="close" (click)="deleteExercise(exercise)"></ion-icon>
         </div>
-        <ion-button (click)="openModal()" shape="round" expand="block" style="margin-top:30px;">
-            Add exercise
-        </ion-button>
         <div class="input-error" *ngIf="error">
             <span>
                 {{ error }}
             </span>
         </div>
-        <ion-button (click)="updateProgram()" expand="block" shape="round" class="save-btn" style="margin-bottom: 20px;"
+        <ion-button (click)="openModal()" shape="round" expand="block" style="margin-top:30px;">
+            Add exercise
+        </ion-button>
+        <ion-button (click)="saveProgram()" expand="block" shape="round" class="save-btn" style="margin-bottom: 20px;"
         color="success">Save program</ion-button>
         <ion-button expand="block" (click)="deleteProgram()" shape="round" color="danger">Delete program</ion-button>
-
     </form>
 
     <ion-modal #modal [isOpen]="isModalOpen">

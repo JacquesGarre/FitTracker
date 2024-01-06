@@ -110,9 +110,6 @@ export class StartWorkoutPage implements OnInit {
     async startWorkout(workout: any = null) {
 
         var now = new Date();
-
-        console.log('THIS WORKOUT', workout)
-
         if (workout !== null) {
             this.startWorkoutLoading = true;
             let body = {
