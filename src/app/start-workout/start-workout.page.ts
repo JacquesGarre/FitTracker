@@ -47,7 +47,11 @@ export class StartWorkoutPage implements OnInit {
 
     ngOnInit() {
         this.sharedService.startWorkout$.subscribe(() => {
-            this.startWorkout();
+            let workout = null;
+            if(this.plannedWorkouts.length && !this.otherProgramSelected){
+                workout = this.plannedWorkouts[0]
+            }
+            this.startWorkout(workout);
         });
     }
 
@@ -106,6 +110,8 @@ export class StartWorkoutPage implements OnInit {
     async startWorkout(workout: any = null) {
 
         var now = new Date();
+
+        console.log('THIS WORKOUT', workout)
 
         if (workout !== null) {
             this.startWorkoutLoading = true;

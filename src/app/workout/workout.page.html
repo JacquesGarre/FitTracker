@@ -55,7 +55,8 @@
                 </div>
             </ion-accordion>
         </ion-accordion-group>
-        <ion-button *ngIf="workout.status == 'finished'" expand="block" shape="round" color="danger" (click)="deleteWorkout(workout)">Delete workout</ion-button>
+        <ion-button *ngIf="workout.status !== 'finished'" expand="block" shape="round" color="success" (click)="finishWorkout(workout)">Finish workout</ion-button>
+        <ion-button expand="block" shape="round" color="danger" (click)="deleteWorkout(workout)" class="delete-workout-btn">Delete workout</ion-button>
     </div>
 
 </ion-content>

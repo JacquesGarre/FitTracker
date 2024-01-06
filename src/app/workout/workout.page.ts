@@ -244,7 +244,22 @@ export class WorkoutPage implements OnInit {
     deleteWorkout(workout: Workout) {
         this.api.deleteWorkout(workout.id).subscribe(
             (data: any) => {
-                this.router.navigate(['calendar']);
+                this.router.navigate(['my-calendar']);
+            }
+        );
+    }
+
+    async finishWorkout(workout: Workout) {
+        var now = new Date();
+        let body = {
+            "endedAt": now.toJSON(),
+            "status": "finished"
+        }
+        this.api.updateWorkout(this.workout.id, body).subscribe(
+            (data: any) => {
+                this.toast.workoutFinished().then(() => {
+                    this.router.navigate(['progress']);
+                })
             }
         );
     }
